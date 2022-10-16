@@ -1,0 +1,6 @@
+-----Django------
+
+
+-----CODE--------
+django-admin startproject mysite #Make a project
+Python manage.py startapp polls #Create an app
