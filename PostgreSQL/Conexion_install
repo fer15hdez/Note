@@ -1,0 +1,32 @@
+<html>
+  <head>
+    <title></title>
+    <meta content="">
+    <style></style>
+  </head>
+  <body>
+    <ul>
+      <li>      
+        Show the version of postgresql en el repo: <br>
+        apt show postgresql <br> <br>
+      </li>
+        
+      <li>
+        Install from ubuntu repository: <br>
+        sudo apt install postgresql postgresql-contrib <br><br> 
+      </li>
+        
+      <li>
+        Connect to PostgreSQL, in new installation: <br>
+        sudo su - postgres <br><br>
+      </li>        
+      <li>
+        Open a postgress prompt using the command:<br>
+        psql <br> 
+      </li>        
+    </ul>
+    
+        
+
+  </body>
+</html>

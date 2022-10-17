@@ -1,0 +1,96 @@
+{% extends "index.html" %} <!--Herencia de plantilla padre-->
+{% load static %} <!--Load the static file (css,js,img) -->
+
+{% block specific_plugin %}
+	{% comment %}	<link rel="stylesheet" href="{% static 'analysis_squid_kerio/assets/css/bootstrap-timepicker.min.css'%}" />
+		<link rel="stylesheet" href="{% static 'analysis_squid_kerio/assets/css/daterangepicker.min.css'%}" />
+{% endblock specific_plugin %}
+
+{% block breadcrumbs%}{% endblock breadcrumbs%}
+
+{% block body%}
+
+<!--URL -->
+<a href="{% url 'name_project:name_url' %}"></a>
+
+<div class="widget-body">
+	<div class="widget-main" data-inline-type="true">
+		<form class="form-inline"  method="get">
+			{% csrf_token %}
+			{{ form.non_field_errors }}
+				<div class="form-group" >
+				  {{form.user}}
+				</div>
+
+
+			{{ form.subject }}
+			<div class="input-daterange input-group form-group ">
+					 {{form.StarDate}}
+				<input type="hidden" name="squid" value="squid"/>
+			</div>
+			<div class="input-daterange input-group form-group ">
+					{{form.EndDate}}
+			</div>
+
+			<button type="submit" class="btn btn-info btn-sm " >
+				<i class="ace-icon fa fa-search bigger-110"></i>Buscar
+			</button>
+
+
+		</form>
+
+	</div>
+</div>
+<!--PAGINATOR -->
+<div class="pagination">
+	<span class="step-links">
+		{% if query.has_previous %}
+			<a href="?page=1&StarDate={{ param_form_squid_first }}&EndDate={{ param_form_squid_end }}&squid=squid">&laquo; Inicio</a>
+			<a href="?page={{ query.previous_page_number }}&StarDate={{ param_form_squid_first }}&EndDate={{ param_form_squid_end }}&squid=squid">Anterior</a>
+		{% endif %}
+		<span class="current">
+			Pag {{ query.number }} de {{ query.paginator.num_pages }}.
+		</span>
+		{% if query.has_next %}
+			<a href="?page={{ query.next_page_number }}&StarDate={{ param_form_squid_first }}&EndDate={{ param_form_squid_end }}&squid=squid " >Siguiente</a>
+			<a href="?page={{ query.paginator.num_pages }}&StarDate={{ param_form_squid_first }}&EndDate={{ param_form_squid_end }}&squid=squid">Fin &raquo;</a>
+		{% endif %}
+	</span>
+</div>
+
+{% endblock body%}
+
+{% block script_src%}
+<!-- basic scripts -->
+
+		<!--[if !IE]> -->
+		<script src="{% static 'analysis_squid_kerio/assets/js/jquery-2.1.4.min.js' %}"></script>
+
+		<!-- <![endif]-->
+
+		<!--[if IE]>
+<script src="{% static 'analysis_squid_kerio/assets/js/jquery-1.11.3.min.js' %}"></script>
+<![endif]-->
+		<script type="text/javascript">
+			if('ontouchstart' in document.documentElement) document.write("<script src='{% static 'analysis_squid_kerio/assets/js/jquery.mobile.custom.min.js' %}'>"+"<"+"/script>");
+		</script>
+		<script src="{% static 'analysis_squid_kerio/assets/js/bootstrap.min.js' %}"></script>
+
+		<!-- page specific plugin scripts -->
+		<script src="{% static 'analysis_squid_kerio/assets/js/jquery.dataTables.min.js' %} "></script>
+		    <!-- MINE-->
+    <script src="{% static 'analysis_squid_kerio/assets/js_mine/js.js' %}"></script>
+{% endblock script_src%}
+
+{% block scrip %}
+		<!-- inline scripts related to this page -->
+		<script type="text/javascript">
+			jQuery(function($) {
+				//initiate dataTables plugin
+				var myTable =
+				$('#dynamic-table')
+				
+				});			
+		</script>
+
+{% endblock scrip%}
