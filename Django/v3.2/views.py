@@ -7,7 +7,7 @@ def report_withoutuser(request):
     request.POST.get('nameParam')
 
     #Make a querry
-    Entity.objects.filter(date_time__range=(firstParam, endParam).
+    Name_Entity.objects.filter(date_time__range=(firstParam, endParam).
                           exclude(user__contains="False").
                           filter(ip_client__contains=user_cell).
                           filter(date_time__range=(date_start, date_end)).
