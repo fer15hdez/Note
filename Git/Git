@@ -26,3 +26,6 @@ git push -u origin main
                             todo lo diferente despues de clonarlo.
 git push [nombre-remoto] [nombre-rama] # To send the local repository to a server.
 git push origin master # That put all local repository even with the commit.
+git config --global credential.helper 'store --file ~/.my-credentials' "Store the credencial in a file. Default is ~/.my-credentials"
+  https://user:pass@example.com "Format in file credentials"
+ git config --global credential.helper 'cache --timeout <seconds>' "Config a credential cache. During all seconds config"  
