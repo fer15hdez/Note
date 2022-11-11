@@ -29,3 +29,10 @@ git push origin master # That put all local repository even with the commit.
 git config --global credential.helper 'store --file ~/.my-credentials' "Store the credencial in a file. Default is ~/.my-credentials"
   https://user:pass@example.com "Format in file credentials"
  git config --global credential.helper 'cache --timeout <seconds>' "Config a credential cache. During all seconds config"  
+
+ "Overwrite the local project for the remote project"
+git fetch --all # "Dowload all file from remote but not merge"
+"If want to Backup your current branch (e.g. master):"
+git branch backup-master
+"Jump to the latest commit on origin/master and checkout those files:"
+git reset --hard origin/master "resets the master branch to what you just fetched. The --hard option changes all the files in your working tree to match the files in origin/master."
