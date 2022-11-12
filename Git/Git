@@ -36,3 +36,7 @@ git fetch --all # "Dowload all file from remote but not merge"
 git branch backup-master
 "Jump to the latest commit on origin/master and checkout those files:"
 git reset --hard origin/master "resets the master branch to what you just fetched. The --hard option changes all the files in your working tree to match the files in origin/master."
+
+git branch -d <name_branch> "with the -d option is to delete the branch"
+git checkout <name_branch> "Switched to branch <name_branch>"
+git branch "Show the branches and with * said which is selected"
