@@ -49,3 +49,15 @@ git branch -d <name_branch> "with the -d option is to delete the branch"
 git checkout <name_branch> "Switched to branch <name_branch>"
 git branch "Show the branches and with * said which is selected"
 
+"Proxy en Git"
+git config --global http.proxy http://proxyuser:proxypwd@proxy.server.com:8080 " this works for both http and https repos."
+    "change proxyuser to your proxy user"
+    "change proxypwd to your proxy password"
+    "change proxy.server.com to the URL of your proxy server"
+    "change 8080 to the proxy port configured on your proxy server"
+"Reset proxy, work without proxy"    
+git config --global --unset http.proxy
+"to check the currently set proxy:" 
+git config --global --get http.proxy
+
+
