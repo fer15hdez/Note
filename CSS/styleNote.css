@@ -1,0 +1,71 @@
+ /*Class
+ Is difined for "."
+ Can be used in every html tag and a lot of time
+   */
+   /* Example of class */
+   .nameOfClass{
+       /* attribute */
+   }
+   .clearFloat{
+    clear: both;
+}
+
+/* Applying style for id */
+#nameOfId{
+    /* attribute */
+}
+#mainSection{
+    display: flex;
+    border-width: .1em;
+    height: 90%;
+}
+
+/* Applying the same style for different tag, separate with comma*/
+p, div{
+    /* style for attribute */
+}
+/* Applying style to a tag that is inside to another tag */
+p div{
+    /* style for attribute */
+}
+
+/* Pseudo-Class */
+/* That affect the child who is with index odd(impar) and even(par)*/
+section li:nth-child(odd), section li:nth-child(even){
+    background-color: rgb(177, 142, 28);   
+    width: 250px;
+    margin: .2em;
+}
+
+/* Pseudo-Class */
+/* This affect the tag "p" when the pointer of mouse is over it*/
+p:hover{   
+    background-color: rgb(34, 139, 90);
+    transition: all 2s ease-in-out 0s;
+    transform: perspective(1500px) rotate3d(1, 5, 0, 45deg);
+
+}
+
+/* ------------------------------------------------------------- */
+/* ------BOX MODEL------ */
+/* ------------------------------------------------------------- */
+/* "Position" — Esta propiedad define el tipo de posicionamiento usado para colocar un
+elemento. Los valores disponibles son static (se posiciona de acuerdo con el flujo normal
+del documento), relative (se posiciona según la posición original del elemento),
+absolute (se posiciona con una posición absoluta relativa al contenedor del elemento), y
+fixed (se posiciona con una posición absoluta relativa a la ventana del navegador).
+ */
+/* Position ABSOLUTE */
+/* Need to be defined in the box father the attribute "Position" with the value "relative" 
+   if value is no relative, the box, take for reference the body page*/
+/* The position "Absolute" use the coordinates from inside the box father*/
+/* The box is out of design flow */
+#nameOfBoxFather{
+    position: relative;
+}
+#nameChild{
+    left: 0px;
+    top: 0px;
+    right: unset;
+    bottom: unset;
+}
