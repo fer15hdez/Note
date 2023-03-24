@@ -122,3 +122,5 @@ class FarmDeleteView(DeleteView):
     model = Farm
     success_url = reverse_lazy('farm_list')
 
+# Inserting a lot data in a DB (Postgres)
+NameOfEntity.objects.bulk_create(ListOfObjectToInsert)

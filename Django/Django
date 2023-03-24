@@ -1,7 +1,0 @@
------Django------
-
-
------CODE--------
-django-admin startproject mysite #Make a project
-Python manage.py startapp polls #Create an app
-python manage.py makemigrations --empty yourappname # "Create a migration empty"
