@@ -100,6 +100,9 @@ respectivamente. Para declarar flexibilidad, los valores de estos parámetros de
 #cajapadre {
     display: flex;
     width: 600px;
+    justify-content: space-around; /* Esta funcionalidad define el espacio disponible como se reparte alrededor de las cajas hijas*/
+    align-items: center; /*  Esta propiedad trabaja como justify-content pero alinea las cajas en el eje transversal. Esta característica
+        logra que la propiedad sea apropiada para realizar una alineación vertical. */
     }  
     /* id of boxes inside of #cajapadre */
 #caja-1 {
