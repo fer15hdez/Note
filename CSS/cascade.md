@@ -45,3 +45,9 @@ La **cantidad de especificidad de un selector** se mide usando cuatro valores di
 1. **Unidades:** Se suma un punto en esta columna por cada selector o pseudoelemento que esté contenido en el selector general.
 
 **Nota**: El selector universal (*), los operadores de combinación (+, >, ~, ' ') y la pseudo-clase de negación (:not) no tienen ningún efecto sobre la especificidad.
+
+## Propiedad !important
+
+<code>!important.</code> Se utiliza para convertir una propiedad y un valor particular en el elemento más específico, de modo que se invalidan las reglas normales de la cascada.
+
+**Nota:** La única manera de anular la declaración !important sería incluir otra declaración !important en una declaración con la misma especificidad que aparezca más adelante en el orden del código fuente, o con una especificidad superior.
