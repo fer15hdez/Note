@@ -5,6 +5,9 @@
 #### This is level 4 (\#\#\#\#)
 ##### This is level 5 (\#\#\#\#\#)
 
+## Salto de linea
+Para realizar un salto de línea y empezar una frase en una línea siguiente dentro del mismo párrafo, tendrás que **pulsar dos veces la barra espaciadora antes de pulsar una vez intro.**
+
 ## Texto básico
 1. This text is \*\*bold**.
 1. This text is \*italic*.
