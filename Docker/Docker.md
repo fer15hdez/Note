@@ -32,9 +32,13 @@ To start the project is used the command "docker-compose" in the v2 is "docker c
 ```docker ps -a```: show all the container, even stoped.  
 
 ### Naming Container
-```docker run -d --name myContainer atareao/hola```  
+```docker run -d --name myContainer atareao/hola``` : Create a container.    
 Si intentas llamar a dos contenedores por el mismo nombre, como te puedes imaginar, se producirá un error, y no iniciará el segundo contenedor.  
+
 ```docker container rename ID newName```: rename a container.  
+*sleep 100* : stay the container runing. Puting in end of line. Ex: *docker run atareao/hola sleep 5*  
+*-e*: allows passing environment variables.  
+*--rm*: delete the container when it is stoped.
 
 ### Start, stop and pause
 ```docker start IDcontainer```:  
@@ -62,7 +66,11 @@ Si intentas llamar a dos contenedores por el mismo nombre, como te puedes imagin
 
 ### Delete container
 *docker rm midocker:* Delete one by one.  
-*docker container prune*: Delete all the stopped container .  
+*docker container prune*: Delete all the stopped container . 
+
+## Run Specific image
+### PostgreSQL
+*docker run -d --name postgres -e POSTGRES_PASSWORD=mysecretpassword -p 5432:5432 postgres*
 
 ***
 

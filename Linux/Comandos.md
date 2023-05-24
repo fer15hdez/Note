@@ -33,3 +33,49 @@ Este comando extraerá (-x) el archivo (-f) especificado (en este caso, filename
 
 ****
 
+# Gestión de usuarios y grupos en Linux
+*nano /etc/group* : Show all the group 
+In this document line by line show the gruop and user.  
+*sambashare:x:129:lorenzo,pepe,juan* :  
+*sambashare* : el nombre del grupo.  
+*x* : una contraseña cifrada.  
+*129* : el número de identificación del grupo **GID**  
+*lorenzo,pepe,juan,* : es un listado de los usuarios que pertenecen al grupo separados por comas.  
+
+### List the group 
+*cut -d : -f 1 /etc/group*
+### Show which group the user belongs to
+*cat /etc/group | grep nameUser | cut -d: -f1*  
+
+### Crear y eliminar grupos
+*sudo groupadd [grupo]* : create a new group.  
+*sudo groupadd [grupo1], [grupo2], [grupo3]* : create many groups.  
+*sudo groupdel [group]* : delete a group.  
+
+## USER
+*nano /etc/passwd* : show all the users.  
+In this document show all user, the structure is:  
+*userName:x:1000:1000:userName,,,:/home/userName:/bin/bash*  
+*userName* : es el alias del usuario que utiliza para registrarse.  
+*x* : representa que la contraseña cifrada se encuentra en **/etc/shadow**  
+*1000* : es el número de identificación del usuario **UID**.  
+*1000* : representa el número de identificación del grupo principal al que pertenece el usuario, lo que se conoce como GID.  
+*userName,,,* : es la información adicional que has proporcionado al crear la cuenta en cuestión.  
+*/home/lorenzo* : es la ruta de inicio del nuevo usuario, *el hogar del usuario.*  
+*/bin/bash* : es el shell que utiliza el usuario en cuestión.  
+
+#### Show all the user
+*cat /etc/passwd | cut -d: -f1*
+
+### Crear y eliminar usuarios
+sudo adduser [usuario]: create a user.  
+sudo deluser [usuario]: delte a user.  
+
+## Usuarios y grupos
+*groups [usuario]*: show which group the user belongs to.  
+
+### Add a user to a group
+*sudo usermod -a -G [grupos] [usuario]*
+### take out a user from a group
+sudo deluser [usuario] [grupo]
+
