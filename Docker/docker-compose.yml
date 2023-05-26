@@ -1,0 +1,16 @@
+version: '2'
+services:
+    psqlContainer2:
+        image: postgres
+        ports:
+            - "5432:5432"
+        environment: 
+            - POSTGRES_PASSWORD=postgres           
+    adminerCont:
+        image: adminer
+        ports:
+            - "8800:8080"        
+        # volumes:
+        #     - ./data:/var/lib/mysql
+        # environment:
+        #     MYSQL_ROOT_PASSWORD: password 
