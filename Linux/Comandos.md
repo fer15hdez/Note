@@ -1,3 +1,7 @@
+# Install
+*sudo apt-get install [program]*
+*--no-install-recommends*: solo instala los paquetes nombrados.   
+
 ## Variable de entorno para proxy
 <code>export http_proxy=http://username:password@proxyserver.net:port/ </code>
 ## Permission
