@@ -37,6 +37,10 @@ To start the project is used the command "docker-compose" in the v2 is "docker c
 ```docker container ls```: show all the container.  
 ```docker ps -a```: show all the container, even stoped.  
 
+### Export and Import
+*docker export [CONTAINER ID] > /home/export.tar* : Export
+*cat /home/export.tar | docker import - some-name:latest*: Import 
+
 ### Naming Container
 ```docker run -d --name myContainer atareao/hola``` : Create a container.    
 Si intentas llamar a dos contenedores por el mismo nombre, como te puedes imaginar, se producirá un error, y no iniciará el segundo contenedor.  
