@@ -2,7 +2,7 @@ To start the project is used the command "docker-compose" in the v2 is "docker c
 
 # Manage imges
 <code>docker image --help</code>: show all the command available.  
-```build:``` to build the image from a ***dockerfile***  
+```build:``` to build a image from a ***dockerfile***  
 ```history```: show the history of a image, how was build.  
 ```inspect```: detail and inside of a image. ```sudo docker image inspect IMAGE ID```  
 ```docker image ls```: show all the download images.  
@@ -39,6 +39,7 @@ Si intentas llamar a dos contenedores por el mismo nombre, como te puedes imagin
 *sleep 100* : stay the container runing. Puting in end of line. Ex: *docker run atareao/hola sleep 5*  
 *-e*: allows passing environment variables.  
 *--rm*: delete the container when it is stoped.
+*--network [nameOfNetwork]*: define a que red va a pertenecer
 
 ### Start, stop and pause
 ```docker start IDcontainer```:  
@@ -68,6 +69,9 @@ Si intentas llamar a dos contenedores por el mismo nombre, como te puedes imagin
 *docker rm midocker:* Delete one by one.  
 *docker container prune*: Delete all the stopped container . 
 
+### Conecting container
+*--link,* añade una nueva entrada en el */etc/hosts* que apunta al IP del contenedor identficado por *--link=CONTAINER_NAME*.  
+
 ## Run Specific image
 ### PostgreSQL
 *docker run -d --name postgres -e POSTGRES_PASSWORD=mysecretpassword -p 5432:5432 postgres*
@@ -87,3 +91,55 @@ Si intentas llamar a dos contenedores por el mismo nombre, como te puedes imagin
 1. ***USER*** define el usuario por defecto del contenedor.  
 1. ***VOLUME*** crea un volumen que es compartido por los diferentes contenedores o con el *host*.  
 1. ***WORKDIR*** define el directorio de trabajo para el contenedor.  
+
+
+***
+***
+
+# Docker Compose
+#### The file .yml
+<pre><code>version: '3'
+services:
+    container1:
+        image: atareao/chiquito:composer
+        ports:
+            - "5000:5000"
+    container2:
+        image: mariadb
+        ports:
+            - "3306:3306"
+        volumes:
+            - ./data:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: password ```
+</code></pre>
+
+### Basic command
+*docker-compose up*: levanta los contenedores.  
+*docker-composer up -d*: hace lo mismo que la instrucción pero en modo desvinculado, detached mode.  
+*docker-compose ps*: te permite ver los contenedores que están en funcionamiento.  
+*docker compose stop*: es la herramienta encargada de detener los diferentes contenedores.   
+*docker-composer down*: detiene los contenedores.  
+
+***
+
+# Redes
+Ex.: *docker network ls*
+*docker network inspect bridge*
+*docker network create --driver bridge red1*  
+*docker network connect red1 nameContainer*  
+
+*connect*: te permitirá conectar un contenedore a un red.  
+*disconnect*: desconecta un contenedor de una red.  
+*create*: es el comando que debes utilizar para crear una red.  
+*inspect*: te permite obtener información detallada de una red.  
+*ls*: es el comando a utilizar para ver las redes que tienes.  
+*prune*: es el comando con el que borrará todas las redes que no estés utilizando.  
+*rm*: te permite borrar una o mas redes.  
+
+### Tipos de controladores de red en Docker
+**driver:** este es el controlador por defecto. Es la mejor solución para conectar contenedores que se encuentran corriendo en el mismo anfitrión.  
+**host:** este tipo de controlador elimina el aislamiento entre el contenedor y el anfitrión.  
+**overlay:** Permite conectar diferentes contenedores en diferentes nodos.  
+**macvila:** permite asingar una dirección MAC a un contenedor.  
+**none:** inhabilita todas las redes.  
