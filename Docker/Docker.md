@@ -22,6 +22,12 @@ To start the project is used the command "docker-compose" in the v2 is "docker c
 ### Comandos básicos con imágenes  
 ```ls```: para saber las imágenes que tienes en tu equipo.  
 
+### SAve images
+*sudo docker save nameImage | gzip > /path/nameImage.tar.gz*  
+*sudo docker load  < ruta/nombrecontainercomprimido.tar*
+*sudo docker load -i  nameContainerOrImage.tar.gz*
+
+
 ***
 
 # Manage Container
