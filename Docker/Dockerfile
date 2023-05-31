@@ -14,9 +14,14 @@ WORKDIR /django_recipe_api
 # to your Docker image
 COPY ./requirements.txt /requirements.txt
 
-RUN apt-get update && apt-get install -y python3.8
+ENV http_proxy=http://fvelazquez:Liebe07pe.@10.7.1.48:8080
+ENV https_proxy=https://fvelazquez:Liebe07pe.@10.7.1.48:8080
+RUN apt-get update && apt-get install -y python3 --no-install-recommends
+RUN apt-get install python3-pip -y --no-install-recommends
 # Install the requirements.txt file in Docker image
 RUN pip install -r /requirements.txt
 # Create a user that can run your container
-RUN adduser -D user
+RUN rm -rf /var/lib/apt/lists/*
+RUN adduser user
 USER user
+#RUN python3 gym/manage.py runserver
