@@ -9,6 +9,8 @@ To start the project is used the command "docker-compose" in the v2 is "docker c
 ```docker image ls -a```: muestra imágenes intermedias.  
 ```-q```: para ver los números de identificación.  
 ```prune```:  borrar todas las imágenes que no estés utilizando.  
+*docker image tag server:tagname newName/newName:latest* :  change the name of repository.  
+*docker image tag idImage newName/newName:latest* :   change the name of repository.  
 
 #### Descargar una imagen de un repositorio
 ```pull```: download images from a repository. Ex: ```docker image pull ubuntu```.  
@@ -22,7 +24,7 @@ To start the project is used the command "docker-compose" in the v2 is "docker c
 ### Comandos básicos con imágenes  
 ```ls```: para saber las imágenes que tienes en tu equipo.  
 
-### SAve images
+### Save images
 *sudo docker save nameImage | gzip > /path/nameImage.tar.gz*  
 *sudo docker load  < ruta/nombrecontainercomprimido.tar*
 *sudo docker load -i  nameContainerOrImage.tar.gz*
@@ -65,7 +67,7 @@ Si intentas llamar a dos contenedores por el mismo nombre, como te puedes imagin
 *docker cp midocker:archivo2.txt /toDirInHost*
 
 ### Exponiendo puertos
-*docker run -d --name test01 -p 81:80 nginx:alpine*: option ***-p*** when [host port]:[contianer posrt]
+*docker run -d -it --name test01 -p 81:80 nginx:alpine*: option ***-p*** when [host port]:.[contianer posrt]. ***-it*** option to run container and iteract in the terminal.   
 
 ### Exponiendo volúmenes
 *-v*: ex. docker run -d -p  80:80 -p 443:443 -v "$(pwd)"/dir/host:/dir/of/docker 
@@ -134,8 +136,8 @@ services:
 ***
 
 # Redes
-Ex.: *docker network ls*
-*docker network inspect bridge*
+Ex.: *docker network ls*  
+*docker network inspect bridge*  
 *docker network create --driver bridge red1*  
 *docker network connect red1 nameContainer*  
 

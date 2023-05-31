@@ -1,6 +1,7 @@
 # Install
 *sudo apt-get install [program]*
 *--no-install-recommends*: solo instala los paquetes nombrados.   
+*rm -rf /var/lib/apt/lists/\* * :  borra la lista de los paquetes que estan disponibles en repositorio.  
 
 ## Variable de entorno para proxy
 <code>export http_proxy=http://username:password@proxyserver.net:port/ </code>
