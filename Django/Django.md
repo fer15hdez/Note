@@ -1,5 +1,5 @@
 Django
-======
+=======
 
 CODE
 -----
@@ -11,3 +11,9 @@ CODE
     python manage.py makemigrations --empty yourAppName 
 #### Migrate 
     python manage.py migrate [appName]
+
+#### Run server
+django-admin runserver [addrport]  
+python manage.py  runserver [addrport]  
+0.0.0.0 significa que se puede conectar desde cualquier ip.  
+

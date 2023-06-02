@@ -50,7 +50,7 @@ Si intentas llamar a dos contenedores por el mismo nombre, como te puedes imagin
 ```docker container rename ID newName```: rename a container.  
 *sleep 100* : stay the container runing. Puting in end of line. Ex: *docker run atareao/hola sleep 5*  
 *-e*: allows passing environment variables.  
-*--rm*: delete the container when it is stoped.
+*--rm*: delete the container when it is stoped.  
 *--network [nameOfNetwork]*: define a que red va a pertenecer
 
 ### Start, stop and pause
@@ -95,7 +95,7 @@ Si intentas llamar a dos contenedores por el mismo nombre, como te puedes imagin
 1. ***CMD*** el agumento que pasas por defecto.  
 1. ***ENTRYPOINT*** el comando que se ejecuta por defecto al arrancar el contenedor.  
 1. ***ENV*** permite declarar una variable de entorno en el contenedor.  
-1. ***EXPOSE*** abre un puerto del contenedor.  
+1. ***EXPOSE*** abre un puerto del contenedor. Ex. *EXPOSE 8080*  or *EXPOSE 8080/udp*
 1. ***FROM*** indica la imagen base que utilizarás para construir tu imagen personalizada. Esta opción es obligatoria, y además debe ser la primera instrucción del ***Dockerfile***.  
 1. ***MAINTAINER*** es una valor opcional que te permite indicar quien es el que se encarga de mantener el ***Dockerfile***.  
 1. ***ONBUILD*** te permite indicar un comando que se ejecutará cuando tu imagen sea utilizada para crear otra imagen.  

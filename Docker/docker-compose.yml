@@ -14,3 +14,12 @@ services:
         #     - ./data:/var/lib/mysql
         # environment:
         #     MYSQL_ROOT_PASSWORD: password 
+    apiDjangoDrf:
+        image: ubuntu/django_drf:dj3.2
+        ports:
+            - "8000:8000"        
+        volumes:
+            - /home/fernan/Documentos/gym_mvp_api/gym/:/django_recipe_api
+        command: python3 manage.py runserver 0.0.0.0:8000    
+        # environment:
+        #     MYSQL_ROOT_PASSWORD: password     
