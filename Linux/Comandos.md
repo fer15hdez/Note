@@ -84,3 +84,7 @@ sudo deluser [usuario]: delte a user.
 ### take out a user from a group
 sudo deluser [usuario] [grupo]
 
+***
+## Free swap memory 
+*sudo swapoff -a* : turn off and clean swap memory
+*sudo swapon -a* : turn on swap memory
