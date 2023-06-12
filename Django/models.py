@@ -13,7 +13,7 @@ class Farm(models.Model):
     location = models.PointField("Localizacion", srid=4326,blank=False,null=False)
     date_created = models.DateTimeField("Fecha de creado", auto_now_add=True) # Is auto_created the datetime when is created the table.
     unitary_price = models.FloatField("Precio Unitario")
-    source = models.ForeignKey("Source", on_delete=models.CASCADE, default=None) # The Entity Source betwing "" is for model declared after the 
+    source = models.ForeignKey("Source", on_delete=models.CASCADE, default=None) # The Entity Source between "" is for model declared after the 
     # present model, that mean below.
     parameter = models.ManyToManyField(Parameter) # Relationship Many To Many. The field is puting in only class model. Automaticaly 
     # is created a new table with the two pk from the relantionship.
