@@ -88,3 +88,14 @@ sudo deluser [usuario] [grupo]
 ## Free swap memory 
 *sudo swapoff -a* : turn off and clean swap memory
 *sudo swapon -a* : turn on swap memory
+
+
+## SMB
+#### smbclient
+*smbclient  -A /file/where are param/smbclient_param  //10.7.1.67/Buzon\ Correos\ Seguridad(shared file)*
+**Format of parameter**
+username = fvelazquez  
+password = MyPassword  
+domain   = epepc.cupet.cu  
+
+*smbclient -L server.ip   -U MyUsername -W domain*
