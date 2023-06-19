@@ -7,7 +7,7 @@ from django.contrib.gis.geos import Point
 
 
 class Farm(models.Model):
-    name = models.CharField("Nombre", max_length=50)
+    name = models.CharField("Nombre", max_length=50) # With "Nombre" in quotation the class model can be anywhere in the file.  
     created_by = models.ForeignKey(User, on_delete=models.CASCADE) # Is auto_created the user who create the table. Need modify the method in the 
     # view form_valid
     location = models.PointField("Localizacion", srid=4326,blank=False,null=False)
