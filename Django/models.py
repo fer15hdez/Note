@@ -7,6 +7,11 @@ from django.contrib.gis.geos import Point
 
 
 class Farm(models.Model):
+    TIPO_TENENCIA = [
+        ("example1", "example1"),
+        ("example2", "example2"),
+    ]
+    
     name = models.CharField("Nombre", max_length=50) # With "Nombre" in quotation the class model can be anywhere in the file.  
     created_by = models.ForeignKey(User, on_delete=models.CASCADE) # Is auto_created the user who create the table. Need modify the method in the 
     # view form_valid
@@ -17,6 +22,7 @@ class Farm(models.Model):
     # present model, that mean below.
     parameter = models.ManyToManyField(Parameter) # Relationship Many To Many. The field is puting in only class model. Automaticaly 
     # is created a new table with the two pk from the relantionship.
+    tipo_tenencia = models.CharField("Tipo de tenencia", choices=TIPO_TENENCIA,max_length=150) # Choice option
 
     class Meta: # Model metadata is "anything that's not a field"
         verbose_name = "Granja" # Show the name friendly to user in the admin template.
