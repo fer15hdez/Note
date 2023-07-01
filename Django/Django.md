@@ -15,5 +15,8 @@ CODE
 #### Run server
 django-admin runserver [addrport]  
 python manage.py  runserver [addrport]  
-0.0.0.0 significa que se puede conectar desde cualquier ip.  
+0.0.0.0 significa que se puede conectar desde cualquier ip.
+
+#### Create superuser
+python manage.py createsuperuser --username=joe --email=joe@example.com
 
