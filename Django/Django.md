@@ -11,6 +11,9 @@ CODE
     python manage.py makemigrations --empty yourAppName 
 #### Migrate 
     python manage.py migrate [appName]
+#### Create superuser
+*python manage.py createsuperuser --username=joe --email=joe@example.com*
+
 
 #### Run server
 django-admin runserver [addrport]  
