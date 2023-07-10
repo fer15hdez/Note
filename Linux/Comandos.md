@@ -91,11 +91,12 @@ sudo deluser [usuario] [grupo]
 
 
 ## SMB
-#### smbclient
-*smbclient  -A /file/where are param/smbclient_param  //10.7.1.67/Buzon\ Correos\ Seguridad(shared file)*
-**Format of parameter**
+#### smbclient  
+Option -A: is to autenticate from a file, where are the param to log in.
+*smbclient  -A /file/where are param/smbclient_param  //10.7.1.67/Buzon\ Correos\ Seguridad(shared file)*  
+**Format of parameter**  
 username = fvelazquez  
 password = MyPassword  
-domain   = epepc.cupet.cu  
+domain   = epepc.cupet.cu    
 
-*smbclient -L server.ip   -U MyUsername -W domain*
+*smbclient -L server.ip   -U MyUsername -W domain*  
