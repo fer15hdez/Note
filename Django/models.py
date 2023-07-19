@@ -20,7 +20,7 @@ class Farm(models.Model):
     unitary_price = models.FloatField("Precio Unitario")
     source = models.ForeignKey("Source", on_delete=models.CASCADE, default=None) # The Entity Source between "" is for model declared after the 
     # present model, that mean below.
-    parameter = models.ManyToManyField(Parameter) # Relationship Many To Many. The field is puting in only class model. Automaticaly 
+    parameter = models.ManyToManyField(Parameter, verbose_name="nombre para mostrar") # Relationship Many To Many. The field is just putting class model. Automaticaly 
     # is created a new table with the two pk from the relantionship.
     tipo_tenencia = models.CharField("Tipo de tenencia", choices=TIPO_TENENCIA,max_length=150) # Choice option
 
@@ -31,8 +31,9 @@ class Farm(models.Model):
     def __str__(self): # Show the srt name of objet, need return a string. 
         return self.name
 
-class Customer(User):    # The model Customer create a relation with model User (type: OneToOne)
+class Customer(User):    # (inheritance) The model Customer create a relation with model User (type: OneToOne)
     def custom_upload_to(instance, filename):
+        """Defining what is the name of picture and where will be stored"""
         try:
             ext = instance.picture.name[-4:] # taking the extension of picture
             filename = str(instance.username) + "_" + str(instance.personal_id) + str(ext)
