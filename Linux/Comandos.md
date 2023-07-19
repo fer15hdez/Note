@@ -92,7 +92,7 @@ sudo deluser [usuario] [grupo]
 
 ## SMB
 #### smbclient  
-Option -A: is to autenticate from a file, where are the param to log in.
+Option -A: is to autenticate from a file, where are the param to log in.  
 *smbclient  -A /file/where are param/smbclient_param  //10.7.1.67/Buzon\ Correos\ Seguridad(shared file)*  
 **Format of parameter**  
 username = fvelazquez  

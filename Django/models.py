@@ -31,7 +31,22 @@ class Farm(models.Model):
     def __str__(self): # Show the srt name of objet, need return a string. 
         return self.name
 
+class Customer(User):    # The model Customer create a relation with model User (type: OneToOne)
+    def custom_upload_to(instance, filename):
+        try:
+            ext = instance.picture.name[-4:] # taking the extension of picture
+            filename = str(instance.username) + "_" + str(instance.personal_id) + str(ext)
+        except Customer.DoesNotExist:
+            pass
+        return 'img/customer/' + str(filename)
+  
+    picture = models.ImageField("Foto", blank=True, default=None, upload_to=custom_upload_to)
 
+    def __str__(self):
+        return self.first_name
+
+    def __unicode__(self):
+        return 
 
 
     
