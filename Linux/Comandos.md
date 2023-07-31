@@ -100,3 +100,6 @@ password = MyPassword
 domain   = epepc.cupet.cu    
 
 *smbclient -L server.ip   -U MyUsername -W domain*  
+
+## SSH
+*ssh user@ip.address –p7654*
