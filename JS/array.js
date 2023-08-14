@@ -7,6 +7,7 @@ const emojis = ['✨', '🥑', '😍']
 const posicionCorazon = emojis.indexOf('😍')
 console.log(posicionCorazon) // -> 2
 
+// --------------------------------------
 //****** includes ******/ 
 // El método includes determina si un Array incluye un determinado elemento, 
 // devolviendo true o false según corresponda.
@@ -17,6 +18,7 @@ console.log(tieneCorazon) // -> true
 // Puedes utilizarlo para buscar una subcadena dentro de una 
 // cadena de texto: 'Hola mundo'.includes('Hola') // -> true
 
+// --------------------------------------
 //****** some ******/ 
 // El método some te permite verificar si al menos uno de los elementos de un Array cumple 
 // con una condición.
@@ -26,6 +28,7 @@ const emojis2 = ['✨', '🥑', '😍']
 const tieneCorazon2 = emojis2.some(emoji => emoji === '😍')
 console.log(tieneCorazon) // -> true
 
+// --------------------------------------
 //****** every ******/ 
 // El método every te permite verificar si todos los elementos de un Array cumplen con una 
 // condición.
@@ -37,6 +40,7 @@ const numbers = [2, 4, 7, 10, 12]
 const todosSonPares = numbers.every(number => number % 2 === 0)
 console.log(todosSonPares) // -> false
 
+// --------------------------------------
 //****** find ******/ 
 // - El método find te permite encontrar el primer elemento que cumple con una condición.
 // - Devuelve el elemento en sí
@@ -50,6 +54,7 @@ console.log(firstNegativeNumber) // -> -10
 // - Igual que some y every, el método find deja de iterar sobre el Array en cuanto encuentra 
 // un elemento que cumple con la condición.
 
+// --------------------------------------
 //****** findIndex ******/ 
 // - Devuelve el índice del primer elemento que cumple con la condición
 const numbers2 = [13, 27, 44, -10, 81]
@@ -68,6 +73,7 @@ const evenNumbers = numbers3.filter(function (number) {
 })
 console.log(evenNumbers) // [2, 4, 6]
 
+// --------------------------------------
 //****** map ******/
 // map: Un nuevo Array con los elementos transformados
 // El método map crea un nuevo array de la misma longitud que el original, pero con los 
@@ -78,7 +84,7 @@ const doubleNumbers = numbers4.map((number) => {
 })
 console.log(doubleNumbers) // [2, 4, 6]
 
-
+// --------------------------------------
 // ****** map + filter: Un nuevo Array con los elementos transformados y filtrados ******
 const numbers5 = [1, 2, 3, 4, 5, 6, 7]
 const numsGreaterThanFive = numbers5
@@ -86,6 +92,7 @@ const numsGreaterThanFive = numbers5
   .filter(number => number > 5) // [6, 8, 10, 12, 14]
 console.log(numsGreaterThanFive) // [6, 8, 10, 12, 14]
 
+// --------------------------------------
 //****** reduce: Un único valor a partir de un array //******
 // - Este método te permite crear un único valor a partir de un Array.
 // - Recibe dos parámetros: una función que se ejecutará por cada elemento y un valor inicial, 
