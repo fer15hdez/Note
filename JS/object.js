@@ -183,8 +183,16 @@ if ('specifications' in gamesystem) {
   console.log('No hay especificaciones')
 }
 
+// ----------------
 // El operador de Encadenamiento Opcional, ?.
+// - El Operador de Encadenamiento Opcional ?. permite leer el valor de una propiedad 
+// ubicada profundamente dentro de una cadena de objetos conectados, sin tener que validar 
+// expresamente que cada referencia en la cadena es válida.
 console.log(gamesystem.specifications?.cpu)
 // -> undefined
 console.log(gamesystem.specs?.cpu)
 // -> AMD Ryzen Zen 2
+console.log(gamesystem[specs]?.[cpu])
+// -> AMD Ryzen Zen 2
+
+// ----------------------------------------------------------------------------------
