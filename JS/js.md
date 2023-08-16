@@ -17,5 +17,23 @@ Value 	Becomes…
 any other value 	true
 
 ### Operator
+The exponentiation operator a ** b raises a to the power of b.
+alert( 2 ** 2 ); // 2² = 4
+### Root of a number
 alert( 4 ** (1/2) ); // 2 (power of 1/2 is the same as a square root)
 alert( 8 ** (1/3) ); // 2 (power of 1/3 is the same as a cubic root)
+
+### String concatenation with binary +
+let s = "my" + "string";
+alert(s); // mystring
+***If any of the operands is a string, then the other one is converted to a string too.***
+alert( '1' + 2 ); // "12"
+alert( 2 + '1' ); // "21"
+alert(2 + 2 + '1' ); // "41" and not "221"
+alert('1' + 2 + 2); // "122" and not "14"
+
+***The binary + is the only operator that supports strings in such a way. Other arithmetic operators work only with numbers and always convert their operands to numbers.***
+
+Here’s the demo for subtraction and division:
+alert( 6 - '2' ); // 4, converts '2' to a number
+alert( '6' / '2' ); // 3, converts both operands to numbers
