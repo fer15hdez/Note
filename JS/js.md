@@ -17,8 +17,16 @@ Value 	Becomes…
 any other value 	true
 
 ### Operator
-The exponentiation operator a ** b raises a to the power of b.
+The exponentiation operator a ** b raises 'a' to the power of 'b'.
 alert( 2 ** 2 ); // 2² = 4
+
+***unary + ***
+- The plus operator + applied to a single value, doesn’t do anything to numbers. But if the operand is not a number, the unary plus converts it into a number.
+- It actually does the same thing as Number(...), but is shorter.
+// Converts non-numbers
+alert( +true ); // 1
+alert( +"" );   // 0
+
 ### Root of a number
 alert( 4 ** (1/2) ); // 2 (power of 1/2 is the same as a square root)
 alert( 8 ** (1/3) ); // 2 (power of 1/3 is the same as a cubic root)
@@ -37,3 +45,17 @@ alert('1' + 2 + 2); // "122" and not "14"
 Here’s the demo for subtraction and division:
 alert( 6 - '2' ); // 4, converts '2' to a number
 alert( '6' / '2' ); // 3, converts both operands to numbers
+
+### Increase counter
+***This operator do same increase over the var but the diference is the result ***
+let counter = 0;
+alert( ++counter ); // 1
+
+let counter = 0;
+alert( counter++ ); // 0
+
+### Nullish coalescing operator '??'
+The result of a ?? b is:
+
+    if 'a' is defined, then 'a',
+    if 'a' isn’t null/defined, then 'b'.
