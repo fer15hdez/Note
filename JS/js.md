@@ -13,8 +13,8 @@ alert( Number(false) );       // 0
 
 ### Boolean Conversion – Occurs in logical operations.
 Value 	Becomes…
-0, null, undefined, NaN, "" 	false
-any other value 	true
+0, null, undefined, NaN, "" ->	false
+any other value ->	true
 
 ### Operator
 The exponentiation operator a ** b raises 'a' to the power of 'b'.
@@ -50,9 +50,11 @@ alert( '6' / '2' ); // 3, converts both operands to numbers
 ***This operator do same increase over the var but the diference is the result ***
 let counter = 0;
 alert( ++counter ); // 1
+alert( counter ); // 1
 
 let counter = 0;
 alert( counter++ ); // 0
+alert( counter ); // 1
 
 ### Nullish coalescing operator '??'
 The result of a ?? b is:
