@@ -16,6 +16,37 @@ Value 	Becomes…
 0, null, undefined, NaN, "" ->	false
 any other value ->	true
 
+### Coercing Primitive Values.  
+  -  **anything → boolean:** If it’s null, undefined, 0 (or -0), '’ (empty string), or false, the result of the coercion is false. If it’s ANYTHING else, it’s true
+ -   **number → string:** the string representation of that number (which might be the scientific notation format… seeNumber.toString() if you need to know when it uses that).
+ -   **string → number:** if the string represents a valid number (including formats like scientific notation, hexadecimals, octals, etc), it’s converted to that number. And if it’s an empty string, it’s 0. Otherwise it’s just NaN.
+ -  **boolean → number:** true becomes 1, false becomes 0
+ -  **null or undefined → number:** 0 and NaN respectively
+ -  **null or undefined → string:** 'null' and 'undefined' respectively
+ -  **Objects “Coerce” to Primitives** → It's convert to primitive type from 'valueOf function'. If that doesn’t work, it tries to get a primitive value from toString function.  
+ -  **array** → toString returns a string that joins the string representations of its values with a comma. So[1, {}, 3].toString() will return '1,[object Object],3'.  
+    + for empty arrays, or arrays with a single null value, it will return an empty string.  
+
+1. - A string that doesn’t represent a number is NaN.  
+2. - There’s only 5 things that coerce to false, everything else just becomes true.  
+3. - Null, undefined, and numbers are all spelled exactly like the strings that you’d expect.  
+4. - undefined is Not-A-Number.  
+
+1. **Comparison between a boolean and a non-boolean value:**
+The boolean value true is considered greater than any non-boolean value (except NaN and undefined).
+The boolean value false is considered less than any non-boolean value (except NaN and undefined).
+2. **Comparison between a number and a string:**
+If the string can be parsed as a valid number, it will be converted to a number and compared numerically.
+If the string cannot be parsed as a valid number, it will be converted to NaN, and any comparison involving NaN will yield false except for NaN itself.
+3. **Comparison between objects and primitive values:**
+When an object is compared to a primitive value, the object is converted to a primitive value using the valueOf() and toString() methods in a specific order:
+The valueOf() method is called first, and if it returns a primitive value, that value is used for comparison.
+If the valueOf() method does not return a primitive value, the toString() method is called, and if it returns a primitive value, that value is used for comparison.
+If both valueOf() and toString() do not return a primitive value, a TypeError is thrown.
+**String Comparison:** When comparing strings, JavaScript compares them character by character based on their Unicode values. The comparison is done by comparing the Unicode value of each character from left to right.  
+
+
+
 ### Operator
 The exponentiation operator a ** b raises 'a' to the power of 'b'.
 alert( 2 ** 2 ); // 2² = 4
