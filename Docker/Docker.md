@@ -11,6 +11,8 @@ To start the project is used the command "docker-compose" in the v2 is "docker c
 ```prune```:  borrar todas las imágenes que no estés utilizando.  
 *docker image tag **server:tagname** newName/newName:latest* :  change the name of repository.  
 *docker image tag **idImage** newName/newName:latest* :   change the name of repository.  
+***Delete the image and the intermediate images*** -> *docker image rm $(docker images --filter since=b721d1cdaac7 -q) -f*  
+
 
 #### Descargar una imagen de un repositorio
 ```pull```: download images from a repository. Ex: ```docker image pull ubuntu```.  
