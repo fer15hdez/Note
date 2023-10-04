@@ -103,3 +103,11 @@ domain   = epepc.cupet.cu
 
 ## SSH
 *ssh user@ip.address –p7654*
+
+## File
+**df -h** -> "Disk Filesystem"  
+**du** -> abreviación de "Disk Usage"  
+**du** *[options]* *[location of directory or file]*
+**du -h /home/user/Desktop/ | sort –rn** -> ordenará todos los archivos y carpetas de mayor a menor.  
+**du -h /home/user/Desktop | grep '^\s*[0-9\.]\+G'** -> todos los archivos mayores a 1 GB.M para mega.  
+     
