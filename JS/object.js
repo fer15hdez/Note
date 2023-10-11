@@ -241,3 +241,13 @@ alert( user2.sizes === clone.sizes ); // false, different objects
 user2.sizes.width = 60;    // change a property from one place
 alert(clone.sizes.width); // 50, not related
 
+// ----------------------------------------------------------------------------------
+// *** Constructor function ***
+// For convention the first letter is uppercase but it works the same if used in lowercase.
+function User(name) {
+  this.name = name;
+  this.isAdmin = false;
+}
+let user = new User("Jack");
+alert(user.name); // Jack
+alert(user.isAdmin); // false
