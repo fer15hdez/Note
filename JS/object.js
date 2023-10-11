@@ -196,3 +196,48 @@ console.log(gamesystem[specs]?.[cpu])
 // -> AMD Ryzen Zen 2
 
 // ----------------------------------------------------------------------------------
+// Object references and copying (cloning)
+let user1 = { name: "John" };
+let admin = user1; // copy the reference
+console.log(admin.name) // John
+
+// **** Comparison by reference *****
+//  Two objects are equal only if they are the same object, reference the same object. 
+
+// *** Cloning and merging ***
+// The first argument dest is a target object.
+// Further arguments is a list of source objects.
+Object.assign(dest, ...sources)
+let user = { name: "John" };
+
+let permissions1 = { canView: true };
+let permissions2 = { canEdit: true };
+
+// copies all properties from permissions1 and permissions2 into user
+Object.assign(user, permissions1, permissions2);
+
+// now user = { name: "John", canView: true, canEdit: true }
+alert(user.name); // John
+alert(user.canView); // true
+alert(user.canEdit); // true
+//If the copied property name already exists, it gets overwritten
+
+// *** Nested cloning ***
+// *** structuredClone *** 
+// Function properties aren’t supported.
+let user2 = {
+  name: "John",
+  sizes: {
+    height: 182,
+    width: 50
+  }
+};
+
+let clone = structuredClone(user2);
+
+alert( user2.sizes === clone.sizes ); // false, different objects
+
+// user and clone are totally unrelated now
+user2.sizes.width = 60;    // change a property from one place
+alert(clone.sizes.width); // 50, not related
+
