@@ -1,40 +1,40 @@
 
 // Declaración y asignación de objetos
-const persona = { 
-    name: 'Dani',
-    age: 30,
-    isWorking: true
-  }
+const persona = {
+  name: 'Dani',
+  age: 30,
+  isWorking: true
+}
 
 //  - Las propiedades y métodos de un objeto pueden ser de cualquier tipo de JavaScript, 
 //   incluso otros objetos o arrays.
 const persona1 = {
-    name: 'Dani',
-    age: 30,
-    isWorking: true,
-    family: ['Miguel', 'Maria'], // array
-    address: { // otro objeto
-      street: 'Calle de la piruleta',
-      number: 13,
-      city: 'Barcelona'
-    }
+  name: 'Dani',
+  age: 30,
+  isWorking: true,
+  family: ['Miguel', 'Maria'], // array
+  address: { // otro objeto
+    street: 'Calle de la piruleta',
+    number: 13,
+    city: 'Barcelona'
   }
+}
 
 //   METODOS
 const persona2 = {
-    name: 'Dani',
-    age: 30,
-    isWorking: true,
-    family: ['Miguel', 'Maria'],
-    address: {
-      street: 'Calle de la piruleta',
-      number: 13,
-      city: 'Barcelona'
-    },
-    walk: function () { // <- método
-      console.log('Estoy caminando')
-    }
+  name: 'Dani',
+  age: 30,
+  isWorking: true,
+  family: ['Miguel', 'Maria'],
+  address: {
+    street: 'Calle de la piruleta',
+    number: 13,
+    city: 'Barcelona'
+  },
+  walk: function () { // <- método
+    console.log('Estoy caminando')
   }
+}
 
 //   Acceder a propiedades y métodos de un objeto
 const persona3 = { name: 'Dani' }
@@ -49,30 +49,30 @@ console.log(persona4[property]) // -> Dani
 // - Para acceder a las propiedades de un objeto anidado, podemos usar la notación de corchetes o 
 // la notación de punto:
 const spiderman2 = {
-    name: 'Spidey',
+  name: 'Spidey',
+  universe: 42,
+  powers: ['web', 'invisibility', 'spider-sense'],
+  partner: {
+    name: 'Mary Jane',
     universe: 42,
-    powers: ['web', 'invisibility', 'spider-sense'],
-    partner: {
-      name: 'Mary Jane',
-      universe: 42,
-      powers: ['red hair', 'blue eyes']
-    }
+    powers: ['red hair', 'blue eyes']
   }
+}
 
-  console.log(spiderman2.partner.name) // 'Mary Jane'
+console.log(spiderman2.partner.name) // 'Mary Jane'
 console.log(spiderman2['partner']['name']) // 'Mary Jane'
 
 // Acceder a un metodo
 const persona5 = {
-    name: 'Dani',
-    walk: function () {
-      console.log('Estoy caminando')
-    }
+  name: 'Dani',
+  walk: function () {
+    console.log('Estoy caminando')
   }
-  persona5.walk() // -> Estoy caminando
-  
-  let method = 'walk'
-  persona5[method]() // -> Estoy caminando
+}
+persona5.walk() // -> Estoy caminando
+
+let method = 'walk'
+persona5[method]() // -> Estoy caminando
 
 //   Eliminar propiedades de un objeto
 const persona6 = { name: 'Dani', age: 18 }
@@ -86,18 +86,18 @@ console.log(persona6) // -> { name: 'Dani' }
 // - La estructura de control for...in nos permite crear un bucle que itera sobre todas las 
 // propiedades enumerables de un objeto, en un orden arbitrario. 
 const spiderman = {
-    name: 'Spidey',
-    universe: 42,
-    powers: ['web', 'invisibility', 'spider-sense']
-  }
-  
-  for (const property in spiderman) {
-    console.log(`${property}: ${spiderman[property]}`);
-  }
-  
-  // -> name: Spidey
-  // -> universe: 42
-  // -> powers: web,invisibility,spider-sense
+  name: 'Spidey',
+  universe: 42,
+  powers: ['web', 'invisibility', 'spider-sense']
+}
+
+for (const property in spiderman) {
+  console.log(`${property}: ${spiderman[property]}`);
+}
+
+// -> name: Spidey
+// -> universe: 42
+// -> powers: web,invisibility,spider-sense
 
 //   ----------------------------------------------------------
 // Transformar un objeto en un array
@@ -105,22 +105,22 @@ const spiderman = {
 // Iterar con Object.keys()
 // El método Object.keys() retorna un array con las propiedades enumerables de un objeto.
 const spiderman1 = {
-    name: 'Spidey',
-    universe: 42,
-    powers: ['web', 'invisibility', 'spider-sense']
-  }
-  
-  const properties = Object.keys(spiderman1)
-  
-  console.log(properties.length) // 3
-  
-  properties.forEach(property => {
-    console.log(property)
-  })
-  
-  // -> name
-  // -> universe
-  // -> powers
+  name: 'Spidey',
+  universe: 42,
+  powers: ['web', 'invisibility', 'spider-sense']
+}
+
+const properties = Object.keys(spiderman1)
+
+console.log(properties.length) // 3
+
+properties.forEach(property => {
+  console.log(property)
+})
+
+// -> name
+// -> universe
+// -> powers
 
 
 //   ---------
@@ -167,14 +167,14 @@ entries1.forEach(entry => {
 // El operador in para comprobar si una propiedad existe
 // Este operador comprueba si una propiedad existe en un objeto y devuelve true o false
 const gamesystem = {
-    name: 'PS5',
-    price: 550,
-    specs: {
-      cpu: 'AMD Ryzen Zen 2',
-      gpu: 'AMD Radeon RDNA 2',
-    }
+  name: 'PS5',
+  price: 550,
+  specs: {
+    cpu: 'AMD Ryzen Zen 2',
+    gpu: 'AMD Radeon RDNA 2',
   }
-  console.log('name' in gamesystem) // -> true
+}
+console.log('name' in gamesystem) // -> true
 console.log('specifications' in gamesystem) // -> false
 
 if ('specifications' in gamesystem) {
@@ -235,7 +235,7 @@ let user2 = {
 
 let clone = structuredClone(user2);
 
-alert( user2.sizes === clone.sizes ); // false, different objects
+alert(user2.sizes === clone.sizes); // false, different objects
 
 // user and clone are totally unrelated now
 user2.sizes.width = 60;    // change a property from one place
@@ -256,8 +256,8 @@ alert(user.isAdmin); // false
 function User(name) {
   this.name = name;
 
-  this.sayHi = function() {
-    alert( "My name is: " + this.name );
+  this.sayHi = function () {
+    alert("My name is: " + this.name);
   };
 }
 

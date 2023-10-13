@@ -92,3 +92,12 @@ The result of a ?? b is:
 
     if 'a' is defined, then 'a',
     if 'a' isn’t null/defined, then 'b'.
+### The optional chaining ?. syntax has three forms:  
+
+    obj?.prop – returns obj.prop if obj exists, otherwise undefined.  
+    obj?.[prop] – returns obj[prop] if obj exists, otherwise undefined.  
+    obj.method?.() – calls obj.method() if obj.method exists, otherwise returns undefined.  
+
+As we can see, all of them are straightforward and simple to use. The ?. checks the left part for null/undefined and allows the evaluation to proceed if it’s not so.  
+
+A chain of ?. allows to safely access nested properties.  
