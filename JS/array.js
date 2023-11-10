@@ -126,3 +126,17 @@ const doubleEvenNumbers = numbers7.reduce((accumulator, currentNumber) => {
 }, []) // <- el array vacío es el valor inicial
 
 console.log(doubleEvenNumbers) // [8, 12]
+
+// --------------------------------------
+// ****** SORT: Ordenamiento personalizado con sort() ******
+
+// - Un valor negativo si el primer argumento debe aparecer antes que el segundo.
+// - Un valor positivo si el segundo argumento debe aparecer antes que el primero.
+// - Cero si ambos argumentos son iguales.
+let numeros = [5, 10, 2, 25, 7]
+
+numeros.sort(function(a, b) {
+  return a - b
+})
+
+console.log(numeros) // [2, 5, 7, 10, 25]
