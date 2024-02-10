@@ -17,8 +17,8 @@ git branch -M main
 git push -u origin main  
 
 
- git clone https://github.com/libgit2/libgit2 **Clone the hold repository**  
- git clone https://github.com/libgit2/libgit2 name_directory **Clone the hold repository in diferent directory "name_directory"**  
+ git clone https://github.com/libgit2/libgit2 **Clone the whole repository**  
+ git clone https://github.com/libgit2/libgit2 name_directory **Clone the whole repository in diferent directory "name_directory"**  
  git status #Show the status of each file  
  git add path_file or path_dir **Tracked file. Is ready to commit to repository. If is a path_dir all file and dir will be Tracked.**  
  git remote -v **Show all the remote repository that are cloned.**   

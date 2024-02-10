@@ -1,3 +1,20 @@
+### Control Structure
+## for ... of ...
+let frutas = ['🍎', '🍌', '🍓']
+
+for (let fruta of frutas) {
+  console.log(fruta) // imprime el elemento en la posición i
+}
+## array.forEach()
+Uno de esos métodos es array.forEach(), que nos permite ejecutar una function para cada uno de los elementos del array. Esta función recibe como parámetros el elemento que se está iterando en ese momento, el índice del elemento y el propio array.Uno de esos métodos es array.forEach(), que nos permite ejecutar una function para cada uno de los elementos del array. Esta función recibe como parámetros el elemento que se está iterando en ese momento, el índice del elemento y el propio array.
+
+let frutas = ['🍎', '🍌', '🍓']
+
+frutas.forEach(function (fruta, index, originalArray) {
+  console.log(fruta) // imprime el elemento en la posición i
+})
+
+### ------------------------------------------------------------------------------------------------
 ### Numeric Conversion – Occurs in math operations.
 Value 	Becomes…
 undefined ->	NaN
