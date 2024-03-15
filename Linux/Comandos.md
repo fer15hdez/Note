@@ -4,9 +4,12 @@
 *rm -rf /var/lib/apt/lists/\* * :  borra la lista de los paquetes que estan disponibles en repositorio.  
 **Upgrade only one**
 *sudo apt-get --only-upgrade install namePackage*: 
+**Package .deb, .rpm, etc**
+*sudo dpkg -i example.deb*
 
 ## Variable de entorno para proxy
 <code>export http_proxy=http://username:password@proxyserver.net:port/ </code>
+
 ## Permission
 The owner of a file can change the permissions for user ( u ), group ( g ), or others ( o ) by adding ( + ) or subtracting ( - ) the read, write, and execute permissions.
 read ( r ), write(w), execute(x)<br>
@@ -14,6 +17,7 @@ read ( r ), write(w), execute(x)<br>
 <code>sudo chmod o=+rwx /var/www/html/</code> <br>
 **List permissions**<br>
 <code>ls -l /path/dir/</code> 
+The order is d(if is a dir) u(rwx)g(rwx)o(rwx)
 
 ***
 
