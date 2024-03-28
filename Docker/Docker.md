@@ -106,6 +106,8 @@ Si intentas llamar a dos contenedores por el mismo nombre, como te puedes imagin
 1. ***VOLUME*** crea un volumen que es compartido por los diferentes contenedores o con el *host*.  
 1. ***WORKDIR*** define el directorio de trabajo para el contenedor.  
 
+*Syntax* : docker build [OPTIONS] PATH | URL | -   
+*Exmaple* :  docker build -t tagName:latest . (The dot is the path. It look for a Dockerfile file. It is posible define different path or link)
 
 ***
 ***

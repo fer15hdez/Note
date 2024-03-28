@@ -1,5 +1,5 @@
 # The image you are going to inherit your Dockerfile from
-FROM ubuntu
+FROM ubuntu:22.04
 # Necessary, so Docker doesn't buffer the output and that you can see the output 
 # of your application (e.g., Django logs) in real-time.
 ENV PYTHONUNBUFFERED 1
@@ -14,8 +14,8 @@ WORKDIR /django_recipe_api
 # to your Docker image
 COPY ./requirements.txt /requirements.txt
 
-ENV http_proxy=http://fvelazquez:Liebe07pe.@10.7.1.48:8080
-ENV https_proxy=https://fvelazquez:Liebe07pe.@10.7.1.48:8080
+#ENV http_proxy=http://username:pass@10.0.0.50:8080
+#ENV https_proxy=https://username:pass@10.0.0.50:8080
 RUN apt-get update && apt-get install -y python3 --no-install-recommends
 RUN apt-get install python3-pip -y --no-install-recommends
 # Install the requirements.txt file in Docker image
