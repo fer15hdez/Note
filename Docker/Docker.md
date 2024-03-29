@@ -11,7 +11,8 @@ To start the project is used the command "docker-compose" in the v2 is "docker c
 ```prune```:  borrar todas las imágenes que no estés utilizando.  
 *docker image tag **server:tagname** newName/newName:latest* :  change the name of repository.  
 *docker image tag **idImage** newName/newName:latest* :   change the name of repository.  
-***Delete the image and the intermediate images*** -> *docker image rm $(docker images --filter since=b721d1cdaac7 -q) -f*  
+
+**Delete the image and the intermediate images** -> *docker image rm $(docker images --filter since=b721d1cdaac7 -q) -f*  
 
 
 #### Descargar una imagen de un repositorio
@@ -40,6 +41,8 @@ To start the project is used the command "docker-compose" in the v2 is "docker c
 ```docker ps```: show all the container.  
 ```docker container ls```: show all the container.  
 ```docker ps -a```: show all the container, even stoped.  
+*Los contenedores se ejecutan solo mientras se ejecuta su comando predeterminado*
+*(**Mantiene ejecutandose el contenedor**)Para iniciar una sesión pseudo-TTY con el contenedor, podemos usar el indicador **-t** . El contenedor no saldrá hasta que finalice la sesión.*
 
 ### Export and Import
 *docker export [CONTAINER ID] > /home/export.tar* : Export
@@ -64,6 +67,13 @@ Si intentas llamar a dos contenedores por el mismo nombre, como te puedes imagin
 
 *-d* : ejecuta el container en 2do plano.  
 
+### Listar contenedores
+*Filtrados por estado*
+docker ps -a -f status=exited
+### Borrar una lista de contenedores
+*docker rm $(docker ps -a -f status=exited -q)* : The param -q give the list to be raise.
+
+
 ### Copying between host and container
 *docker cp archivo.txt midocker:/toDir*  
 *docker cp midocker:archivo2.txt /toDirInHost*
@@ -73,7 +83,8 @@ Si intentas llamar a dos contenedores por el mismo nombre, como te puedes imagin
 
 ### Exponiendo volúmenes
 *-v*: ex. docker run -d -p  80:80 -p 443:443 -v "$(pwd)"/dir/host:/dir/of/docker 
---name nameContainer atareao/imageDocker
+--name nameContainer atareao/imageDocker  
+*Nota* : Para evitar problemas con **permisos** el dir del host se debe crear antes de iniciar el contenedor, sino docker crea el dir con permisos root.
 
 ### Inside to container
 *docker exec -it midocker bash*: permite trabajar desde la terminal en el container.  
@@ -129,6 +140,7 @@ services:
         environment:
             MYSQL_ROOT_PASSWORD: password ```
 </code></pre>
+**volume** : volume_name:/path/in/container
 
 ### Basic command
 *docker-compose up*: levanta los contenedores.  
