@@ -3,6 +3,8 @@ from django.db import connection
 from django.contrib.gis.db import models
 from django.contrib.gis.geos import Point
 
+from django.core.validators import MaxValueValidator, MinValueValidator
+
 # Create your models here.
 
 
@@ -23,6 +25,8 @@ class Farm(models.Model):
     parameter = models.ManyToManyField(Parameter, verbose_name="nombre para mostrar") # Relationship Many To Many. The field is just putting class model. Automaticaly 
     # is created a new table with the two pk from the relantionship.
     tipo_tenencia = models.CharField("Tipo de tenencia", choices=TIPO_TENENCIA,max_length=150) # Choice option
+    age = models.IntegerField("Edad", validators=[MaxValueValidator(100), MinValueValidator(1)]) # Int value. With validator param given a range of 
+    # value (need to import "django.core.validators")
 
     class Meta: # Model metadata is "anything that's not a field"
         verbose_name = "Granja" # Show the name friendly to user in the admin template.
