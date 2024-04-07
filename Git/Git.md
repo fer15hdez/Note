@@ -21,6 +21,7 @@ git push -u origin main
  git clone https://github.com/libgit2/libgit2 name_directory **Clone the whole repository in diferent directory "name_directory"**  
  git status #Show the status of each file  
  git add path_file or path_dir **Tracked file. Is ready to commit to repository. If is a path_dir all file and dir will be Tracked.**  
+ git reset path_file or path_dir **The tracked file or dir is untracked. Delete from tracked, the file is unfollow** 
  git remote -v **Show all the remote repository that are cloned.**   
  git fetch [remote-name] **El comando irá al proyecto remoto y se traerá todos los datos que aun no tienes de dicho remoto, todo lo diferente despues de clonarlo.**    
 
