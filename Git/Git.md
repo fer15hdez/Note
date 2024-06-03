@@ -38,6 +38,11 @@ git branch backup-master
 ### Jump to the latest commit on origin/master and checkout those files:  
 git reset --hard origin/master "resets the master branch to what you just fetched. The --hard option changes all the files in your working tree to match the files in origin/master."  
 
+## Branch
+### Create a branch
+git branch <name_of_branch>
+### Jump to other branch
+git switch <name_of_branch>
 
 ### Para borrar la branch local
 git branch -d localBranchName **-d eliminará la branch únicamente si esta ha sido empujada y fusionada con la branch remota."**    
@@ -47,7 +52,7 @@ git branch -d localBranchName **-d eliminará la branch únicamente si esta ha s
 git push origin --delete remoteBranchName "Just need to put remoteBranchName, not a like 'origen/remoteBranchName'. Don't make completion of name of branch"  
 
 git branch -d [ name_branch] "with the -d option is to delete the branch"  
-git checkout [name_branch] "Switched to branch [name_branch]"  
+git checkout [name_branch] "Switched to branch [name_branch]" "Updates files in the working tree to match the version in the index or the specified tree"  
 git branch "Show the branches and with * said which is selected"  
 
 ## Proxy en Git
