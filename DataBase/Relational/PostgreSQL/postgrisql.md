@@ -1,12 +1,34 @@
 # Install  
 *sudo apt install postgresql postgresql-contrib*  
-*sudo -i -u postgres*: ("Change to user postgres")  
+*sudo -i -u postgres*: ("Change to user postgres. The user 'postgres' is a user system")  
 *sudo -u postgres createuser --interactive*: ("Create a new user")  
-*psql* ("To interact with posgri console ") 
+*psql* ("To interact with postgres console. Open the  ") 
+*\q* ("Exit terminal postgres")
+
+====
+### Postgres Terminal 
+*sudo -u postgres psql* ("Enter to postgres teerminal without switch to user postgres")
+*\l* (Te muestra las bases de datos existentes.)  
+*\connect [database_name]* ("Connect to a data base")   
+*\d* (Te muestra las relaciones (tablas, secuencias, etc.) existentes en la base de datos.)      
+*\d [nombre_tabla]* (Para ver la descripción (nombre de columnas, tipo de datos, etc.) de una tabla.)  
+*\c [nombre_bd]* (Para conectarte a otra base de datos.)  
+*SHOW search_path;* (Para ver la ruta de búsqueda actual.)  
+*SET search_path TO [nombre_esquema];* (Para actualizar la ruta de búsqueda.)    
+*\q* (Para salir de psql )  
+*\du* (List all user)
+    
+### DataBAse
+CREATE DATABASE name_db; ("Create a data base with name 'name_db' ")
+    
 
 ### Set and change password 
+CREATE USER user_name WITH PASSWORD '123admin'; ("Create user with password")
 SET USER admin WITH PASSWORD 'Admin123'; ("From console psql")  
 ALTER USER admin WITH PASSWORD 'Admin123'; ("From console psql, change the password")  
+
+### Permision and role
+GRANT name_role TO user_name; ("Give permission to user_name on the role name_role")
 
 ### Defaul user and password
 U: postgres  
