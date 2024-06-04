@@ -2,7 +2,7 @@
 *sudo apt install postgresql postgresql-contrib*  
 *sudo -i -u postgres*: ("Change to user postgres. The user 'postgres' is a user system")  
 *sudo -u postgres createuser --interactive*: ("Create a new user")  
-*psql* ("To interact with postgres console. Open the  ") 
+*psql* ("To interact with postgres console. Open the postgres terminal ") 
 *\q* ("Exit terminal postgres")
 
 ====
@@ -18,12 +18,15 @@
 *\q* (Para salir de psql )  
 *\du* (List all user)
     
+**Note: Is necesary the semicolon at the en of each sentence**  
+**Note: In postgres a role and a user are the same**   
 ### DataBAse
 CREATE DATABASE name_db; ("Create a data base with name 'name_db' ")
     
 
 ### Set and change password 
 CREATE USER user_name WITH PASSWORD '123admin'; ("Create user with password")
+drop user user_name; ("Delete user")
 SET USER admin WITH PASSWORD 'Admin123'; ("From console psql")  
 ALTER USER admin WITH PASSWORD 'Admin123'; ("From console psql, change the password")  
 
