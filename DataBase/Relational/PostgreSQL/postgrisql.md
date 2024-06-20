@@ -20,8 +20,14 @@
     
 **Note: Is necesary the semicolon at the en of each sentence**  
 **Note: In postgres a role and a user are the same**   
+
 ### DataBAse
 CREATE DATABASE name_db; ("Create a data base with name 'name_db' ")
+*drop database test;* ("Delete the database")
+*SELECT pg_terminate_backend(pg_stat_activity.pid)
+    FROM pg_stat_activity
+        WHERE datname = 'myDataBase'
+            AND pid <> pg_backend_pid();* ("Close all the connection to the database")
     
 
 ### Set and change password 

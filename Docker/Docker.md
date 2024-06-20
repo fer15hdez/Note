@@ -82,8 +82,7 @@ docker ps -a -f status=exited
 *docker run -d -it --name test01 -p 81:80 nginx:alpine*: option ***-p*** when [host port]:.[contianer posrt]. ***-it*** option to run container and iteract in the terminal.   
 
 ### Exponiendo volúmenes
-*-v*: ex. docker run -d -p  80:80 -p 443:443 -v "$(pwd)"/dir/host:/dir/of/docker 
---name nameContainer atareao/imageDocker  
+*-v*: ex. docker run -d -p  80:80 -p 443:443 -v "$(pwd)"/dir/host:/dir/of/docker --name nameContainer atareao/imageDocker  
 *Nota* : Para evitar problemas con **permisos** el dir del host se debe crear antes de iniciar el contenedor, sino docker crea el dir con permisos root.
 
 ### Inside to container

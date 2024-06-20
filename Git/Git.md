@@ -37,6 +37,16 @@ git fetch --all # "Dowload all file from remote but not merge"
 git branch backup-master  
 ### Jump to the latest commit on origin/master and checkout those files:  
 git reset --hard origin/master "resets the master branch to what you just fetched. The --hard option changes all the files in your working tree to match the files in origin/master."  
+git reset [<mode>] [<commit>]  
+  This form resets the current branch head to <commit> and possibly updates the index (resetting it to the tree of <commit>) and the working tree depending on <mode>. If <mode> is omitted, defaults to --mixed. The <mode> must be one of the following:
+  [--mixed]  
+    Resets the index but not the working tree (i.e., the changed files are preserved but not marked for commit) and reports what has not been updated. This is the default action.
+  [--soft]  
+    Does not touch the index file or the working tree at all (but resets the head to <commit>, just like all modes do). This leaves all your changed files "Changes to be committed", as git status would put it.  
+  [--hard]
+    Resets the index and working tree. Any changes to tracked files in the working tree since <commit> are discarded.
+
+
 
 ## Branch
 ### Create a branch
