@@ -119,6 +119,9 @@ docker ps -a -f status=exited
 *Syntax* : docker build [OPTIONS] PATH | URL | -   
 *Exmaple* :  docker build -t tagName:latest . (The dot is the path. It look for a Dockerfile file. It is posible define different path or link)
 
+### Executing multiple command
+*ENTRYPOINT ["bash", "./migrate.sh"]* (This command launches a Bash shell and executes the script in the "migrate.sh" file line by line.)  
+
 ***
 ***
 
