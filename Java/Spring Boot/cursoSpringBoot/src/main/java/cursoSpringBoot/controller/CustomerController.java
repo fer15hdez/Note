@@ -19,9 +19,10 @@ public class CustomerController {
 
     ));
 
-    // Otra forma de especificar el que es un endpoint y definition el método
+    // Otra forma de especificar que es un endpoint y definition el método
     //@RequestMapping(method = RequestMethod.GET)
-    /*@GetMapping
+    /*
+    @GetMapping
     public List<Customer> getCustomers(){
 
         return customers;
@@ -59,6 +60,7 @@ public class CustomerController {
 
     // @RequestMapping(method = RequestMethod.POST) // Funciona de igual forma que @PostMapping
     @PostMapping
+    // El decorador @RequestBody toma de las request post el valor enviado
     public Customer postClientes (@RequestBody Customer customer){
         customers.add(customer);
         return customer;
