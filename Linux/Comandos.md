@@ -8,7 +8,15 @@
 *sudo dpkg -i example.deb*
 
 ## Variable de entorno para proxy
-<code>export http_proxy=http://username:password@proxyserver.net:port/ </code>
+**Configurar variables desde la linia de comando solo afecta a la sesion actual**
+<code>export http_proxy=http://username:password@proxyserver.net:port/ </code>  
+<code>printenv</code> -> Muestra todas las variables de entornos de la sesion.     
+<code>printenv VARIBLE</code> -> Muestra el valor de la varible.  
+<code>unset VAR </code> Resetea el valor de la varible a su valor original.  
+<code>set</code> Muestra todas las varibles.  
+<code>export PATH="$PATH:/opt/misprogramas"</code> En el archivo (~/.bashrc) se pone el codigo anterior. Esto solo afecta a la sesion activa.
+La parte de la ruta '$PATH:' permite adicionar a los valores de $PATH el nuevo valor que se especifica.  
+Para configurar variables para todo el sistema, es recomendable añadirlas a /etc/profile, /etc/bash.bashrc o /etc/environment
 
 ## Permission
 The owner of a file can change the permissions for user ( u ), group ( g ), or others ( o ) by adding ( + ) or subtracting ( - ) the read, write, and execute permissions.
