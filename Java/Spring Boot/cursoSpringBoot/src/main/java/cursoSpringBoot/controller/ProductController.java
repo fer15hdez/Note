@@ -1,7 +1,9 @@
 package cursoSpringBoot.controller;
 
 import cursoSpringBoot.domain.Product;
+import cursoSpringBoot.service.ProductService;
 import cursoSpringBoot.service.ProductServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +15,9 @@ import java.util.List;
 @RequestMapping("/productos") // This is the prefix to all the url on this class.
 public class ProductController {
 
-    ProductServiceImpl productService = new ProductServiceImpl();
+    //ProductService productService = new ProductServiceImpl();
+    @Autowired // Esta anotacion es la encargada de crear la injeccion de dependencia.
+    private ProductService productService;
 
     @GetMapping
     public ResponseEntity<?> getProducts(){

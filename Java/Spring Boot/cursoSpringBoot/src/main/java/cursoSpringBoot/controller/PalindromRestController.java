@@ -18,6 +18,14 @@ public class PalindromRestController {
     public Boolean isPalindrom(String word){
         int wordLength = word.length();
         for (int i = 0; i < wordLength / 2; i++){
+            System.out.println("left:");
+            System.out.println(i);
+            System.out.println(word.charAt(i));
+
+            System.out.println("right:");
+            System.out.println(wordLength - i);
+            System.out.println(word.charAt(wordLength - i - 1));
+
             if(word.toLowerCase().charAt(i) != word.toLowerCase().charAt(wordLength - i - 1)){
                 return false;
             }
