@@ -2,25 +2,18 @@
 Controler: Is the layer(capa) of presentation. In this layer is where are the endpoint.    
 Service: Is the layer of business logic.  
 Domain (Dominio): Is this the layer where we place the POJO classes, meaning this is where our domain resides.  
-Test: The place where the tests are.   
+Test: The place where the tests are. 
 
 ====================================
+# Banner
+Se crea un archivo banner.txt en la carpeta resources
 
-## Bean
-Los **Bean** son los metodos que tienen un decorador de spring (ej. @service, @RestController, etc).  
-@Bean("nameOfBean"): Permite agragar un nombre al Bean y con la anotacion @Qualifier("nameOfBean") llamar al Bean deseado.  
-Es la forma que utiliza Spring Boot para denotar los componentes y asi poder utilizarlo en la inyeccion de dependencia.  
-**@service** : Este decorador le indica a spring boot que debe tratar esta clase como un servicio, de esta 
-forma spring gestionara automaticamente la creacion de esta clase cuando sea necesario.  
-**@Autowired** : Esta anotacion es la encargada de crear la injeccion de dependencia.  Tambien llamada Field Injection, no es una buena practica, se 
-recomienda hacer Contructor Injection.  
-**@Qualifier**: Esta anotacion permite inyectar un Bean especifico, que pueden ser mas de un metodo dentro de la clase AppicationConfig y despues poderlo especificar desde la llamada de un servicio, etc.  
- **@Primary**: Permite determinar una prioridad donde existan mas de un Bean.  
 
- ### Inyeccion de dependencias (Bean)
- 1- Constructor Injection -> Practica recomenda.  
- 2- Field Injection  
- 3- Setter Injecction  
+====================================
+# Configuration
+
+**@Configuration** : Con esta anotacion en una clase le indica a Spring Boot que esta clase se usa para definir configuraciones.  
+
 
  ### Property
  **@PropertySource("classpath:fileProperty.name")**: Permite definir un nuevo archivo donde se definan las nuevas propiedades del proyecto.  
@@ -33,6 +26,26 @@ recomienda hacer Contructor Injection.
 
  **@Value("${name.property}")**: Permite asociar el valor de la propiedad al campo de una clase en un servicio u otro componente. Spring Boot busca
   dentro de los archivos definido como archivos de configuracion (ej. mycustom.properties).  
+====================================
+
+## Bean
+Los **Bean** son los metodos que tienen un decorador de spring (ej. @service, @RestController, etc).  
+**@Bean("nameOfBean")**: Permite agragar un nombre al Bean y con la anotacion @Qualifier("nameOfBean") llamar al Bean deseado.  
+- Es la forma que utiliza Spring Boot para denotar los componentes y asi poder utilizarlo en la inyeccion de dependencia.  
+- La inyeccion de dependencia de spring boot es sinonimo de la dependiencia entre clases, pero para desaclopar el codigo y que se encargue Spring Boot
+se usan los Bean.  
+**@service** : Este decorador le indica a spring boot que debe tratar esta clase como un servicio, de esta 
+forma spring gestionara automaticamente la creacion de esta clase cuando sea necesario.  
+**@Autowired** : Esta anotacion es la encargada de crear la injeccion de dependencia.  Tambien llamada Field Injection, no es una buena practica, se 
+recomienda hacer Contructor Injection.  
+**@Qualifier**: Esta anotacion permite inyectar un Bean especifico, que pueden ser mas de un metodo dentro de la clase AppicationConfig y despues poderlo especificar desde la llamada de un servicio, etc.  
+ **@Primary**: Permite determinar una prioridad donde existan mas de un Bean.  
+
+ ### Inyeccion de dependencias (Bean)
+ 1- Constructor Injection -> Practica recomenda.  
+ 2- Field Injection  
+ 3- Setter Injecction  
+
 
 ====================================
   # PROFILES
