@@ -16,13 +16,18 @@ import java.util.List;
 public class ProductController {
 
     //ProductService productService = new ProductServiceImpl();
-    @Autowired // Esta anotacion es la encargada de crear la injeccion de dependencia.
+    // @Autowired // Esta anotacion es la encargada de crear la injeccion de dependencia.
     private ProductService productService;
+    private ProductServiceImpl productServiceImp;
 
     @GetMapping
     public ResponseEntity<?> getProducts(){
         List<Product> products = productService.getProducts();
 
         return ResponseEntity.ok(products);
+    }
+
+    public String tellStoryService() {
+        return productServiceImp.tellStory();
     }
 }
