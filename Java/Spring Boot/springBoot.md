@@ -61,5 +61,15 @@ recomienda hacer Contructor Injection.
 ====================================
 # REST
 
+**@RestController**: Le dice a spring que debe tomar esta clase como un contralador.  
+**@ResponseStatus(HttpStatus.ACCEPTED)**: Si se ejecuta sin excepciones devuelve el http method 'ACCEPTED'.  
 **@GetMapping**: Identifica al EndPoint que va a responder ante una peticion de tipo GET.  GetMapping("/path"), se puede definir una url para 
 acceder al EndPoint.  
+
+- Los getter and setter son necesarios para la serialitation y el proceso inverso. Permiten el acceso a los campos privados de las clases.  
+
+**@PathVariable**: Permite pasar un valor por la url. El valor de la url debe ser igual que el nombre del parametro.  
+@GetMapping({"/hello/{name}", "/hola/{name}"})
+public String greeting(@PathVariable String name){}  
+**@RequestParam("user-name")**:  Permite especificar el valor que se pasa por parametro en la url. 
+http://localhost:8080/sistema/api/v1/clientes/param?user-name=fernan&last-name=vel
