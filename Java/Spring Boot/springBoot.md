@@ -26,6 +26,8 @@ Se crea un archivo banner.txt en la carpeta resources
 
  **@Value("${name.property}")**: Permite asociar el valor de la propiedad al campo de una clase en un servicio u otro componente. Spring Boot busca
   dentro de los archivos definido como archivos de configuracion (ej. mycustom.properties).  
+
+  - Se puede tener varios archivos de configuracion de tipo "application.yml" o de tipo "application.propeties".  
 ====================================
 
 ## Bean
