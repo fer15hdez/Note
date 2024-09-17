@@ -75,3 +75,26 @@ acceder al EndPoint.
 public String greeting(@PathVariable String name){}  
 **@RequestParam("user-name")**:  Permite especificar el valor que se pasa por parametro en la url. 
 http://localhost:8080/sistema/api/v1/clientes/param?user-name=fernan&last-name=vel
+
+====================================
+# DATA BASE
+
+**@Entity**: Define la clase como una entidad.  
+**@Table(name = "T_PRODUCT")**: Permite definir un nombre para la tabla. Sino se define la anotacion el nombre que adopta
+  es el nombre de la clase (ej. Product). El valor de la propiedad "ddl-auto: update" esta en la configuracion del proyecto
+  creara una nueva tabla, si es create solo se sobre escribe.  
+**@Id**: Define el campo como pk e identificador en la tabla.
+**@GeneratedValue**: Se autoincrementa el valor. Solo se debe usar en Primary Key.  
+**@Column(unique = true)**: Configura el campo como un valor unico dentro de la BD.  
+Column(
+            name = "c_name", // Define el nombre del campo en la DB. Sino se define se toma como valor el  nombre del campo.
+            length = 20 // define el numero de caracteres que va a tener el campo
+            updatable = false // Define si el valor se puede actualizar o no.  
+    )
+
+- Se crea una interfaz que extiende de "JpaRepository<Product, Integer>". Para mejor organizacion el archivo debe nombrarse "NameEntityRepository".  
+- Se le pasa a JpaRepository<Name_entity, data_type_pk>. (Nombre de la entidad y el tipo de datos de la llave primaria).  
+- Para usar el recurso se crea una referencia de la interfaz "**private final ProductRepository productRepository;**".  
+- Para insertar "**return productRepository.save(product);**"
+
+- En las entidades es necesario crear un constructor vacio.  

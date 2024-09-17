@@ -18,10 +18,12 @@ public class CursoSpringBootApplication {
 		var ctx = app.run(args);
 
 		ProductServiceImpl productService = ctx.getBean(ProductServiceImpl.class);
+		ApplicationConfig appConfig = ctx.getBean(ApplicationConfig.class);
 
 		System.out.println(productService.tellStory());
 		System.out.println("Value of properties in file configuration: " + productService.getValueProperties());
 		System.out.println("Assign a value to a field in class: " + productService.getStringValueProperties());
+		System.out.println((appConfig.MyFirstBean()));
 	}
 
 }

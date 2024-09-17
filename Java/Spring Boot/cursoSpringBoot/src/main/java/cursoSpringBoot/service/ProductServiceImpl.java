@@ -25,11 +25,11 @@ public class ProductServiceImpl implements ProductService{
     private Integer valueProperties;
     @Value("A value string properties") // Asigna un valor a la propiedad "stringValueProperties".
     private String stringValueProperties;
-    List<Product> products = new ArrayList<>(Arrays.asList(
-            new Product(1, "Laptop", 799.9, 10),
-            new Product(2, "smatphone", 399.3, 10),
-            new Product(3, "tablet", 100.6,10),
-            new Product(3, "watch", 100.6,10)
+    public static List<Product> products = new ArrayList<>(Arrays.asList(
+            new Product(1, "Laptop", 799.9, 10, "some colum"),
+            new Product(2, "smatphone", 399.3, 10, "some colum"),
+            new Product(3, "tablet", 100.6,10, "some colum"),
+            new Product(3, "watch", 100.6,10, "some colum")
     ));
 
     //@Autowired // Esta anotacion permite hacer la inyeccion de dependencia. La Inyeccion de Dependencia de constructor es una buena practica (Best Practice)
@@ -39,7 +39,6 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-
     public List<Product> getProducts(){
         return products;
     }
