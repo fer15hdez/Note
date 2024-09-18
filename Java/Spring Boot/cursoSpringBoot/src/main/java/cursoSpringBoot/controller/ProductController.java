@@ -37,7 +37,7 @@ public class ProductController {
         return "My tell story value: "  + tellStory;
     }
 
-    @PostMapping
+    @PostMapping("/db")
     public Product createProduct(
             @RequestBody Product product
     ){

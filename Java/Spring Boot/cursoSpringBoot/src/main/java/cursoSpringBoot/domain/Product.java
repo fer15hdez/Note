@@ -1,8 +1,11 @@
 package cursoSpringBoot.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "T_PRODUCT") // Permite definir un nombre para la tabla. Sino se define la anotacion el nombre que adopta
@@ -12,11 +15,14 @@ public class Product {
 
     @JsonProperty("id")
     @Id
-    @GeneratedValue // Solo se debe usar en Primary Key.
+    @GeneratedValue // Solo se debe usar en Primary Key. Genera el valor incremental.
     private Integer id;
 
     @Column(unique = true) // Configura el campo como un valor unico dentro de la BD.
     private Integer serial;
+
+
+
     @JsonProperty("c-name") //Permite crear un valor personalizado para la deserialization. Este valor
     //es el que se debe enviar desde el cliente. Is case sensitive
     @Column(
@@ -33,6 +39,23 @@ public class Product {
     )
     private String some_colum;
 
+    //Relacion uno a uno
+    @OneToOne(
+            mappedBy = "product", // Este valor debe ser igual al campo de la entidad de la relacion.
+            cascade = CascadeType.ALL
+    )
+    private Images images;
+    @ManyToOne // En esta relacion siempre debe estar la notacion @JoinColumn para definir el campo
+    // que identifica la relacion.
+    @JoinColumn(
+            name = "category_id"
+    )
+    @JsonBackReference // Evita que se cree un loop entre la entidad padre-hijo (Category-Product).
+    // Se debe poner la anotacion @JsonManagedReference en el campo (category) de Product que crea el link.
+    private Category category;
+
+
+
     public Product() {
     }
 
@@ -44,6 +67,37 @@ public class Product {
         this.some_colum = some_colum;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public Integer getSerial() {
+        return serial;
+    }
+
+    public void setSerial(Integer serial) {
+        this.serial = serial;
+    }
+
+    public String getSome_colum() {
+        return some_colum;
+    }
+
+    public void setSome_colum(String some_colum) {
+        this.some_colum = some_colum;
+    }
+
+    public Images getImages() {
+        return images;
+    }
+
+    public void setImages(Images images) {
+        this.images = images;
+    }
     public Integer getId() {
         return id;
     }
