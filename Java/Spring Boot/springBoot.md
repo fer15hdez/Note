@@ -92,9 +92,16 @@ Column(
             updatable = false // Define si el valor se puede actualizar o no.  
     )
 
-- Se crea una interfaz que extiende de "JpaRepository<Product, Integer>". Para mejor organizacion el archivo debe nombrarse "NameEntityRepository".  
+- Para hacer las consultas Se crea una interfaz que extiende de "JpaRepository<Product, Integer>". Para mejor organizacion el archivo debe nombrarse "NameEntityRepository".  
 - Se le pasa a JpaRepository<Name_entity, data_type_pk>. (Nombre de la entidad y el tipo de datos de la llave primaria).  
 - Para usar el recurso se crea una referencia de la interfaz "**private final ProductRepository productRepository;**".  
 - Para insertar "**return productRepository.save(product);**"
+- Delete: productRepository.deleteById(id). Con la notacion @DeleteMapping se define el controlador.  
+- Para crear una consulta especifica (Ej. productRepository.findAllByNameContaining(name);), se el metodo en la clase Repository con el ?sufijo Containing?  
 
 - En las entidades es necesario crear un constructor vacio.  
+
+# DTO Pattern
+- Patron DTO (Crea una capa de abstraccion en el acceso a la entidad)
+- Se pueden crear diferentes metodos con diferentes tipos de datos para exponer.
+- La finalidad de este patron es exponer solo los datos que sean necesarios exponer.
