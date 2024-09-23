@@ -102,6 +102,19 @@ Column(
 - En las entidades es necesario crear un constructor vacio.  
 
 # DTO Pattern
+" Es una clase que te separa de manipular directamente las entidades, te permite devolver solo los datos que se necesiten para el cliente. No se devulven datos incesarios. Aumenta la seguridad.
+Permite mayor flexibilidad. "
 - Patron DTO (Crea una capa de abstraccion en el acceso a la entidad)
 - Se pueden crear diferentes metodos con diferentes tipos de datos para exponer.
 - La finalidad de este patron es exponer solo los datos que sean necesarios exponer.
+
+- Al enviar los datos desde el formato de json para insertar una nueva entidad a traves de la clase DTO se deben usar los nombres de los campos de la clase DTO.  
+
+- La clase public record ProductResponseDTO(
+        Integer serial,
+        String name,
+        Double price,
+        Integer stock
+        ) {
+}, 
+  junto a los metodos toProductResponseDTO, los implementa el programados, permiten elegir cuales son los datos que se exponen una vez creado la entidad (ej. Producto)

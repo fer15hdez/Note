@@ -1,8 +1,9 @@
 package cursoSpringBoot.controller;
 
-import cursoSpringBoot.domain.Product;
-import cursoSpringBoot.domain.ProductRepository;
+import cursoSpringBoot.domain.*;
+import cursoSpringBoot.service.ProductMapper;
 import cursoSpringBoot.service.ProductService;
+import cursoSpringBoot.service.ProductServiceBoualiali;
 import cursoSpringBoot.service.ProductServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,15 +15,30 @@ import java.util.List;
 @RequestMapping("/productos") // This is the prefix to all the url on this class.
 public class ProductController {
 
-    private final ProductRepository productRepository;
+    private final ProductServiceBoualiali productServiceBoualiali;
+
 
     //ProductService productService = new ProductServiceImpl();
     // @Autowired // Esta anotacion es la encargada de crear la injeccion de dependencia.
-    private ProductService productService;
+    private ProductService  productService;
     private ProductServiceImpl productServiceImp;
 
-    public ProductController(ProductRepository productRepository) {
-        this.productRepository = productRepository;
+    public ProductController(ProductServiceBoualiali productServiceBoualiali) {
+        this.productServiceBoualiali = productServiceBoualiali;
+    }
+
+
+    @PostMapping("/db/dto")
+    public Product createDtoProduct(@RequestBody ProductRecordDto productDto){
+
+        return this.productServiceBoualiali.createDtoProduct(productDto); // Inserta el producto en la bd.
+    }
+
+    @PostMapping("/db/dto/response")
+    public ProductResponseDTO createDtoResponseProduct( // Una vez creada la entidad permite solo devolver los datos deseados.
+            @RequestBody ProductRecordDto productDto
+    ){
+        return this.productServiceBoualiali.createResponseDtoProduct(productDto); // Inserta el producto en la bd.
     }
 
     @GetMapping

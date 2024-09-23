@@ -1,7 +1,7 @@
 package cursoSpringBoot.service;
 
 import cursoSpringBoot.domain.Product;
-import org.springframework.beans.factory.annotation.Autowired;
+import cursoSpringBoot.domain.ProductRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
@@ -20,6 +20,8 @@ import java.util.List;
 })
 public class ProductServiceImpl implements ProductService{
 
+
+
     Environment environment;
     @Value("${int.value}") // Toma el valor del archivo de configuracion "custom.app.properties" definido arriba.
     private Integer valueProperties;
@@ -32,11 +34,12 @@ public class ProductServiceImpl implements ProductService{
             new Product(3, "watch", 100.6,10, "some colum")
     ));
 
-    //@Autowired // Esta anotacion permite hacer la inyeccion de dependencia. La Inyeccion de Dependencia de constructor es una buena practica (Best Practice)
+//    @Autowired // Esta anotacion permite hacer la inyeccion de dependencia. La Inyeccion de Dependencia de constructor es una buena practica (Best Practice)
 
-    public ProductServiceImpl(List<Product> products) {
+    public ProductServiceImpl( List<Product> products) {
         this.products = products;
     }
+
 
     @Override
     public List<Product> getProducts(){

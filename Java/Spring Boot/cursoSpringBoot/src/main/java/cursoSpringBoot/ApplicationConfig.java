@@ -23,5 +23,7 @@ public class ApplicationConfig {
             new Product(2, "smatphone", 399.3, 10, "some colum"),
             new Product(3, "tablet", 100.6,10, "some colum"),
             new Product(3, "watch", 100.6,10, "some colum")
-    ));}
+    ));
+
+    }
 }

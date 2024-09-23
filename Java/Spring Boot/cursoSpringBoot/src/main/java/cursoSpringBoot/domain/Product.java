@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import org.hibernate.annotations.Cascade;
 
 import java.util.List;
 
@@ -34,22 +35,20 @@ public class Product {
     private Double price;
     @JsonProperty("c-stock")
     private Integer stock;
-    @Column(
-            updatable = false
-    )
+    @Column(updatable = false)
     private String some_colum;
 
     //Relacion uno a uno
-    @OneToOne(
-            mappedBy = "product", // Este valor debe ser igual al campo de la entidad de la relacion.
-            cascade = CascadeType.ALL
+    @OneToOne(mappedBy = "product" // Este valor debe ser igual al campo de la entidad de la relacion.
+            //cascade = CascadeType.ALL
     )
     private Images images;
-    @ManyToOne // En esta relacion siempre debe estar la notacion @JoinColumn para definir el campo
+
+    @ManyToOne
+    // En esta relacion siempre debe estar la notacion @JoinColumn para definir el campo
     // que identifica la relacion.
-    @JoinColumn(
-            name = "category_id"
-    )
+    @JoinColumn(name = "category_id") // Esta es la columna que se crea en la tabla
+    // para hacer refencia al campo "category".
     @JsonBackReference // Evita que se cree un loop entre la entidad padre-hijo (Category-Product).
     // Se debe poner la anotacion @JsonManagedReference en el campo (category) de Product que crea el link.
     private Category category;
