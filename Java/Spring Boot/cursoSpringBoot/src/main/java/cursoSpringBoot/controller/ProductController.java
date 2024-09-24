@@ -29,9 +29,9 @@ public class ProductController {
 
 
     @PostMapping("/db/dto")
-    public Product createDtoProduct(@RequestBody ProductRecordDto productDto){
+    public Product createDtoProduct(@RequestBody ProductRecordDto productRecordDto){
 
-        return this.productServiceBoualiali.createDtoProduct(productDto); // Inserta el producto en la bd.
+        return this.productServiceBoualiali.createDtoProduct(productRecordDto); // Inserta el producto en la bd.
     }
 
     @PostMapping("/db/dto/response")
@@ -42,6 +42,7 @@ public class ProductController {
     }
 
     @GetMapping
+    // Signo ? permite devolver cualquier tipo clase.
     public ResponseEntity<?> getProducts(){
         List<Product> products = productServiceImp.getProducts();
 
@@ -57,23 +58,22 @@ public class ProductController {
     public Product createProduct(
             @RequestBody Product product
     ){
-        return productRepository.save(product); // Inserta el producto en la bd.
+        return this.productServiceBoualiali.createProduct(product); // Inserta el producto en la bd.
 
     }
 
     @GetMapping("/db/{id}")
     public Product getProduct(@PathVariable("id") Integer id){
-        return productRepository.findById(id)
-                .orElse(null);
+        return this.productServiceBoualiali.getProduct(id);
     }
 
     @GetMapping("/db")
-    public List<Product> findAllProducts(){
-        return productRepository.findAll();
+    public List<ProductResponseDTO> findAllProducts(){
+        return this.productServiceBoualiali.findAllProducts();
     }
     @GetMapping("/db/search/{name}")
     public List<Product> findAllProductsByName(@PathVariable("name") String name){
-        return productRepository.findAllByNameContaining(name);
+        return this.productServiceBoualiali.findAllProductsByName(name);
     }
 
     @DeleteMapping("/db/del/{id}")
@@ -81,7 +81,7 @@ public class ProductController {
     public void deleteProduct(
             @PathVariable("id") Integer id
     ){
-        productRepository.deleteById(id);
+        this.productServiceBoualiali.deleteProduct(id);
     }
 
 

@@ -76,6 +76,8 @@ public String greeting(@PathVariable String name){}
 **@RequestParam("user-name")**:  Permite especificar el valor que se pasa por parametro en la url. 
 http://localhost:8080/sistema/api/v1/clientes/param?user-name=fernan&last-name=vel
 
+- Toda la logica se debe hacer en las clases servicios y los controllers solo para ser la puerta de entrada de las resquest.  
+
 ====================================
 # DATA BASE
 

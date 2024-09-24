@@ -39,6 +39,10 @@ public class Category {
     public Category() {
     }
 
+    public Category(String nombre) {
+        this.nombre = nombre;
+    }
+
     public Integer getId() {
         return id;
     }
