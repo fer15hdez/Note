@@ -22,9 +22,10 @@ public class ProductServiceBoualiali {
         var product = productMapper.toProduct(productDto);
         var saveProduct = productRepository.save(product); // Inserta el producto en la bd.
 
-        return productMapper.toProductResponseDTO(saveProduct);
+        return productMapper.toProductResponseDTO(saveProduct); // Convierte el Product guardado en el ProductResponseDTO.
     }
 
+    // Crea el Product usando el patron DTO.
     public Product createDtoProduct(ProductRecordDto productRecordDto) {
         var product = this.productMapper.toProduct(productRecordDto);
 
@@ -32,6 +33,7 @@ public class ProductServiceBoualiali {
 
     }
 
+    // Crea el Product. Aqui no se hace uso del patron DTO.
     public Product createProduct( Product product ){
         return this.productRepository.save(product); // Inserta el producto en la bd.
 

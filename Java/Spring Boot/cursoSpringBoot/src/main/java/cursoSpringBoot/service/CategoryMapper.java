@@ -2,6 +2,7 @@ package cursoSpringBoot.service;
 
 import cursoSpringBoot.domain.Category;
 import cursoSpringBoot.domain.CategoryRecordDto;
+import cursoSpringBoot.domain.CategoryResponseDto;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -21,6 +22,13 @@ public class CategoryMapper {
                 category.getNombre(),
                 category.getDescription(),
                 category.getProducts()
+        );
+    }
+
+    public CategoryResponseDto toCategoryResponseDto(Category category) {
+        return new CategoryResponseDto(
+                category.getNombre(),
+                category.getDescription()
         );
     }
 }
