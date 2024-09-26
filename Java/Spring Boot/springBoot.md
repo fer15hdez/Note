@@ -28,6 +28,16 @@ Se crea un archivo banner.txt en la carpeta resources
   dentro de los archivos definido como archivos de configuracion (ej. mycustom.properties).  
 
   - Se puede tener varios archivos de configuracion de tipo "application.yml" o de tipo "application.propeties".  
+  - Configuracion de las dependencias principales
+  dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web' // Basico para la web.
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa' // Para base de datos.  
+    implementation 'org.springframework.boot:spring-boot-starter-validation' // Para  la validadcion de datos en la database.  
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    runtimeOnly 'org.postgresql:postgresql'
+
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
 ====================================
 
 ## Bean
@@ -119,4 +129,26 @@ Permite mayor flexibilidad. "
         Integer stock
         ) {
 }, 
-  junto a los metodos toProductResponseDTO, los implementa el programados, permiten elegir cuales son los datos que se exponen una vez creado la entidad (ej. Producto)
+  junto a los metodos toProductResponseDTO, los implementa el programador, permiten elegir cuales son los datos que se exponen una vez creado la entidad (ej. Producto)
+
+====================================
+# VALIDATION
+- En las dependencias: "implementation 'org.springframework.boot:spring-boot-starter-validation' " // Para  la validadcion de datos en la database.  
+
+**@Valid**: Esta anotacion indica que el valor debe ser validado. Utiliza las anotaciones de los campos del objeto a validar (ej. ProductRecordDto). 
+@PostMapping("/db/dto")
+    public Product createDtoProduct(@Valid @RequestBody ProductRecordDto productRecordDto){
+
+        return this.productServiceBoualiali.createDtoProduct(productRecordDto); // Inserta el producto en la bd.
+    }
+
+**@NotEmpty(message = "This field must be filled")**: Permite validar el campo del objeto.      
+
+====================================
+# TESTING
+
+- Recomendable en la carpeta de test crear una jerarquia de carpetas similar a la del proycto para poder encontrar con facilidad los test implementados y 
+  a que clase se esta aplicando el test.  
+
+- Hay que importar: "import org.junit.jupiter.api.*;" para usar los "assert".  
+- Usando los assert se puede hacer las comparaciones de los paramatros que se quieren comprobar (ej. assertEquals(), assertNotNull(), etc)   

@@ -5,10 +5,14 @@ import cursoSpringBoot.service.ProductMapper;
 import cursoSpringBoot.service.ProductService;
 import cursoSpringBoot.service.ProductServiceBoualiali;
 import cursoSpringBoot.service.ProductServiceImpl;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -29,7 +33,7 @@ public class ProductController {
 
 
     @PostMapping("/db/dto")
-    public Product createDtoProduct(@RequestBody ProductRecordDto productRecordDto){
+    public Product createDtoProduct(@Valid @RequestBody ProductRecordDto productRecordDto){
 
         return this.productServiceBoualiali.createDtoProduct(productRecordDto); // Inserta el producto en la bd.
     }
@@ -82,6 +86,22 @@ public class ProductController {
             @PathVariable("id") Integer id
     ){
         this.productServiceBoualiali.deleteProduct(id);
+    }
+
+    // Este metodo maneja las excepciones del controlador.
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<?> handleMethodArgumentNotValidException (
+            MethodArgumentNotValidException  exp
+    ) {
+        var errors = new HashMap<String, String>();
+        exp.getBindingResult().getAllErrors()
+                .forEach(error -> {
+                    var fieldName = ((FieldError)error).getField();
+                    var errorMessage = error.getDefaultMessage();
+                    errors.put(fieldName, errorMessage);
+
+                });
+        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 
 
