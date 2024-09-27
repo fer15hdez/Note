@@ -34,6 +34,7 @@ public class ProductServiceBoualiali {
     }
 
     // Crea el Product. Aqui no se hace uso del patron DTO.
+    // Solo para ver su funcinamiento
     public Product createProduct( Product product ){
         return this.productRepository.save(product); // Inserta el producto en la bd.
 

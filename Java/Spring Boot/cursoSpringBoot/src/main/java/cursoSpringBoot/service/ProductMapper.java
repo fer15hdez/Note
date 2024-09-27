@@ -13,6 +13,10 @@ public class ProductMapper {
     // Se pueden crear diferentes metodos con diferentes tipos de datos para exponer.
     // La finalidad de este patron es exponer solo los datos que sean necesarios exponer.
     public Product toProduct(ProductRecordDto productDto){
+        if(productDto == null) {
+            throw new NullPointerException("The Product Dto should not be null");
+        }
+
         var product = new Product();
 
         var category = new Category();

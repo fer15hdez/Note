@@ -3,6 +3,7 @@ package cursoSpringBoot.service;
 import cursoSpringBoot.domain.Images;
 import cursoSpringBoot.domain.Product;
 import cursoSpringBoot.domain.ProductRecordDto;
+import cursoSpringBoot.domain.ProductResponseDTO;
 import jakarta.validation.constraints.NotEmpty;
 import org.junit.jupiter.api.*;
 
@@ -24,8 +25,6 @@ private ProductMapper mapper;
         mapper = new ProductMapper();
 
     }
-
-
 
     // Este metodo se ejecuta DESPUES de los metodos de los test.
     // Normalmente se usa para resetear valores de variables, etc.
@@ -69,9 +68,28 @@ private ProductMapper mapper;
 
     }
 
+    // Este test verifica que si se envia un null como parametro al metodo "mapper.toProduct" entonces el metodo lance una excepcion
+    @Test
+    public void should_throw_null_pointer_exception_when_productDto_isNull() {
+        var exp = assertThrows(NullPointerException.class, () -> mapper.toProduct(null));
+
+        // Comprueba que los dos mensajes sean iguales.
+        assertEquals("The Product Dto should not be null", exp.getMessage());
+    }
+
     @Test
     public void shouldMapProductToResponseProductDto() {
-        
+        Product product = new Product(
+                1,
+                "Tablet",
+                99.9,
+                10,
+                "Una columna");
+
+        ProductResponseDTO responseDTO = mapper.toProductResponseDTO(product);
+
+        assertEquals(responseDTO.name(), product.getName());
+        assertEquals(responseDTO.serial(), product.getSerial());
     }
 
 
