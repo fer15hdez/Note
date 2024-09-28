@@ -152,3 +152,7 @@ Permite mayor flexibilidad. "
 
 - Hay que importar: "import org.junit.jupiter.api.*;" para usar los "assert".  
 - Usando los assert se puede hacer las comparaciones de los paramatros que se quieren comprobar (ej. assertEquals(), assertNotNull(), etc)   
+
+- Los Mock son objetos simulados a los objetos que imitan el comportamiento de objetos reales de una forma controlada.
+- Con Mockito se puede hacer el uso de Mock para simular entidades y tambien se puede hacer uso para simular llamadas a metodos y comprobar
+  si el comportamiento del codigo.  
