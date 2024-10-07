@@ -95,8 +95,9 @@ http://localhost:8080/sistema/api/v1/clientes/param?user-name=fernan&last-name=v
 **@Table(name = "T_PRODUCT")**: Permite definir un nombre para la tabla. Sino se define la anotacion el nombre que adopta
   es el nombre de la clase (ej. Product). El valor de la propiedad "ddl-auto: update" esta en la configuracion del proyecto
   creara una nueva tabla, si es create solo se sobre escribe.  
-**@Id**: Define el campo como pk e identificador en la tabla.
-**@GeneratedValue**: Se autoincrementa el valor. Solo se debe usar en Primary Key.  
+**@Id**: Define el campo como pk e identificador en la tabla. Es recomendable usar wrapper (envoltura).  
+**@GeneratedValue**: Se autoincrementa el valor. Solo se debe usar en Primary Key. No permite el uso en pk compuestas.
+  El valor por defecto es AUTO. Se puede definir una estrategia de generacion del id.    
 **@Column(unique = true)**: Configura el campo como un valor unico dentro de la BD.  
 Column(
             name = "c_name", // Define el nombre del campo en la DB. Sino se define se toma como valor el  nombre del campo.

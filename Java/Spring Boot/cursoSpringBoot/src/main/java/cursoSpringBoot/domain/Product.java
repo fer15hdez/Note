@@ -16,7 +16,15 @@ public class Product {
 
     @JsonProperty("id")
     @Id
-    @GeneratedValue // Solo se debe usar en Primary Key. Genera el valor incremental.
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "product_sequence" // Es el nombre del secuenciador (se define con la notacion @SequenceGenerator)
+    ) // Solo se debe usar en Primary Key. Genera el valor incremental.
+    @SequenceGenerator(
+            name = "product_sequence", // Debe ser igual al valor del 'generator' en @GeneratedValue.
+            sequenceName = "product_sequence",
+            allocationSize = 1 // Es el valor que incrementa en el id.
+    )
     private Integer id;
 
     @Column(unique = true) // Configura el campo como un valor unico dentro de la BD.

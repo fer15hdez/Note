@@ -2,7 +2,7 @@ To start the project is used the command "docker-compose" in the v2 is "docker c
 
 # Manage imges
 <code>docker image --help</code>: show all the command available.  
-```build:``` to build a image from a ***dockerfile***  : Ex. docker build -t nameImage /path/dockerfile  
+```build:``` to build a image from a ***dockerfile***  : Ex. docker build -t nameImage:tag /path/dockerfile  
 ```history```: show the history of a image, how was build.  
 ```inspect```: detail and inside of a image. ```sudo docker image inspect IMAGE ID```  
 ```docker image ls```: show all the download images.  
