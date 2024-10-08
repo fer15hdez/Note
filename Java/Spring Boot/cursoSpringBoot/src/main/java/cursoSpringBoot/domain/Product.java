@@ -4,14 +4,23 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import lombok.*;
 import org.hibernate.annotations.Cascade;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
-@Entity
-@Table(name = "T_PRODUCT") // Permite definir un nombre para la tabla. Sino se define la anotacion el nombre que adopta
-// es el nombre de la clase (ej. Product). El valor de la propiedad "ddl-auto: update" esta en la configuracion del proyecto
-// creara una nueva tabla, si es create solo se sobre escribe.
+
+@Data // Incluye las anotaciones @Getter @Setter @RequiredArgsConstructor @ToString @EqualsAndHashCode
+@Builder // Permite crear y diseannar objetos utilizando el patron de disenno Builder
+@Entity // Especifica que es esta clase es una entidad.
+//@Setter
+//@Getter
+// @NoArgsConstructor // Crea el constructor sin parametros
+//@AllArgsConstructor // Crea el constructor con todos los parametros
+@Table(name = "T_PRODUCT") // Permite definir un nombre para la tabla. Si no se define la anotacion el nombre que adopta
+// es el nombre de la clase (ej. Product). El valor de la propiedad "ddl-auto: update" está en la configuracion del proyecto
+// creará una nueva tabla, si es 'create' solo se sobreescribe.
 public class Product {
 
     @JsonProperty("id")
@@ -23,7 +32,8 @@ public class Product {
     @SequenceGenerator(
             name = "product_sequence", // Debe ser igual al valor del 'generator' en @GeneratedValue.
             sequenceName = "product_sequence",
-            allocationSize = 1 // Es el valor que incrementa en el id.
+            allocationSize = 1, // Es el valor que incrementa en el id.
+            initialValue = 5 // Es el valor donde comienza la generacion del valor
     )
     private Integer id;
 
@@ -35,8 +45,8 @@ public class Product {
     @JsonProperty("c-name") //Permite crear un valor personalizado para la deserialization. Este valor
     //es el que se debe enviar desde el cliente. Is case sensitive
     @Column(
-            name = "c_name", // Define el nombre del campo en la DB. Sino se define se toma como valor el  nombre del campo.
-            length = 20 // define el numero de caracteres que va a tener el campo
+            name = "c_name", // Define el nombre del campo en la DB. Si no se define se toma como valor el nombre del campo.
+            length = 20 // define el número de caracteres que va a tener el campo
     )
     private String name;
     @JsonProperty("c-price")
@@ -45,6 +55,10 @@ public class Product {
     private Integer stock;
     @Column(updatable = false)
     private String some_colum;
+    @Column(updatable = false) // No permite que el valor se actualice.
+    private LocalDateTime createAt;
+    @Column(insertable = false) // Solo permite actualizar el valor.
+    private LocalDateTime lastModified;
 
     //Relacion uno a uno
     @OneToOne(mappedBy = "product" // Este valor debe ser igual al campo de la entidad de la relacion.
@@ -60,6 +74,8 @@ public class Product {
     @JsonBackReference // Evita que se cree un loop entre la entidad padre-hijo (Category-Product).
     // Se debe poner la anotacion @JsonManagedReference en el campo (category) de Product que crea el link.
     private Category category;
+    @ManyToMany
+    private List<Order> orders;
 
 
 

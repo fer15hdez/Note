@@ -95,7 +95,8 @@ http://localhost:8080/sistema/api/v1/clientes/param?user-name=fernan&last-name=v
 **@Table(name = "T_PRODUCT")**: Permite definir un nombre para la tabla. Sino se define la anotacion el nombre que adopta
   es el nombre de la clase (ej. Product). El valor de la propiedad "ddl-auto: update" esta en la configuracion del proyecto
   creara una nueva tabla, si es create solo se sobre escribe.  
-**@Id**: Define el campo como pk e identificador en la tabla. Es recomendable usar wrapper (envoltura).  
+**@Id**: Define el campo como pk e identificador en la tabla. Es recomendable usar wrapper (envoltura, ej. Integer), si se usan tipos primitivos (ej. int) el valor inicial es cero
+  e hibernate tratara buscar un elemento en la tabla con ese valor, sin embargo cuando apunta a null hibernate intenta insertar el nuevo valor.  
 **@GeneratedValue**: Se autoincrementa el valor. Solo se debe usar en Primary Key. No permite el uso en pk compuestas.
   El valor por defecto es AUTO. Se puede definir una estrategia de generacion del id.    
 **@Column(unique = true)**: Configura el campo como un valor unico dentro de la BD.  
@@ -112,7 +113,21 @@ Column(
 - Delete: productRepository.deleteById(id). Con la notacion @DeleteMapping se define el controlador.  
 - Para crear una consulta especifica (Ej. productRepository.findAllByNameContaining(name);), se el metodo en la clase Repository con el ?sufijo Containing?  
 
+### Lombok dependecies (
+  compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+)
+**@Data**: Incluye las anotaciones @Getter @Setter @RequiredArgsConstructor @ToString @EqualsAndHashCode.  
+**@Setter**
+**@Getter**
+**@NoArgsConstructor**: Crea el constructor sin parametros.  
+**@AllArgsConstructor**: Crea el constructor con todos los parametros.  
+**@Builder**  Permite crear y diseannar objetos utilizando el patron de disenno Builder.  
 - En las entidades es necesario crear un constructor vacio.  
+
+**@ManyToMany**
+**@ManyToOne**
+**@OneToOne**
 
 # DTO Pattern
 " Es una clase que te separa de manipular directamente las entidades, te permite devolver solo los datos que se necesiten para el cliente. No se devulven datos incesarios. Aumenta la seguridad.
