@@ -2,22 +2,25 @@ package cursoSpringBoot.domain;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.List;
 
 @Entity
+@Data
 public class Category {
     @Id
     @GeneratedValue // Genera el valor de la id.
     private Integer id;
     private String nombre;
     private String description;
+
     @OneToMany(mappedBy = "category", // Indica que la relación es bidireccional
                                       //y que el mapeo de la relación se encuentra en el campo "category" de
                                       // la entidad Product.
             cascade = CascadeType.ALL, // especifica que las operaciones de persistencia,
                                         // actualización y eliminación realizadas en la entidad Autor
-                                        //se propagarán a las entidades relacionadas Libro
+                                        // se propagarán a las entidades relacionadas Libro
             orphanRemoval = true // Indica que si se elimina una Product de la lista de
                                 // products de una Category, ese product también se eliminará de la base de datos.
     )
@@ -43,7 +46,7 @@ public class Category {
         this.nombre = nombre;
     }
 
-    public Integer getId() {
+    /*public Integer getId() {
         return id;
     }
 
@@ -75,5 +78,5 @@ public class Category {
 
     public void setDescription(String description) {
         this.description = description;
-    }
+    }*/
 }

@@ -16,8 +16,8 @@ import java.util.List;
 @Entity // Especifica que es esta clase es una entidad.
 //@Setter
 //@Getter
-// @NoArgsConstructor // Crea el constructor sin parametros
-//@AllArgsConstructor // Crea el constructor con todos los parametros
+@NoArgsConstructor // Crea el constructor sin parametros
+@AllArgsConstructor // Crea el constructor con todos los parametros
 @Table(name = "T_PRODUCT") // Permite definir un nombre para la tabla. Si no se define la anotacion el nombre que adopta
 // es el nombre de la clase (ej. Product). El valor de la propiedad "ddl-auto: update" está en la configuracion del proyecto
 // creará una nueva tabla, si es 'create' solo se sobreescribe.
@@ -74,13 +74,34 @@ public class Product {
     @JsonBackReference // Evita que se cree un loop entre la entidad padre-hijo (Category-Product).
     // Se debe poner la anotacion @JsonManagedReference en el campo (category) de Product que crea el link.
     private Category category;
-    @ManyToMany
+
+    @ManyToMany(mappedBy = "products")
     private List<Order> orders;
 
+    @OneToOne
+    @JoinColumn(name = "bar_code_id") // Esta columna se crea en la tabla para hacer referencia al campo 'barCode'
+    private BarCode barCode;
 
 
-    public Product() {
+
+   /* public Product() {
     }
+
+    public Product(Integer id, Integer serial, String name, Double price, Integer stock, String some_colum,
+                   LocalDateTime createAt, LocalDateTime lastModified, Images images, Category category,
+                   List<Order> orders) {
+        this.id = id;
+        this.serial = serial;
+        this.name = name;
+        this.price = price;
+        this.stock = stock;
+        this.some_colum = some_colum;
+        this.createAt = createAt;
+        this.lastModified = lastModified;
+        this.images = images;
+        this.category = category;
+        this.orders = orders;
+    }*/
 
     public Product(Integer id, String name, Double price, Integer stock, String some_colum) {
         this.id = id;
@@ -90,7 +111,7 @@ public class Product {
         this.some_colum = some_colum;
     }
 
-    public Category getCategory() {
+  /*  public Category getCategory() {
         return category;
     }
 
@@ -151,5 +172,5 @@ public class Product {
 
     public void setStock(Integer stock) {
         this.stock = stock;
-    }
+    }*/
 }

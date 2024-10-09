@@ -125,9 +125,31 @@ Column(
 **@Builder**  Permite crear y diseannar objetos utilizando el patron de disenno Builder.  
 - En las entidades es necesario crear un constructor vacio.  
 
-**@ManyToMany**
-**@ManyToOne**
-**@OneToOne**
+**@ManyToMany**: Se define cual de las dos entidades va ser la duenna de la relacion y en esa entidad se ponen las anotaciones principales. 
+  - Se crea un atributo de tipo lista en cada una de las entidades que apunta hacia la otra entidad.
+  - Estas configuraciones van en la tabla duenno:
+      @JoinTable(
+                name = "order_product",
+                joinColumns = { @JoinColumn(name = "order_id")},/* Define la columna dentro de la tabla de union de la
+                                                                    tabla duenna */
+                inverseJoinColumns = { @JoinColumn(name = "product_id")} /* Define la columna de la otra tabla en la relacion
+                                                                            en la tabla de union.*/
+        )
+**@ManyToOne**: En esta relacion siempre debe estar la notacion @JoinColumn para definir el campo
+                que identifica la relacion.
+                @JoinColumn(name = "category_id") Esta es la columna que se crea en la tabla
+                para hacer refencia al campo "category".
+  - Para que la relacion sea bidireccional debe tener:
+      @OneToMany(mappedBy = "category", Indica que la relación es bidireccional
+                                      y que el mapeo de la relación se encuentra en el campo "category" de
+                                      la entidad Product.
+            cascade = CascadeType.ALL, "Especifica que las operaciones de persistencia,
+                                        actualización y eliminación realizadas en la entidad Autor
+                                        se propagarán a las entidades relacionadas Libro"
+      )
+**@OneToOne**: @JoinColumn(name = "bar_code_id") // Esta columna se crea en la tabla para hacer referencia al campo 'barCode'.  
+    - Para que la relacion sea bidireccionaal debe tener un campo en ambas tablas que identifique a la otra tabla.  
+    @JoinColumn(name = "product_id") // Esta columna se crea en la tabla para hacer referencia al campo 'product'.  
 
 # DTO Pattern
 " Es una clase que te separa de manipular directamente las entidades, te permite devolver solo los datos que se necesiten para el cliente. No se devulven datos incesarios. Aumenta la seguridad.

@@ -1,9 +1,6 @@
 package cursoSpringBoot.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,5 +21,12 @@ public class Order {
     private Long orderNumber;
     private LocalDateTime orderDate;
     @ManyToMany
+    @JoinTable(
+            name = "order_product",
+            joinColumns = { @JoinColumn(name = "order_id")},/* Define la columna dentro de la tabla de union de la
+                                                                tabla duenna */
+            inverseJoinColumns = { @JoinColumn(name = "product_id")} /* Define la columna de la otra tabla en la relacion
+                                                                        en la tabla de union.*/
+    )
     private List<Product> products;
 }
