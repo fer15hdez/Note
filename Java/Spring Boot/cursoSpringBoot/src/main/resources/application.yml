@@ -5,8 +5,8 @@ spring:
     password: Admin123
     driver-class-name: org.postgresql.Driver
   jpa:
-#    hibernate:
-#      ddl-auto: create #Puede tener los valores: none, validate, update, create-drop. (By default: create-drop)
+    hibernate:
+      ddl-auto: create-drop #Puede tener los valores: none, validate, update, create-drop. (By default: create-drop)
     show-sql: true
     properties:
       hibernate:

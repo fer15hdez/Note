@@ -1,8 +1,10 @@
 package cursoSpringBoot.domain;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 @Entity
+@Data
 @Table(name = "T_CUSTOMER")
 public class Customer {
     @Id
@@ -15,13 +17,7 @@ public class Customer {
     @Column(unique = true)
     private String mail;
 
-    public String getMail() {
-        return mail;
-    }
 
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
 
     public Customer(int ID, String name, String username, String password) {
         this.ID = ID;
@@ -30,8 +26,16 @@ public class Customer {
         this.password = password;
     }
 
-    public int getID() {
+    /*public int getID() {
         return ID;
+    }
+
+     public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
     public void setID(int ID) {
@@ -60,5 +64,5 @@ public class Customer {
 
     public void setPassword(String password) {
         this.password = password;
-    }
+    }*/
 }

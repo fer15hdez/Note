@@ -126,7 +126,7 @@ Column(
 - En las entidades es necesario crear un constructor vacio.  
 
 **@ManyToMany**: Se define cual de las dos entidades va ser la duenna de la relacion y en esa entidad se ponen las anotaciones principales. 
-  - Se crea un atributo de tipo lista en cada una de las entidades que apunta hacia la otra entidad.
+  - Se crea un atributo de tipo lista en cada una de las entidades que apunta hacia la otra entidad, esto permite que sea bidireccional.
   - Estas configuraciones van en la tabla duenno:
       @JoinTable(
                 name = "order_product",
@@ -147,9 +147,30 @@ Column(
                                         actualización y eliminación realizadas en la entidad Autor
                                         se propagarán a las entidades relacionadas Libro"
       )
+  - De la parte del MUCHOS debe tener una lista de la otra entidad. 
+  - En la entidad de UNO debe tener un atributo que sea del tipo de la otra entidad
 **@OneToOne**: @JoinColumn(name = "bar_code_id") // Esta columna se crea en la tabla para hacer referencia al campo 'barCode'.  
     - Para que la relacion sea bidireccionaal debe tener un campo en ambas tablas que identifique a la otra tabla.  
     @JoinColumn(name = "product_id") // Esta columna se crea en la tabla para hacer referencia al campo 'product'.  
+
+
+### HERENCIA
+
+**Clase Padre**
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@SuperBuilder // Esta propiedad esta en modo experimental
+@MappedSuperclass // Identifica la clase como una superclase. Esta clase solo va a estar en el codigo,
+                  // no se crea una tabla. Tampoco se puede insertar esta clase en la DB, ni se pueden hacer consultas.  
+
+En la **clase hijas** solo se extiende de la clase padre y ponen las siguientes anotaciones:
+  @EqualsAndHashCode(callSuper = true)
+  @Data
+  @NoArgsConstructor
+  @AllArgsConstructor
+  @SuperBuilder // Esta propiedad esta en modo experimental
+  @Entity                   
 
 # DTO Pattern
 " Es una clase que te separa de manipular directamente las entidades, te permite devolver solo los datos que se necesiten para el cliente. No se devulven datos incesarios. Aumenta la seguridad.

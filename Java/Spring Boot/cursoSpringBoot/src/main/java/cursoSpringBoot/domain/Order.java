@@ -1,5 +1,6 @@
 package cursoSpringBoot.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,11 +15,14 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Data
+@Table(name = "T_Order")
 public class Order {
     @Id
     @GeneratedValue
     private Integer id;
+    @Column(unique = true)
     private Long orderNumber;
+//    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime orderDate;
     @ManyToMany
     @JoinTable(
