@@ -172,6 +172,18 @@ En la **clase hijas** solo se extiende de la clase padre y ponen las siguientes 
   @SuperBuilder // Esta propiedad esta en modo experimental
   @Entity                   
 
+#### Estrategia de Herencia
+**@Inheritance(strategy = InheritanceType.SINGLE_TABLE)**:  SINGLE_TABLE strategy crea una sola tabla con los atributos de
+    las clases hijas y los de la clase padre. 
+    - El nombre de la tabla es el de la clase padre.
+    - La notacion se declara en la clase padre.  
+    - En la tabla, en la base de datos, se crea un campo 'dtype'. Cuando se inserta un nuevo valor el campo 'dtype' toma el valor declarado en
+      la notacion @DiscriminatorValue("L") declarada en la clase hija, para saber a que clase pertenece la insercion.
+    - Solo se puede hacer inserciones de los valores de cada clase (si es clase hija, los valores de la clase hija y de la clase padre, si es clase padre solo lo
+      de la clase padre), los demas valores toman el valor null.  
+
+**@Inheritance(strategy = InheritanceType.SINGLE_TABLE)**: Es recomendada para cuando existe un numero alto de subclases.  
+
 # DTO Pattern
 " Es una clase que te separa de manipular directamente las entidades, te permite devolver solo los datos que se necesiten para el cliente. No se devulven datos incesarios. Aumenta la seguridad.
 Permite mayor flexibilidad. "
