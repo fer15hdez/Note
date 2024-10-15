@@ -1,8 +1,7 @@
 package cursoSpringBoot.domain;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 import lombok.*;
 
 @EqualsAndHashCode(callSuper = true)
@@ -10,6 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@PrimaryKeyJoinColumn(name = "vehicle_id")
 public class Truck extends Vehicle{
 
     private int capacityLoad; // capacidadCarga
