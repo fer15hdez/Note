@@ -24,6 +24,12 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	runtimeOnly 'org.postgresql:postgresql'
 
+//	No me esta funcionando
+//	implementation 'com.github.javafaker:javafaker:1.0.2' // Permite generar datos falsos para probar la aplicacion
+
+
+
+
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 

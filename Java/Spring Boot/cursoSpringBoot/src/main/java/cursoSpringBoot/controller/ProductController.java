@@ -32,6 +32,7 @@ public class ProductController {
     }
 
 
+
     @PostMapping("/db/dto")
     public Product createDtoProduct(@Valid @RequestBody ProductRecordDto productRecordDto){
 
@@ -44,6 +45,11 @@ public class ProductController {
     ){
         return this.productServiceBoualiali.createResponseDtoProduct(productDto); // Inserta el producto en la bd.
     }
+
+ /*   @GetMapping("/start/with/{name}")
+    public List<Product> startNameWith(@PathVariable("name") String name){
+        return this.productServiceBoualiali.findAllProductsStartWith(name);
+    }*/
 
     @GetMapping
     // Signo ? permite devolver cualquier tipo clase.
@@ -75,10 +81,10 @@ public class ProductController {
     public List<ProductResponseDTO> findAllProducts(){
         return this.productServiceBoualiali.findAllProducts();
     }
-    @GetMapping("/db/search/{name}")
+ /*   @GetMapping("/db/search/{name}")
     public List<Product> findAllProductsByName(@PathVariable("name") String name){
         return this.productServiceBoualiali.findAllProductsByName(name);
-    }
+    }*/
 
     @DeleteMapping("/db/del/{id}")
     @ResponseStatus(HttpStatus.OK)

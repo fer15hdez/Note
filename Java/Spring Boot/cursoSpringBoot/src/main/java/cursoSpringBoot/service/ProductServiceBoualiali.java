@@ -2,8 +2,6 @@ package cursoSpringBoot.service;
 
 import cursoSpringBoot.domain.*;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,6 +15,10 @@ public class ProductServiceBoualiali {
         this.productRepository = productRepository;
         this.productMapper = productMapper;
     }
+
+    /*public void createRandomProducts(){
+        Faker faker = new Faker();
+    }*/
 
     public ProductResponseDTO createResponseDtoProduct( ProductRecordDto productDto ) {
         var product = productMapper.toProduct(productDto);
@@ -54,9 +56,13 @@ public class ProductServiceBoualiali {
 
     }
 
-    public List<Product> findAllProductsByName( String name){
+/*    public List<Product> findAllProductsByName( String name){
         return this.productRepository.findAllByNameContaining(name);
     }
+
+    public List<Product> findAllProductsStartWith(String name){
+        return this.productRepository.findAllByNameStartWithIgnoreCase(name);
+    }*/
 
     public void deleteProduct( Integer id ){
         this.productRepository.deleteById(id);
