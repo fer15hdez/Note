@@ -21,6 +21,12 @@ import java.util.List;
 @Table(name = "T_PRODUCT") // Permite definir un nombre para la tabla. Si no se define la anotacion el nombre que adopta
 // es el nombre de la clase (ej. Product). El valor de la propiedad "ddl-auto: update" está en la configuracion del proyecto
 // creará una nueva tabla, si es 'create' solo se sobreescribe.
+
+// Permite crear una consulta. Luego en el ProductRepository se usa: List<Product> findByNameQuery(@Param("stock") Integer stock);
+@NamedQuery(
+        name = "Product.findByNameQuery",
+        query = "select a from Product a where a.stock <= :stock"
+)
 public class Product {
 
     @JsonProperty("id")

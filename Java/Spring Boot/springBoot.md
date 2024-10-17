@@ -199,6 +199,24 @@ En la **clase hijas** solo se extiende de la clase padre y ponen las siguientes 
   Esta instacia lleva la notacion **@EmbeddedId**.  
   Al ser la entidad que va a persistir en la BD debe llevar la notacion **@Entity**.  
 
+#### QUERY IN REPOSITORY
+  **@Modifying** // La notacion @Query no soporta la sentencia update para que hacer que funcione debe incluir la 
+//    notacion **@Modifying** y **@Transactional**.   
+    **@Transactional**  
+    **@Query**("update Product p set p.name = :name where p.id = :id ") // No soporta la query update. Debe tener las notaciones
+//    @Modifying, @Transactional.  
+    **int updateproduct(String name, Integer id);**.  
+
+// Se crea en la entidad (ej. Producto). Permite crear una consulta. Luego en el ProductRepository se usa: List<Product> findByNameQuery(@Param("stock") Integer stock);
+@NamedQuery(
+        name = "Product.findByNameQuery", 
+        query = "select a from Product a where a.stock <= :stock"
+)    
+//    Consulta creada en la entidad Producto con notacion @NamedQuery
+    @Transactional
+    List<Product> findByNameQuery(@Param("stock") Integer stock);
+
+
 
 
 # DTO Pattern
