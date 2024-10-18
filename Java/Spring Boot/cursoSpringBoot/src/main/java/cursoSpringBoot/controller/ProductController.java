@@ -46,10 +46,10 @@ public class ProductController {
         return this.productServiceBoualiali.createResponseDtoProduct(productDto); // Inserta el producto en la bd.
     }
 
- /*   @GetMapping("/start/with/{name}")
+    @GetMapping("/start/with/{name}")
     public List<Product> startNameWith(@PathVariable("name") String name){
         return this.productServiceBoualiali.findAllProductsStartWith(name);
-    }*/
+    }
 
     @GetMapping
     // Signo ? permite devolver cualquier tipo clase.
@@ -108,6 +108,14 @@ public class ProductController {
 
                 });
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+    }
+
+    @GetMapping("/db/find/product/{name}/{stock}")
+    public List<Product> findAllProductByNameAndStock(
+            @PathVariable("name") String name,
+            @PathVariable("stock") Integer stock
+                                                      ){
+        return this.productServiceBoualiali.findAllProductByNameAndStock(name, stock);
     }
 
 

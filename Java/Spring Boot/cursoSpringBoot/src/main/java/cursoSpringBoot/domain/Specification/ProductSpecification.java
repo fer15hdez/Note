@@ -8,6 +8,7 @@ import org.springframework.data.jpa.domain.Specification;
 
 public class ProductSpecification {
 
+    // Se puede usar con una lambda expression
     public static Specification<Product> hasStock(int stock){
         return (
                 Root<Product> root,
@@ -17,7 +18,8 @@ public class ProductSpecification {
             if (stock < 0) {
                 return null;
             }
-            return builder.equal(root.get("stock"), stock);
+            return builder.equal(root.get("stock"), stock); // "stock" en root.get("stock") debe ser igual al campo 'stock'
+                                                            // en la clase Product
         };
     }
 

@@ -1,3 +1,17 @@
+# JPA: 
+ - Es una API de java.
+ - Java Persistence API, más conocida por sus siglas JPA, es una API de persistencia desarrollada para la plataforma Java EE. 
+   Maneja datos relacionales en aplicaciones usando la Plataforma Java en sus ediciones Standard y Enterprise.
+ - Proporciona un mecanismo para gestionar la persistencia y la correlación relacional de objetos y las funciones desde las especificaciones EJB 3.0 .    
+
+# HIBERNATE (ORM)
+ - Hibernate es una herramienta de mapeo objeto-relacional para la plataforma Java que facilita el mapeo de atributos entre una base de 
+   datos relacional tradicional y el modelo de objetos de una aplicación.
+ - Is a powerful object-relational mapping (ORM) framework for Java that simplifies the process of interacting with relational databases. 
+   It automatically maps Java objects to database tables, eliminating the need for manual SQL queries and providing a more object-oriented 
+   approach to data persistence.
+ - Hibernate entonces es un **ORM que implementa JPA**. Como usaremos las interfaces de JPA, no habrá ninguna referencia directa en nuestro código a Hibernate.
+
 # Structure of project
 Controler: Is the layer(capa) of presentation. In this layer is where are the endpoint.    
 Service: Is the layer of business logic.  
@@ -200,6 +214,8 @@ En la **clase hijas** solo se extiende de la clase padre y ponen las siguientes 
   Al ser la entidad que va a persistir en la BD debe llevar la notacion **@Entity**.  
 
 #### QUERY IN REPOSITORY
+
+  **CREADNDO CONSULTAS PERSONALIZADAS EN EL REPOSITORIO**  
   **@Modifying** // La notacion @Query no soporta la sentencia update para que hacer que funcione debe incluir la 
 //    notacion **@Modifying** y **@Transactional**.   
     **@Transactional**  
@@ -207,17 +223,43 @@ En la **clase hijas** solo se extiende de la clase padre y ponen las siguientes 
 //    @Modifying, @Transactional.  
     **int updateproduct(String name, Integer id);**.  
 
-// Se crea en la entidad (ej. Producto). Permite crear una consulta. Luego en el ProductRepository se usa: List<Product> findByNameQuery(@Param("stock") Integer stock);
+// **@NamedQuery** Se crea en la entidad (ej. Producto). Permite crear una consulta. Luego en el ProductRepository se usa: List<Product> findByNameQuery(@Param("stock") Integer stock);
 @NamedQuery(
         name = "Product.findByNameQuery", 
         query = "select a from Product a where a.stock <= :stock"
-)    
+)
 //    Consulta creada en la entidad Producto con notacion @NamedQuery
     @Transactional
     List<Product> findByNameQuery(@Param("stock") Integer stock);
 
+#### HACER CONSULTAS COMPLEJAS
+ - Se extiende en la interfaz Repository de JpaSpecificationExecutor. (ej. public interface ProductRepository extends JpaRepository<Product, Integer>, JpaSpecificationExecutor<Product> )
+ - Se crea una nueva clase donde se implementan los filtros, consultas. (ej. public class ProductSpecification).  
+ - Los metodos donde se implementan los filtros tienen la estructura: 
+    public static Specification<Product> hasStock(int stock) {
+      return (
+                Root<Product> root,
+                CriteriaQuery<?> query,
+                CriteriaBuilder builder
+        ) -> {
+            if (stock < 0) {
+                return null;
+            }
+            return builder.equal(root.get("stock"), stock); // "stock" en root.get("stock") debe ser igual al campo 'stock'
+                                                            // en la clase Product
+        };
+    }  
+- Donde se usen los metodos que filtran:
+    // Usando Specification tool
+    public List<Product> findAllProductByNameAndStock(String name, Integer stock){
+        Specification<Product> specification = Specification
+                .where(ProductSpecification.hasStock(stock)) // Se llama a la clase ProductSpecification para usar las
+                                                             // las consultas precredas.
+                .or(ProductSpecification.nameLike(name)) // Se pueden usar varias consultas
+                ;
 
-
+        return productRepository.findAll(specification); // Recibe como parametro un Specification type o null
+    }
 
 # DTO Pattern
 " Es una clase que te separa de manipular directamente las entidades, te permite devolver solo los datos que se necesiten para el cliente. No se devulven datos incesarios. Aumenta la seguridad.

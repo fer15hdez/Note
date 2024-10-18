@@ -1,6 +1,8 @@
 package cursoSpringBoot.service;
 
 import cursoSpringBoot.domain.*;
+import cursoSpringBoot.domain.Specification.ProductSpecification;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -59,12 +61,24 @@ public class ProductServiceBoualiali {
 /*    public List<Product> findAllProductsByName( String name){
         return this.productRepository.findAllByNameContaining(name);
     }
-
+*/
     public List<Product> findAllProductsStartWith(String name){
-        return this.productRepository.findAllByNameStartWithIgnoreCase(name);
-    }*/
+        return this.productRepository.findAllByNameStartingWithIgnoreCase(name);
+    }
 
     public void deleteProduct( Integer id ){
         this.productRepository.deleteById(id);
+    }
+
+    // Para hacer consultas complejas
+    // Usando Specification tool
+    public List<Product> findAllProductByNameAndStock(String name, Integer stock){
+        Specification<Product> specification = Specification
+                .where(ProductSpecification.hasStock(stock)) // Se llama a la clase ProductSpecification para usar las
+                                                             // las consultas precredas.
+                .or(ProductSpecification.nameLike(name)) // Se pueden usar varias consultas
+                ;
+
+        return productRepository.findAll(specification); // Recibe como parametro un Specification type o null
     }
 }
