@@ -5,6 +5,9 @@
 *psql* ("To interact with postgres console. Open the postgres terminal ") 
 *\q* ("Exit terminal postgres")
 
+## Connect to server Postgres
+*psql -h localhost -U postgres*
+
 ====
 ### Postgres Terminal 
 *sudo -u postgres psql* ("Enter to postgres teerminal without switch to user postgres")
