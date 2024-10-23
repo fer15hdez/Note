@@ -280,6 +280,7 @@ Permite mayor flexibilidad. "
         ) {
 }, 
   junto a los metodos toProductResponseDTO, los implementa el programador, permiten elegir cuales son los datos que se exponen una vez creado la entidad (ej. Producto)
+  - Los metodos (toProductResponseDTO, toProduct, etc) se crean en una clase mapper (ej. ProductMapper).
 
 ====================================
 # VALIDATION
