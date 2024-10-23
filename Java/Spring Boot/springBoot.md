@@ -102,6 +102,9 @@ http://localhost:8080/sistema/api/v1/clientes/param?user-name=fernan&last-name=v
 
 - Toda la logica se debe hacer en las clases servicios y los controllers solo para ser la puerta de entrada de las resquest.  
 
+### URI
+- URI: Identifica al recurso
+
 ====================================
 # DATA BASE
 
@@ -200,8 +203,7 @@ En la **clase hijas** solo se extiende de la clase padre y ponen las siguientes 
 **@Inheritance(strategy = InheritanceType.JOINED)**: (Clases en el codigo: Vehicle, Automobile, Truck) 
 - Es recomendada para cuando existe un numero alto de subclases.  
 - Esta estrategia declara en la PK de la clase hija como llave foranea el id de la clase padre.
-- Si se insertan datos para un entidad hija automaticamente se hacen dos insersiones, una en la clase hija con los campos correspondientes y una en la clase padre con los campos
-  pertenecientes a la clase padre.  
+- Si se insertan datos para un entidad hija automaticamente se hacen dos insersiones, una en la clase hija con los campos correspondientes y una en la clase padre con los campos pertenecientes a la clase padre.  
 - Para cambiar nombre de la llave foranea en la clase hija se usa la notacion @PrimaryKeyJoinColumn(name = "vehicle_id").  
 
 #### Llave Compuesta (clases en el codigo: OrderId, OrderExample)

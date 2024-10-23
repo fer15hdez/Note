@@ -11,7 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.HashMap;
 import java.util.List;
 
@@ -68,6 +70,15 @@ public class ProductController {
     public Product createProduct(
             @RequestBody Product product
     ){
+        // URI: Identifica al recurso
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/db/{id}") // El parametro debe ser la url que permite leer estos recursos
+                .buildAndExpand(product.getId()) // Se encarga de insertar el valor que se da en la url y se inserta en path()
+                .toUri(); // Construye la URI
+        ResponseEntity.created(location).build(); // No devuelve info.
+        ResponseEntity.created(location).body(product); // Devuelve toda la info del recurso creado.
+
         return this.productServiceBoualiali.createProduct(product); // Inserta el producto en la bd.
 
     }
