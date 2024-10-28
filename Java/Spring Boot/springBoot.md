@@ -28,6 +28,17 @@ Se crea un archivo banner.txt en la carpeta resources
 
 **@Configuration** : Con esta anotacion en una clase le indica a Spring Boot que esta clase se usa para definir configuraciones.  
 
+**Application file**
+
+  **ddl-auto property**
+   - create – Hibernate first drops existing tables, then creates new tables
+   - update – the object model created based on the mappings (annotations or XML) is compared with the existing schema, and then Hibernate 
+     updates the schema according to the diff. It never deletes the existing tables or columns even if they are no more required by the application.
+   - create-drop – similar to create, with the addition that Hibernate will drop the database after all operations are completed. Typically used 
+     for unit testing.
+   - validate – Hibernate only validates whether the tables and columns exist, otherwise it throws an exception
+      none – this value effectively turns off the DDL generation
+
 
  ### Property
  **@PropertySource("classpath:fileProperty.name")**: Permite definir un nuevo archivo donde se definan las nuevas propiedades del proyecto.  
@@ -234,7 +245,7 @@ En la **clase hijas** solo se extiende de la clase padre y ponen las siguientes 
     @Transactional
     List<Product> findByNameQuery(@Param("stock") Integer stock);
 
-#### HACER CONSULTAS COMPLEJAS
+#### HACER CONSULTAS COMPLEJAS (Specification)
  - Se extiende en la interfaz Repository de JpaSpecificationExecutor. (ej. public interface ProductRepository extends JpaRepository<Product, Integer>, JpaSpecificationExecutor<Product> )
  - Se crea una nueva clase donde se implementan los filtros, consultas. (ej. public class ProductSpecification).  
  - Los metodos donde se implementan los filtros tienen la estructura: 
@@ -264,7 +275,7 @@ En la **clase hijas** solo se extiende de la clase padre y ponen las siguientes 
     }
 
 # DTO Pattern
-" Es una clase que te separa de manipular directamente las entidades, te permite devolver solo los datos que se necesiten para el cliente. No se devulven datos incesarios. Aumenta la seguridad.
+" Es una clase que te separa de manipular directamente las entidades, te permite devolver solo los datos que se necesiten para el cliente. No se devuelven datos incesarios. Aumenta la seguridad.
 Permite mayor flexibilidad. "
 - Patron DTO (Crea una capa de abstraccion en el acceso a la entidad)
 - Se pueden crear diferentes metodos con diferentes tipos de datos para exponer.

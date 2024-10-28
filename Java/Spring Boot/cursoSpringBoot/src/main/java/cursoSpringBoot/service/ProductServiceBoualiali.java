@@ -44,6 +44,13 @@ public class ProductServiceBoualiali {
 
     }
 
+    // Se le pasa un objeto con los datos que se van a actualizar y se incluye el ID
+    // de la entidad. Spring se encarga de buscar la entidad y por ID y actualizar los campos.  
+    @PutMapping("/update")
+    public EquipmentResponseDTO updateProduct(@RequestBody Product product){
+        return this.repository.save(product);
+    }
+
     public Product getProduct( Integer id) {
         return this.productRepository.findById(id)
                 .orElse(null);
