@@ -28,7 +28,6 @@ public class ProductServiceBoualiali {
 
         return productMapper.toProductResponseDTO(saveProduct); // Convierte el Product guardado en el ProductResponseDTO.
     }
-
     // Crea el Product usando el patron DTO.
     public Product createDtoProduct(ProductRecordDto productRecordDto) {
         var product = this.productMapper.toProduct(productRecordDto);
@@ -44,7 +43,7 @@ public class ProductServiceBoualiali {
 
     }
 
-    // Se le pasa un objeto con los datos que se van a actualizar y se incluye el ID
+     // Se le pasa un objeto con los datos que se van a actualizar y se incluye el ID
     // de la entidad. Spring se encarga de buscar la entidad y por ID y actualizar los campos.  
     @PutMapping("/update")
     public EquipmentResponseDTO updateProduct(@RequestBody Product product){
@@ -60,7 +59,9 @@ public class ProductServiceBoualiali {
         return this.productRepository.
                 findAll()
                 .stream() // Aplica a cada elemento de la lista que devuelve
-                .map(productMapper::toProductResponseDTO) // Convierte cada elemento a ProductResponseDTO
+                // Convierte cada elemento a ProductResponseDTO.
+                // Es una forma simplificada de escribir una expresión lambda para llamar a un método
+                .map(productMapper::toProductResponseDTO) 
                 .collect(Collectors.toList());
 
     }
@@ -86,6 +87,6 @@ public class ProductServiceBoualiali {
                 .or(ProductSpecification.nameLike(name)) // Se pueden usar varias consultas
                 ;
 
-        return productRepository.findAll(specification); // Recibe como parametro un Specification type o null
+        return productRepository.findAll(specification); // El metodo findAll() recibe como parametro un Specification type o null
     }
 }

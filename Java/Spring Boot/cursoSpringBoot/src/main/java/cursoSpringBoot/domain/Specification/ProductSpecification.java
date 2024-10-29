@@ -6,9 +6,11 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import org.springframework.data.jpa.domain.Specification;
 
+// Permite crear consultas mas complejas
 public class ProductSpecification {
 
     // Se puede usar con una lambda expression
+    // Estos metodo se usan (normalmente) en los servicios
     public static Specification<Product> hasStock(int stock){
         return (
                 Root<Product> root,
