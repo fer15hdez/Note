@@ -4,6 +4,8 @@ import cursoSpringBoot.domain.*;
 import cursoSpringBoot.domain.Specification.ProductSpecification;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -46,8 +48,9 @@ public class ProductServiceBoualiali {
      // Se le pasa un objeto con los datos que se van a actualizar y se incluye el ID
     // de la entidad. Spring se encarga de buscar la entidad y por ID y actualizar los campos.  
     @PutMapping("/update")
-    public EquipmentResponseDTO updateProduct(@RequestBody Product product){
-        return this.repository.save(product);
+    public ProductResponseDTO updateProduct(@RequestBody ProductRecordDto productDto){
+        Product product = this.productMapper.toProduct(productDto);
+        return this.productMapper.toProductResponseDTO(this.productRepository.save(product));
     }
 
     public Product getProduct( Integer id) {

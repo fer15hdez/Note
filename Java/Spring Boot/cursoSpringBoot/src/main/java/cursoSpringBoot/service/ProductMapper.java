@@ -22,7 +22,7 @@ public class ProductMapper {
         var category = new Category();
         category.setId(productDto.categoryId());
 
-        pro duct.setSerial(productDto.serial());
+        product.setSerial(productDto.serial());
         product.setName(productDto.name());
         product.setPrice(productDto.price());
         product.setStock(productDto.stock());
