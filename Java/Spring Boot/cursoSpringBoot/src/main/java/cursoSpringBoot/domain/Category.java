@@ -2,12 +2,16 @@ package cursoSpringBoot.domain;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
 public class Category {
     @Id
     @GeneratedValue // Genera el valor de la id.
@@ -28,23 +32,23 @@ public class Category {
     // Se debe poner la anotacion @JsonBackReference en el campo (category) de Product que crea el link.
     private List<Product> products;
 
-    public Category(String nombre, String description, List<Product> products) {
+    /*public Category(String nombre, String description, List<Product> products) {
         this.nombre = nombre;
         this.description = description;
         this.products = products;
-    }
+    }*/
 
     public Category(String nombre, String description) {
         this.nombre = nombre;
         this.description = description;
     }
 
-    public Category() {
-    }
+   /* public Category() {
+    }*/
 
-    public Category(String nombre) {
+    /*public Category(String nombre) {
         this.nombre = nombre;
-    }
+    }*/
 
     /*public Integer getId() {
         return id;

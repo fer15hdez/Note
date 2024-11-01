@@ -19,6 +19,8 @@ public class ProductMapper {
 
         var product = new Product();
 
+        // Es necesario crear un objeto de tipo Category utilizando el ID que se pasa
+        // con el productDto, sino da problemas en la deserializacion.
         var category = new Category();
         category.setId(productDto.categoryId());
 

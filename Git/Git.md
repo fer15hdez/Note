@@ -76,4 +76,8 @@ git config --global --unset http.proxy
 #### to check the currently set proxy:
 git config --global --get http.proxy  
 
+## REMOTE
+git remote: Muestra los nombres de cada uno de los remotos que tienes especificados.  
+git remote -v: Muestra las url de los remotos configurados.  
+
 
