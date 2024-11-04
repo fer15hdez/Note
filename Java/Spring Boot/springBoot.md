@@ -177,10 +177,12 @@ Column(
       )
   - De la parte del MUCHOS debe tener una lista de la otra entidad. 
   - En la entidad de UNO debe tener un atributo que sea del tipo de la otra entidad
-  - **Cuando se usan el patron DTO y los metodos "toNameEntity(entityDTO)" para convertir el DTO en la entidad se debe crear en el DTO el campo Integer que representa 
-    la relacion (no del tipo de la entidad de la relacion) y en el metodo "toNameEntity(entityDTO)" se crea un objeto de la entidad que participa en la relacion 
-    utilizando el id que proporciona el DTO que se pasa por parametro y se utiliza para pasarlo al campo de la relacion (.setRelationNameEntity(entityRelation)).** 
+  - Cuando se usan el patron DTO y los metodos "toNameEntity(entityDTO)", en la clase mappeer, para convertir el DTO en la entidad se debe crear en el DTO el campo Integer que representa la relacion (no del tipo de la entidad de la relacion) y en el metodo "toNameEntity(entityDTO)" se crea un objeto de la entidad que participa en la relacion utilizando el id que proporciona el DTO que se pasa por parametro y se utiliza para pasarlo al campo de la relacion (.setRelationNameEntity(entityRelation)).  
     **(Si no se hace da el error: "(although at least one Creator exists): no int/Int-argument constructor/factory method to deserialize from Number value")**
+  - La unica solucion que encontre para la funcion update, en este tipo de relacion, es crear un constructor en la entidad OneToMany donde se cree solo con el parametro
+    de ID (ej. public RoomType(Integer id){
+        this.id = id;
+    })
     
 **@OneToOne**: @JoinColumn(name = "bar_code_id") // Esta columna se crea en la tabla para hacer referencia al campo 'barCode'.  
     - Para que la relacion sea bidireccionaal debe tener un campo en ambas tablas que identifique a la otra tabla.  
