@@ -325,3 +325,28 @@ Permite mayor flexibilidad. "
 - Los Mock son objetos simulados a los objetos que imitan el comportamiento de objetos reales de una forma controlada.
 - Con Mockito se puede hacer el uso de Mock para simular entidades y tambien se puede hacer uso para simular llamadas a metodos y comprobar
   si el comportamiento del codigo.  
+
+==================================== 
+# EXCEPTION
+
+- Se pueden crear exception personalizadas. Se puede crear una carpeta que agrupe las exceptions.
+- Se extiende de RuntimeException (ej. 
+<public class DeleteEntityNotFoundException extends RuntimeException{
+    public DeleteEntityNotFoundException(String message) {
+        super(message);
+    }
+}
+)>
+- La exceptions se pueden llamar desde los servicios (ej. 
+  <this.productRepository.findById(id).orElseThrow(
+                () -> new DeleteEntityNotFoundException("Not found entity with id: " + id)
+        );
+        )>
+- Sino se crea un **GlobalExceptionHandle** cuando se lanza la exception muestra el error en el servidor pero el cliente de la api no ve la respuesta,
+  solo recive el error 500.
+- **@ControllerAdvice**: Permite gestionar globalmente las excepciones. Cuando el sistema lanza una excepcion, en la clase donde se implementa la notacion
+    @ControllerAdvice, debe haber un metodo que toma la excepcion como parametro y luego realiza las operaciones necesarias para devolver al cliente. 
+    (ej. Esta en la clase: cursoSpringBoot.error.GlobalExceptionHandler) 
+    El metodo que se lanza cuando una exception ocurre es el metodo que tiene como argumento la exception que se lanza. 
+    (ej. **public ResponseEntity<?> handleUserNotFoundException(DeleteEntityNotFoundException ex, WebRequest request)**).
+  

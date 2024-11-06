@@ -105,6 +105,16 @@ public class ProductController {
         this.productServiceBoualiali.deleteProduct(id);
     }
 
+    @DeleteMapping("/db/del/exception/{id}")
+    public void deleteProductHandleException(@PathVariable Integer id){
+        this.productServiceBoualiali.deleteProductHandleException(id);
+    }
+
+    @DeleteMapping("/db/del/notfound/exception/{id}")
+    public void deleteProductNotFoundException(@PathVariable Integer id){
+        this.productServiceBoualiali.deleteProductHandleEntityNotFoundException(id);
+    }
+
     // Este metodo maneja las excepciones del controlador.
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> handleMethodArgumentNotValidException (

@@ -2,10 +2,13 @@ package cursoSpringBoot.service;
 
 import cursoSpringBoot.domain.*;
 import cursoSpringBoot.domain.Specification.ProductSpecification;
+import cursoSpringBoot.exceptions.DeleteEntityNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -78,6 +81,27 @@ public class ProductServiceBoualiali {
     }
 
     public void deleteProduct( Integer id ){
+        this.productRepository.deleteById(id);
+    }
+
+    // Elimina una entidad y si no existe lanza una excepcion.
+    public void deleteProductHandleException(Integer id){
+        this.productRepository.findById(id).orElseThrow(
+                // Recibe una lambda function como parametro.
+                // Se llama a la excepcion personalizada (DeleteEntityNotFoundException) que
+                // recibe un el texto de respuesta.
+                () -> new DeleteEntityNotFoundException("Not found entity with id: " + id)
+        );
+
+        this.productRepository.deleteById(id);
+
+    }
+
+    public void deleteProductHandleEntityNotFoundException(Integer id){
+        this.productRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException("Entity Not found. ID: " + id)
+        );
+
         this.productRepository.deleteById(id);
     }
 
