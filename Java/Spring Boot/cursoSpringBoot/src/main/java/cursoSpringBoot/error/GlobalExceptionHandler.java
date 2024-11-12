@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-@ControllerAdvice // Permite crear una gestion global de las excepciones.
+@ControllerAdvice // Permite una gestion global de las excepciones.
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(EntityNotFoundException.class)

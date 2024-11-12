@@ -3,6 +3,7 @@ package cursoSpringBoot;
 
 import cursoSpringBoot.domain.Product;
 import cursoSpringBoot.service.ProductServiceImpl;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -25,5 +26,11 @@ public class ApplicationConfig {
             new Product(3, "watch", 100.6,10, "some colum")
     ));
 
+    }
+
+    @Bean
+    @Qualifier("SecondBean")
+    public Product productBeanToTest(){
+        return new Product();
     }
 }

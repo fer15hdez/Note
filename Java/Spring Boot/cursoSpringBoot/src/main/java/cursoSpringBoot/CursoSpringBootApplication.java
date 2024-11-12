@@ -4,6 +4,8 @@ import ch.qos.logback.core.testUtil.StringListAppender;
 import cursoSpringBoot.domain.Product;
 import cursoSpringBoot.domain.ProductRepository;
 import cursoSpringBoot.service.ProductServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -30,6 +32,12 @@ public class CursoSpringBootApplication {
 		System.out.println("Assign a value to a field in class: " + productService.getStringValueProperties());
 		System.out.println((appConfig.MyFirstBean()));
 
+
+	}
+
+	@Autowired
+	public Product useBeanPropetyQualifier(@Qualifier("SecondBean") Product product){
+		return new Product();
 
 	}
 
