@@ -66,22 +66,33 @@ Se crea un archivo banner.txt en la carpeta resources
 ====================================
 
 ## Bean
-Los **Bean** son los metodos que tienen un decorador de spring (ej. @service, @RestController, etc).  
+
+Los **Bean** son simplemente un objeto que es instanciado, configurado y administrado por el contenedor de Spring. 
+  - Estos beans son los componentes fundamentales de una aplicación Spring, ya que representan cualquier cosa, desde servicios y 
+  repositorios hasta controladores web. (ej. @service, @RestController, etc). 
+  - The @Bean annotation is used to declare methods that return objects to be managed by the Spring container.   
 **@Bean("nameOfBean")**: Permite agragar un nombre al Bean y con la anotacion @Qualifier("nameOfBean") llamar al Bean deseado.  
 - Es la forma que utiliza Spring Boot para denotar los componentes y asi poder utilizarlo en la inyeccion de dependencia.  
 - La inyeccion de dependencia de spring boot es sinonimo de la dependiencia entre clases, pero para desaclopar el codigo y que se encargue Spring Boot
 se usan los Bean.  
+**@Component**: Se aplica directamente a una clase para marcarla como un bean.  
+  - En la clase donde se declare, esta es considerada como un componente de Spring. 
+  - Las clase declaradas @Component son inicialidazas, configuradas y gestionadas por Spring. 
+  - Spring gestiona la inyeccion de dependencia de la clase que se le aplico la notacion Component.  
+  - Las anotaciones @Repository, @Service y @Controller son meta-anotaciones de @Component. Spring las trata como un Component. 
 **@service** : Este decorador le indica a spring boot que debe tratar esta clase como un servicio, de esta 
 forma spring gestionara automaticamente la creacion de esta clase cuando sea necesario.  
-**@Autowired** : Esta anotacion es la encargada de crear la injeccion de dependencia.  Tambien llamada Field Injection, no es una buena practica, se 
+**@Autowired** : Esta anotacion es la encargada de crear la injeccion de dependencia.  Tambien llamada Field Injection, se 
 recomienda hacer Contructor Injection.  
-**@Qualifier**: Esta anotacion permite inyectar un Bean especifico, que pueden ser mas de un metodo dentro de la clase AppicationConfig y despues poderlo especificar desde la llamada de un servicio, etc.  
+**@Qualifier**: Esta anotacion permite inyectar un Bean especifico, que pueden ser mas de un metodo dentro de la clase AppicationConfig y 
+  despues poderlo especificar desde la llamada de un servicio, etc.  
  **@Primary**: Permite determinar una prioridad donde existan mas de un Bean.  
 
  ### Inyeccion de dependencias (Bean)
  1- Constructor Injection -> Practica recomenda.  
  2- Field Injection  
  3- Setter Injecction  
+ 4- Configuration (Configuration Methods)
 
 
 ====================================
