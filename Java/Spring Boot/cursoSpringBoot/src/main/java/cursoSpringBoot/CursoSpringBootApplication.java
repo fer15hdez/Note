@@ -30,13 +30,16 @@ public class CursoSpringBootApplication {
 		System.out.println(productService.tellStory());
 		System.out.println("Value of properties in file configuration: " + productService.getValueProperties());
 		System.out.println("Assign a value to a field in class: " + productService.getStringValueProperties());
-		System.out.println((appConfig.MyFirstBean()));
+		System.out.println(("My first bean: " + appConfig.MyFirstBean()));
+
+		System.out.println(("My second bean: " + appConfig.productBeanToTest()));
 
 
 	}
 
 	@Autowired
 	public Product useBeanPropetyQualifier(@Qualifier("SecondBean") Product product){
+		System.out.println("My second Bean");
 		return new Product();
 
 	}

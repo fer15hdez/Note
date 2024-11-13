@@ -67,13 +67,13 @@ Se crea un archivo banner.txt en la carpeta resources
 
 ## Bean
 
-Los **Bean** son simplemente un objeto que es instanciado, configurado y administrado por el contenedor de Spring. 
+Los **Bean** son simplemente objetos que son instanciado, configurado y administrado por el contenedor de Spring. 
   - Estos beans son los componentes fundamentales de una aplicación Spring, ya que representan cualquier cosa, desde servicios y 
   repositorios hasta controladores web. (ej. @service, @RestController, etc). 
-  - The @Bean annotation is used to declare methods that return objects to be managed by the Spring container.   
+  - **The @Bean annotation is used to declare methods that return objects to be managed by the Spring container.**     
 **@Bean("nameOfBean")**: Permite agragar un nombre al Bean y con la anotacion @Qualifier("nameOfBean") llamar al Bean deseado.  
 - Es la forma que utiliza Spring Boot para denotar los componentes y asi poder utilizarlo en la inyeccion de dependencia.  
-- La inyeccion de dependencia de spring boot es sinonimo de la dependiencia entre clases, pero para desaclopar el codigo y que se encargue Spring Boot
+- La inyeccion de dependencia de spring boot es sinonimo de la dependiencia entre clases, pero para desaclopar el codigo y para que se encargue Spring Boot
 se usan los Bean.  
 **@Component**: Se aplica directamente a una clase para marcarla como un bean.  
   - En la clase donde se declare, esta es considerada como un componente de Spring. 
@@ -91,9 +91,20 @@ recomienda hacer Contructor Injection.
  ### Inyeccion de dependencias (Bean)
  1- Constructor Injection -> Practica recomenda.  
  2- Field Injection  
- 3- Setter Injecction  
+ 3- Setter Injection  
  4- Configuration (Configuration Methods)
+ 5- Methods Injection.
 
+### Bean SCOPING
+1- Singleton: es el default scope of a Bean. Solo se crea una instancia del Bean solicitado.
+2- Prototype
+3- Request: Se crea un nuevo Bean por cada request que se realiza.  
+4- Session: Solo es valido en la sesion http.  
+5- Application
+6- Websocket: Solo esta disponible en el nivel de websocket.  
+
+**@Scope("prototype")**: Permite definir el scope del Bean. 
+**@SessionScope**: Otra forma de definir el scope del Bean.  
 
 ====================================
   # PROFILES

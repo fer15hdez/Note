@@ -2,6 +2,8 @@ package cursoSpringBoot.service;
 
 import cursoSpringBoot.domain.Product;
 import cursoSpringBoot.domain.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
@@ -27,6 +29,9 @@ public class ProductServiceImpl implements ProductService{
     private Integer valueProperties;
     @Value("A value string properties") // Asigna un valor a la propiedad "stringValueProperties".
     private String stringValueProperties;
+    @Autowired
+//    @Qualifier("SecondBean")
+    private Product product; // Spring se encarga de inicializar la instancia de Product.
     public static List<Product> products = new ArrayList<>(Arrays.asList(
             new Product(1, "Laptop", 799.9, 10, "some colum"),
             new Product(2, "smatphone", 399.3, 10, "some colum"),
@@ -35,7 +40,6 @@ public class ProductServiceImpl implements ProductService{
     ));
 
 //    @Autowired // Esta anotacion permite hacer la inyeccion de dependencia. La Inyeccion de Dependencia de constructor es una buena practica (Best Practice)
-
     public ProductServiceImpl( List<Product> products) {
         this.products = products;
     }
@@ -45,6 +49,9 @@ public class ProductServiceImpl implements ProductService{
     public List<Product> getProducts(){
         return products;
     }
+
+    // Como fue inyectado, spring se encarga de inicializar el Product.
+    public Product getProduct(){ return  this.product;}
 
     @Profile("dev")
     public String tellStory(){ return "A second Bean";}
@@ -60,6 +67,7 @@ public class ProductServiceImpl implements ProductService{
     public Environment getEnvironment() {
         return environment;
     }
+
 
     public void setEnvironment(Environment environment) {
         this.environment = environment;

@@ -12,7 +12,7 @@ import java.util.List;
 
 
 @Data // Incluye las anotaciones @Getter @Setter @RequiredArgsConstructor @ToString @EqualsAndHashCode
-@Builder // ??Permite crear y diseñar objetos utilizando el patron de diseño Builder
+@Builder // ??Permite crear y diseñar objetos utilizando el patron de diseño Builder???
 @Entity // Especifica que es esta clase es una entidad.
 //@Setter
 //@Getter
