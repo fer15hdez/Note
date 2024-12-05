@@ -7,7 +7,7 @@ git init
 git add README.md  
 git commit -m "first commit"  
 git branch -M main  
-git remote add origin https://github.com/dquijote/Note.git **"origin" is the name in future to the url.**   
+git remote add origin https://github.com/dquijote/Note.git **"origin" is the name of the url.**   
 git push -u origin main  
 
 …or push an existing repository from the command line  
