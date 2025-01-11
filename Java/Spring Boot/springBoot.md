@@ -27,6 +27,8 @@ Se crea un archivo banner.txt en la carpeta resources
 # Configuration
 
 **@Configuration** : Con esta anotacion en una clase le indica a Spring Boot que esta clase se usa para definir configuraciones.  
+- Es buena practica crear una clase aparte a la clase principal de Spring Boot para definir configuraciones.  
+
 
 **Application file**
 
@@ -41,8 +43,9 @@ Se crea un archivo banner.txt en la carpeta resources
 
 
  ### Property
- **@PropertySource("classpath:fileProperty.name")**: Permite definir un nuevo archivo donde se definan las nuevas propiedades del proyecto.  
- El archivo debe estar en la carpeta resource.  
+ **@PropertySource("classpath:fileProperty.name")**: Permite definir un nuevo archivo donde se definan las nuevas propiedades del proyecto.    
+ - La anotacion se define en la clase principal de Spring (donde esta la anotacion @SpringBootApplication) y esta disponible en toda la app.
+ - El archivo debe estar en la carpeta resource.  
  **@PropertySources**: Permite definir multiples archivos de configuracion.  
  @PropertySources({
     @PropertySource("classpath:fileProperty.name"),
