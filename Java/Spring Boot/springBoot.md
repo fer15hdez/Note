@@ -48,12 +48,15 @@ Se crea un archivo banner.txt en la carpeta resources
  - El archivo debe estar en la carpeta resource.  
  **@PropertySources**: Permite definir multiples archivos de configuracion.  
  @PropertySources({
-    @PropertySource("classpath:fileProperty.name"),
+  *La opcion (encoding = "UTF-8") permite poner incorporar caracteres especiales(ñ, vocales con tilde)*
+    @PropertySource("value = classpath:fileProperty.name", encoding = "UTF-8"),
     @PropertySource("classpath:fileProperty.name1"),
  })
 
- **@Value("${name.property}")**: Permite asociar el valor de la propiedad al campo de una clase en un servicio u otro componente. Spring Boot busca
-  dentro de los archivos definido como archivos de configuracion (ej. mycustom.properties).  
+ **@Value("${name.property}")**: 
+  - Permite asociar el valor de la propiedad al campo de una clase, Parámetros de constructores y en valor de parametros deMétodos 
+  en un servicio u otro componente.
+  - Spring Boot busca dentro de los archivos definido como archivos de configuracion (ej. mycustom.properties).  
 
   - Se puede tener varios archivos de configuracion de tipo "application.yml" o de tipo "application.propeties".  
   - Configuracion de las dependencias principales
