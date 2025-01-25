@@ -6,6 +6,7 @@ import cursoSpringBoot.domain.ProductRepository;
 import cursoSpringBoot.service.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -32,16 +33,19 @@ public class CursoSpringBootApplication {
 		System.out.println("Assign a value to a field in class: " + productService.getStringValueProperties());
 		System.out.println(("My first bean: " + appConfig.MyFirstBean()));
 
+
+		System.out.println("Properties from values.properties file: " + "int" );
+
 		System.out.println(("My second bean: " + appConfig.productBeanToTest()));
 
 
 	}
 
 	@Autowired
-	public Product useBeanPropetyQualifier(@Qualifier("SecondBean") Product product){
-		System.out.println("My second Bean");
+	public Product useBeanPropetyQualifier(@Qualifier("SecondBean") Product product, @Value("${value.int}") Integer valueInt){
+		System.out.println("@Value(\"${value.int}\"): " + valueInt.toString());
+		System.out.println("My second Bean ");
 		return new Product();
-
 	}
 
 	@Bean

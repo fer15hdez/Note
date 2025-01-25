@@ -1,13 +1,17 @@
 package cursoSpringBoot.controller;
 
 import cursoSpringBoot.domain.*;
+import cursoSpringBoot.error.validator.ProductValidator;
 import cursoSpringBoot.service.ProductMapper;
 import cursoSpringBoot.service.ProductService;
 import cursoSpringBoot.service.ProductServiceBoualiali;
 import cursoSpringBoot.service.ProductServiceImpl;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
@@ -16,12 +20,15 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/productos") // This is the prefix to all the url on this class.
 public class ProductController {
 
     private final ProductServiceBoualiali productServiceBoualiali;
+    // Para llamar a las validaciones personalizadas
+    private final ProductValidator validator;
 
 
     //ProductService productService = new ProductServiceImpl();
@@ -29,8 +36,9 @@ public class ProductController {
     private ProductService  productService;
     private ProductServiceImpl productServiceImp;
 
-    public ProductController(ProductServiceBoualiali productServiceBoualiali) {
+    public ProductController(ProductServiceBoualiali productServiceBoualiali, ProductValidator validator) {
         this.productServiceBoualiali = productServiceBoualiali;
+        this.validator = validator;
     }
 
 
@@ -67,20 +75,35 @@ public class ProductController {
     }
 
     @PostMapping("/db")
-    public Product createProduct(
-            @RequestBody Product product
-    ){
+    // El orden de los parametros tiene que ser: @Valid, la entidad y BindingResult, para validar y capturar los errores.
+    // BindingResult captura todos los error que estan por default en la entidad(ej. @NotBlank, @NotEmpty, etc).
+    public ResponseEntity<?> createProduct(@Valid @RequestBody Product product, BindingResult result){
+        this.validator.validate(product, result);
+        if (result.hasFieldErrors()){
+            return validation(result);
+        }
         // URI: Identifica al recurso
-        URI location = ServletUriComponentsBuilder
+       /* URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/db/{id}") // El parametro debe ser la url que permite leer estos recursos
                 .buildAndExpand(product.getId()) // Se encarga de insertar el valor que se da en la url y se inserta en path()
                 .toUri(); // Construye la URI
         ResponseEntity.created(location).build(); // No devuelve info.
         ResponseEntity.created(location).body(product); // Devuelve toda la info del recurso creado.
+*/
+        // Inserta el producto en la bd y devuelve el ResponseEntity.
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.productServiceBoualiali.createProduct(product));
 
-        return this.productServiceBoualiali.createProduct(product); // Inserta el producto en la bd.
+    }
 
+    private ResponseEntity<?> validation(BindingResult result) {
+        Map<String, String> errors = new HashMap<>();
+        //no esta validando los @NotBlank  @Size(min = 5, max = 20) para mostrar en el postman, solo los valida como error 500
+        result.getFieldErrors().forEach(fieldError -> {
+            errors.put(fieldError.getField(), "El campo " + fieldError.getField() + " " + fieldError.getDefaultMessage());
+        });
+
+        return ResponseEntity.badRequest().body(errors);
     }
 
     @GetMapping("/db/{id}")

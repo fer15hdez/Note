@@ -191,6 +191,8 @@ Column(
                 inverseJoinColumns = { @JoinColumn(name = "product_id")} /* Define la columna de la otra tabla en la relacion
                                                                             en la tabla de union.*/
         )
+- Una solucion para evitar la **deserializacion ciclica** en el ManyToMany es crear un metodo toString() en la entidad
+  no controladora de la relacion sin mostrar la lista de la otra entidad.  
 **@ManyToOne**: En esta relacion siempre debe estar la notacion @JoinColumn para definir el campo
                 que identifica la relacion.
                 @JoinColumn(name = "category_id") Esta es la columna que se crea en la tabla

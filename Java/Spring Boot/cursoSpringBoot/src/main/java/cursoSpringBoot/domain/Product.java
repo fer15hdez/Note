@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.annotations.Cascade;
 
@@ -54,6 +57,10 @@ public class Product {
             name = "c_name", // Define el nombre del campo en la DB. Si no se define se toma como valor el nombre del campo.
             length = 20 // define el número de caracteres que va a tener el campo
     )
+
+//    @NotEmpty
+    @NotBlank
+    @Size(min = 5, max = 20)
     private String name;
     @JsonProperty("c-price")
     private Double price;
@@ -88,26 +95,9 @@ public class Product {
     @JoinColumn(name = "bar_code_id") // Esta columna se crea en la tabla para hacer referencia al campo 'barCode'
     private BarCode barCode;
 
-
-
-   /* public Product() {
-    }
-
-    public Product(Integer id, Integer serial, String name, Double price, Integer stock, String some_colum,
-                   LocalDateTime createAt, LocalDateTime lastModified, Images images, Category category,
-                   List<Order> orders) {
+    public Product(Integer id) {
         this.id = id;
-        this.serial = serial;
-        this.name = name;
-        this.price = price;
-        this.stock = stock;
-        this.some_colum = some_colum;
-        this.createAt = createAt;
-        this.lastModified = lastModified;
-        this.images = images;
-        this.category = category;
-        this.orders = orders;
-    }*/
+    }
 
     public Product(Integer id, String name, Double price, Integer stock, String some_colum) {
         this.id = id;
@@ -117,66 +107,5 @@ public class Product {
         this.some_colum = some_colum;
     }
 
-  /*  public Category getCategory() {
-        return category;
-    }
 
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public Integer getSerial() {
-        return serial;
-    }
-
-    public void setSerial(Integer serial) {
-        this.serial = serial;
-    }
-
-    public String getSome_colum() {
-        return some_colum;
-    }
-
-    public void setSome_colum(String some_colum) {
-        this.some_colum = some_colum;
-    }
-
-    public Images getImages() {
-        return images;
-    }
-
-    public void setImages(Images images) {
-        this.images = images;
-    }
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public Integer getStock() {
-        return stock;
-    }
-
-    public void setStock(Integer stock) {
-        this.stock = stock;
-    }*/
 }

@@ -22,9 +22,10 @@ public class Order {
     private Integer id;
     @Column(unique = true)
     private Long orderNumber;
-//    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime orderDate;
     @ManyToMany
+//    Esta notacion se define en la entidad controladora o padre de la relacion
     @JoinTable(
             name = "order_product",
             joinColumns = { @JoinColumn(name = "order_id")},/* Define la columna dentro de la tabla de union de la

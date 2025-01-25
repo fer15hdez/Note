@@ -4,15 +4,18 @@ package cursoSpringBoot;
 import cursoSpringBoot.domain.Product;
 import cursoSpringBoot.service.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
-import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 @Configuration
+@PropertySource("classpath:custom.app.properties")
+@PropertySources({
+        // La opcion (encoding = "UTF-8") permite poner incorporar caracteres especiales(ñ, vocales con tilde)
+        @PropertySource(value = "classpath:values.properties", encoding = "UTF-8"),
+// Se pueden agregar mas archivos de propiedad
+})
 public class ApplicationConfig {
 
     @Bean
