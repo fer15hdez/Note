@@ -4,6 +4,7 @@ import cursoSpringBoot.domain.*;
 import cursoSpringBoot.domain.Specification.ProductSpecification;
 import cursoSpringBoot.exceptions.DeleteEntityNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PutMapping;

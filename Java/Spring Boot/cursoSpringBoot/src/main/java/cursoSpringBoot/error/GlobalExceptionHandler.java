@@ -28,8 +28,9 @@ public class GlobalExceptionHandler {
         return errorResponse;
     }
 
-    @ExceptionHandler(DeleteEntityNotFoundException.class) // Captura la excepcion DeleteEntityNotFoundException, es una
+    // Captura la excepcion DeleteEntityNotFoundException, es una
     // es una excepcion personalizada.
+    @ExceptionHandler(DeleteEntityNotFoundException.class)
     public ResponseEntity<?> handleUserNotFoundException(DeleteEntityNotFoundException ex, WebRequest request) {
         ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
