@@ -162,6 +162,10 @@ Column(
             updatable = false // Define si el valor se puede actualizar o no.  
     )
 
+**@Transient**: Especifica que no es un campo para persistir, es solo un campo de la clase.
+(ej. @Transient
+    private boolean admin;)
+
 - Para hacer las consultas Se crea una interfaz que extiende de "JpaRepository<Product, Integer>". Para mejor organizacion el archivo debe nombrarse "NameEntityRepository".  
 - Se le pasa a JpaRepository<Name_entity, data_type_pk>. (Nombre de la entidad y el tipo de datos de la llave primaria).  
 - Para usar el recurso se crea una referencia de la interfaz "**private final ProductRepository productRepository;**".  
@@ -192,7 +196,16 @@ Column(
                                                                             en la tabla de union.*/
         )
 - Una solucion para evitar la **deserializacion ciclica** en el ManyToMany es crear un metodo toString() en la entidad
-  no controladora de la relacion sin mostrar la lista de la otra entidad.  
+  no controladora de la relacion sin mostrar la lista de la otra entidad.
+- Otra solucion para evitar la **deserializacion ciclica** en el ManyToMany
+    **@JsonIgnoreProperties({"users, "handler", "hibernateLazyInitializer"})**
+    **private List<Role> roles;**
+    Le decimos que cuando convierta la entidad en json que ignore el campo "users" en la entidad Role.  
+    Estos "handler", "hibernateLazyInitializer" los puede generar spring como parte del proceso de descerializacion y podrian dar error,
+    por eso quizas sea una opcion incluirlos en las propiedades para ignorar.  
+
+
+
 **@ManyToOne**: En esta relacion siempre debe estar la notacion @JoinColumn para definir el campo
                 que identifica la relacion.
                 @JoinColumn(name = "category_id") Esta es la columna que se crea en la tabla
@@ -380,3 +393,14 @@ Permite mayor flexibilidad. "
     El metodo que se lanza cuando una exception ocurre es el metodo que tiene como argumento la exception que se lanza. 
     (ej. **public ResponseEntity<?> handleUserNotFoundException(DeleteEntityNotFoundException ex, WebRequest request)**).
   
+# SPRING SECURITY
+
+- Solo permite insertar valor. Como medida de seguridad no muestra el valor del campo cuando se devuelve la entidad en formato json.
+    **@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)**
+    **private String password;**
+
+- Otra alternativa para ignorar el campo cuando devuelve la entidad. El problema es que esta notacion excluye el 
+  el valor tanto para escribir como para leer, entoces cuando creas un usuario nunca recibe el valor password.
+  **@JsonIgnore**
+  **private String password;**
+
