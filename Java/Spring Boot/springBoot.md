@@ -276,7 +276,7 @@ En la **clase hijas** solo se extiende de la clase padre y ponen las siguientes 
   Esta instacia lleva la notacion **@EmbeddedId**.  
   Al ser la entidad que va a persistir en la BD debe llevar la notacion **@Entity**.  
 
-#### QUERY IN REPOSITORY
+### QUERY IN REPOSITORY
 
   **CREADNDO CONSULTAS PERSONALIZADAS EN EL REPOSITORIO**  
   **@Modifying** // La notacion @Query no soporta la sentencia update para que hacer que funcione debe incluir la 
@@ -294,6 +294,21 @@ En la **clase hijas** solo se extiende de la clase padre y ponen las siguientes 
 //    Consulta creada en la entidad Producto con notacion @NamedQuery
     @Transactional
     List<Product> findByNameQuery(@Param("stock") Integer stock);
+
+**Query Methods**
+- **Convenciones de nomenclatura:** Spring Data JPA utiliza un conjunto de convenciones para inferir la lógica de las consultas a partir 
+    de los nombres de los métodos en tus repositorios. Por ejemplo, si defines un método findByNombre, Spring Data asumirá que quieres buscar 
+    entidades por su atributo "nombre".    
+  - Se denominan "Query Methods".
+  - Estos metodos se declaran en el repositorio que pertenece a la entidad.
+  Los nombres de los métodos generalmente siguen este patrón:
+    <findBy>: Indica que se busca por un atributo específico.
+    <Nombre del atributo>: El atributo de la entidad por el que se filtrará.
+    <Operadores>: Puedes usar operadores como Is, Containing, StartingWith, EndingWith, Before, After, etc., para refinar la búsqueda.
+
+    ej. findByNombre(), indByEdadGreaterThan(), etc.
+
+
 
 #### HACER CONSULTAS COMPLEJAS (Specification)
  - Se extiende en la interfaz Repository de JpaSpecificationExecutor. (ej. public interface ProductRepository extends JpaRepository<Product, Integer>, JpaSpecificationExecutor<Product> )
@@ -347,14 +362,54 @@ Permite mayor flexibilidad. "
 # VALIDATION
 - En las dependencias: "implementation 'org.springframework.boot:spring-boot-starter-validation' " // Para  la validadcion de datos en la database.  
 
-**@Valid**: Esta anotacion indica que el valor debe ser validado. Utiliza las anotaciones de los campos del objeto a validar (ej. ProductRecordDto). 
-@PostMapping("/db/dto")
+**@Valid**: Esta anotacion valida el valor que le sigue. Utiliza las anotaciones de los campos del objeto a validar (ej. ProductRecordDto). 
+    @PostMapping("/db/dto")
     public Product createDtoProduct(@Valid @RequestBody ProductRecordDto productRecordDto){
 
         return this.productServiceBoualiali.createDtoProduct(productRecordDto); // Inserta el producto en la bd.
     }
 
+- El orden de los parametros tiene que ser: **@Valid, la entidad y BindingResult**, para validar y capturar los errores.
+  **BindingResult** captura todos los error que estan por default en la entidad(ej. @NotBlank, @NotEmpty, etc).
+    public ResponseEntity<?> createProduct(@Valid @RequestBody Product product, BindingResult result){
+
+    }
+
 **@NotEmpty(message = "This field must be filled")**: Permite validar el campo del objeto.      
+
+### Crear una anotacion personalizada
+- Se crea una interfaz con las anotaciones: @Constraint, @Target, @Retention
+
+    @Constraint(validatedBy = ExistsByUsernameValidation.class) "Se le pasa la clase que implementa la interfaz ConstraintValidator"
+    @Target(ElementType.FIELD)
+    @Retention(RetentionPolicy.RUNTIME)
+    public @interface ExistsByUsername {
+        String message() default "ya existe el usuario, elige otro username";
+
+        Class<?>[] groups() default {};
+
+        Class<? extends Payload>[] payload() default {};
+    }
+
+- Se implementa la interfaz ConstraintValidator<LaInterfaz, TipoDeDatoDelCampo Donde se aplica> de jakarta.validation.ConstraintValidator   
+    @Component
+    public class ExistsByUsernameValidation implements ConstraintValidator<ExistsByUsername, String> {
+
+        @Autowired
+        private UserService userService;
+
+        @Override
+        public boolean isValid(String username, ConstraintValidatorContext context) {
+         // Se implementa la logica de validacion
+         // En este caso solo es llamar al metodo existsByUsername() para ver
+         // si existe el nombre de usuario
+
+            return !userService.existsByUsername(username);
+        }
+    }
+
+- Para validar, en este caso al usuario, se creo un metodo en el repositorio con la nomenclatura  <boolean existsByUsername(String username);>
+- Se aplica la notacion creada **@ExistsByUsername** al campo de la entidad donde se necesita validar.  
 
 ====================================
 # TESTING
@@ -399,7 +454,7 @@ Permite mayor flexibilidad. "
     **@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)**
     **private String password;**
 
-- Otra alternativa para ignorar el campo cuando devuelve la entidad. El problema es que esta notacion excluye el 
+- Otra alternativa para ignorar el campo cuando devuelve la entidad. El problema es que esta anotacion excluye el 
   el valor tanto para escribir como para leer, entoces cuando creas un usuario nunca recibe el valor password.
   **@JsonIgnore**
   **private String password;**
