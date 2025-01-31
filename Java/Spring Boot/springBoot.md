@@ -411,6 +411,11 @@ Permite mayor flexibilidad. "
 - Para validar, en este caso al usuario, se creo un metodo en el repositorio con la nomenclatura  <boolean existsByUsername(String username);>
 - Se aplica la notacion creada **@ExistsByUsername** al campo de la entidad donde se necesita validar.  
 
+### Authentication -JWT (Json Web Token)
+- Libreria:
+    jjwt-root
+    url github: https://github.com/jwtk/jjwt
+
 ====================================
 # TESTING
 
