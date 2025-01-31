@@ -391,7 +391,7 @@ Permite mayor flexibilidad. "
         Class<? extends Payload>[] payload() default {};
     }
 
-- Se implementa la interfaz ConstraintValidator<LaInterfaz, TipoDeDatoDelCampo Donde se aplica> de jakarta.validation.ConstraintValidator   
+- Se implementa la interfaz ConstraintValidator<LaInterfaz--es la interfaz ExistsByUsername, TipoDeDatoDelCampo Donde se aplica> de jakarta.validation.ConstraintValidator   
     @Component
     public class ExistsByUsernameValidation implements ConstraintValidator<ExistsByUsername, String> {
 
@@ -401,7 +401,7 @@ Permite mayor flexibilidad. "
         @Override
         public boolean isValid(String username, ConstraintValidatorContext context) {
          // Se implementa la logica de validacion
-         // En este caso solo es llamar al metodo existsByUsername() para ver
+         // En este caso solo es llamar al metodo existsByUsername() en el service para ver
          // si existe el nombre de usuario
 
             return !userService.existsByUsername(username);

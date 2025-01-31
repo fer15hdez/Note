@@ -27,6 +27,11 @@ dependencies {
 	testImplementation 'org.springframework.security:spring-security-test'
 	runtimeOnly 'org.postgresql:postgresql'
 
+//	Para el uso del JWT
+	implementation 'io.jsonwebtoken:jjwt-api:0.12.6'
+	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.6'
+	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.6' // or 'io.jsonwebtoken:jjwt-gson:0.12.6' for gson
+
 //	No me esta funcionando
 //	implementation 'com.github.javafaker:javafaker:1.0.2' // Permite generar datos falsos para probar la aplicacion
 
