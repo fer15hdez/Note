@@ -412,6 +412,7 @@ Permite mayor flexibilidad. "
 - Se aplica la notacion creada **@ExistsByUsername** al campo de la entidad donde se necesita validar.  
 
 ### Authentication -JWT (Json Web Token)
+- El String de los roles en la BD deben ser de la forma **"ROLE_nombreRol"**.  
 - Libreria:
     jjwt-root
     url github: https://github.com/jwtk/jjwt
