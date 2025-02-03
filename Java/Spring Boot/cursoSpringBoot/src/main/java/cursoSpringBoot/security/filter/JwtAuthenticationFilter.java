@@ -62,7 +62,11 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         // Los claims son datos que se le pasan al token que se crea.
         // No se debe poner info sensible como password, tarjeta de credito, etc.
-        Claims claims = Jwts.claims().add("authorities", roles).build();
+        Claims claims = Jwts.claims()
+                .add("authorities", new ObjectMapper().writeValueAsString(roles))
+                .add("unDatoDePrueba", username) // Solo para mostrar el funcionamiento
+                .build();
+
 
         String token = Jwts.builder()
                 .subject(username)

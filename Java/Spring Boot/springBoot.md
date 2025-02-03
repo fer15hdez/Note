@@ -456,6 +456,16 @@ Permite mayor flexibilidad. "
   
 # SPRING SECURITY
 
+- Se debe importar para el uso de Spring Security
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    testImplementation 'org.springframework.security:spring-security-test'
+
+- Para el uso del JWT (Json Web Token)
+  Se busca en el sitio de jwt, se filtra por java y se va al repositorio. Ahi estan las especificaciones de lo que se debe importar.
+    implementation 'io.jsonwebtoken:jjwt-api:0.12.6'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.6'
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.6' // or 'io.jsonwebtoken:jjwt-gson:0.12.6' for gson
+
 - Solo permite insertar valor. Como medida de seguridad no muestra el valor del campo cuando se devuelve la entidad en formato json.
     **@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)**
     **private String password;**
@@ -464,4 +474,31 @@ Permite mayor flexibilidad. "
   el valor tanto para escribir como para leer, entoces cuando creas un usuario nunca recibe el valor password.
   **@JsonIgnore**
   **private String password;**
+
+- Se debe crear una clase de tipo @Configuration para establecer las configuraciones de Spring Security **(ej. public class SpringSecurityConfig)**.
+
+## AUTENTICACION
+
+- Se crea un metodo Bean en la clase de configuracion de Spring Security **(ej. public class SpringSecurityConfig)** donde se añaden los filtros.
+    @Bean
+    **SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {}**
+- En este metodo se annaden los filtros que se crean para la autenticacion.
+
+### Filtros
+1- Se crea una clase que extiende de UsernamePasswordAuthenticationFilter.
+    - Se sobre escriben los metodos:
+      - **public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)**
+      - protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
+                                                Authentication authResult) throws IOException, ServletException**
+      - protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
+                                                  AuthenticationException failed) throws IOException, ServletException                                             
+2- Se crea otra clase que valida el token y extiende de BasicAuthenticationFilter (ej. public class JwtValidationFilter extends BasicAuthenticationFilter {})
+    Este es el constructor:  public JwtValidationFilter(AuthenticationManager authenticationManager) {
+                                super(authenticationManager);
+                            }   
+    - Se sobre escribe el metodo:
+          @Override
+          protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
+                  throws IOException, ServletException{}
+
 
