@@ -477,6 +477,8 @@ Permite mayor flexibilidad. "
 
 - Se debe crear una clase de tipo @Configuration para establecer las configuraciones de Spring Security **(ej. public class SpringSecurityConfig)**.
 
+## CREAR USUARIOS
+
 ## AUTENTICACION
 
 - Se crea un metodo Bean en la clase de configuracion de Spring Security **(ej. public class SpringSecurityConfig)** donde se añaden los filtros.

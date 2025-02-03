@@ -14,6 +14,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+
+// Esta clase de tipo @service participa en el proceso de autenticacion
+// Aqui se almacenan los detalles del usuario que se usan para la verificacion de credenciales
+// y otros elementos de la autenticacion.
 @Service
 public class JpaUserDetailsService implements UserDetailsService {
 
