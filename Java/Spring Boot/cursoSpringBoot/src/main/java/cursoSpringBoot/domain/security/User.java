@@ -45,6 +45,7 @@ public class User {
         enabled = true;
     }
 
+    // Evita la serializacion cicliquica en la relacion ManyToMany
     @JsonIgnoreProperties({"users", "handler", "hibernateLazyInitializer"})
     @ManyToMany
     @JoinTable(
