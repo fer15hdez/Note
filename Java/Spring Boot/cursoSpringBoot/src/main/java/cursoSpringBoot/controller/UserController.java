@@ -35,7 +35,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.save(user));
     }
 
-    // Para crear un usuario admin que crear algunas reglas de seguridad, entonces nos aseguramos
+    // Para crear un usuario admin hay que crear algunas reglas de seguridad, entonces nos aseguramos
     // que la creacion de un nuevo user sea con rol comun ("ROLE_USER")
     @PostMapping("/register")
     public ResponseEntity<?> register(@Valid @RequestBody User user, BindingResult result){
