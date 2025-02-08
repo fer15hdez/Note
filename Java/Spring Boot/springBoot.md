@@ -374,11 +374,21 @@ Permite mayor flexibilidad. "
     public ResponseEntity<?> createProduct(@Valid @RequestBody Product product, BindingResult result){
 
     }
+    - El **BindingResult** captura los errores de los datos que se envian. En el caso de la notacion **@Colum(parameter=value)** es
+      una notacion que actua cuando se va a insertar en la bd, por lo que el Bindingresult no captura el error.
+      Una solucion para que devuelva una respuesta al cliente y no de error 500, es crear una notacion personalizada.  
 
 **@NotEmpty(message = "This field must be filled")**: Permite validar el campo del objeto.      
 
 ### Crear una anotacion personalizada
-- Se crea una interfaz con las anotaciones: @Constraint, @Target, @Retention
+- Se crea un metodo en el repositorio de la entidad a la que se quire aplicar la anotacion.
+  ej. boolean existsByUsername(String username);
+
+- En el service se crea un metdo que llama al metodo creado en el repositorio.
+  ej.  public boolean existsByUsername(String username) {
+        return repository.existsByUsername(username);
+    }  
+- Se crea una interfaz(debe tener el @ antes de la palabra interface) con las anotaciones: @Constraint, @Target, @Retention
 
     @Constraint(validatedBy = ExistsByUsernameValidation.class) "Se le pasa la clase que implementa la interfaz ConstraintValidator"
     @Target(ElementType.FIELD)
@@ -404,6 +414,7 @@ Permite mayor flexibilidad. "
          // En este caso solo es llamar al metodo existsByUsername() en el service para ver
          // si existe el nombre de usuario
 
+            // Se llama al metodo creado en el service que utiliza el metodo creado en el repositorio.
             return !userService.existsByUsername(username);
         }
     }

@@ -13,6 +13,7 @@ import java.util.List;
 
 @Data
 @Entity
+// El nombre de la tabla debe ser diferente de 'user', esta es una palabra reservada de SQL
 @Table(name = "users")
 public class User {
 
