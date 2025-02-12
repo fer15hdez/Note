@@ -32,7 +32,7 @@ public class SpringSecurityConfig {
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-        return httpSecurity.authorizeHttpRequests((authz) -> authz
+        return httpSecurity.authorizeHttpRequests(authz -> authz
                         .requestMatchers(HttpMethod.GET, "/users").permitAll()
                         .requestMatchers(HttpMethod.POST, "/users/register").permitAll()
                         .anyRequest().authenticated()
@@ -40,7 +40,8 @@ public class SpringSecurityConfig {
                 // Annadimos el filtro
                 .addFilter(new JwtAuthenticationFilter(authenticationManager()))
                 .addFilter(new JwtValidationFilter(authenticationManager()))
-                .csrf(config -> config.disable())
+                .csrf(config -> config.disable()) // Deshabilitar CSRF para APIs REST
+//                No crear sesiones HTTP
                 .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .build()
                 ;
