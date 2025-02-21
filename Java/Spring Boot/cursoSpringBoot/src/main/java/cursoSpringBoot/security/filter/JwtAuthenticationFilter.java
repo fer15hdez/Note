@@ -44,6 +44,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             username = user.getUsername();
             password = user.getPassword();
         } catch (IOException e) {
+            // Es recomendable usar un logger para el manejo de esta excepcion.
             e.printStackTrace();
         }
 
