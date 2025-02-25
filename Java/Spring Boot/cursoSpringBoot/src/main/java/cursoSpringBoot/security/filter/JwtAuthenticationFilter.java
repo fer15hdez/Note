@@ -16,6 +16,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.io.IOException;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -68,11 +70,17 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .add("unDatoDePrueba", username) // Solo para mostrar el funcionamiento
                 .build();
 
+        // Tiempo de experacion del token
+        Duration duration = Duration.ofHours(1);
+        Instant now = Instant.now();
+        Instant expiractionInstant = now.plus(duration);
+        Date expirationDate = Date.from(expiractionInstant);
+
 
         String token = Jwts.builder()
                 .subject(username)
                 .claims(claims)
-                .expiration(new Date(System.currentTimeMillis() + 3600000))
+                .expiration(expirationDate)
                 .issuedAt(new Date())
                 .signWith(SECRET_KEY)
                 .compact();
