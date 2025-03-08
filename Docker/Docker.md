@@ -22,10 +22,12 @@ To start the project is used the command "docker-compose" in the v2 is "docker c
 ```push```: upload a image to a repository.  
 
 ```docker rmi <nombre de la imagen>```: to remove image.    
+```docker rmi <nombre_imagen> <nombre_imagen> <nombre_imagen> ...```: elimianr varias imagenes. Puede ser con el ID o el nombre.  
 ```rm```:  to remove container.  
 
 ### Comandos básicos con imágenes  
-```ls```: para saber las imágenes que tienes en tu equipo.  
+```ls```: para saber las imágenes que tienes en tu equipo.   
+    code test
 
 ### Save images
 *sudo docker save nameImage | gzip > /path/nameImage.tar.gz*  
