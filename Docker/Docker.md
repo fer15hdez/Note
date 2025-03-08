@@ -27,8 +27,7 @@ To start the project is used the command "docker-compose" in the v2 is "docker c
 
 ### Comandos básicos con imágenes  
 ```ls```: para saber las imágenes que tienes en tu equipo.   
-    code test
-
+  
 ### Save images
 *sudo docker save nameImage | gzip > /path/nameImage.tar.gz*  
 *sudo docker load  < ruta/nombrecontainercomprimido.tar*
@@ -71,14 +70,14 @@ Si intentas llamar a dos contenedores por el mismo nombre, como te puedes imagin
 
 ### Listar contenedores
 *Filtrados por estado*
-docker ps -a -f status=exited
+`docker ps -a -f status=exited`
 ### Borrar una lista de contenedores
-*docker rm $(docker ps -a -f status=exited -q)* : The param -q give the list to be raise.
+`docker rm $(docker ps -a -f status=exited -q)` : The param -q give the list to be raise.
 
 
 ### Copying between host and container
-*docker cp archivo.txt midocker:/toDir*  
-*docker cp midocker:archivo2.txt /toDirInHost*
+`docker cp archivo.txt midocker:/toDir`  
+`docker cp midocker:archivo2.txt /toDirInHost`
 
 ### Exponiendo puertos
 *docker run -d -it --name test01 -p 81:80 nginx:alpine*: option ***-p*** when [host port]:.[contianer posrt]. ***-it*** option to run container and iteract in the terminal.   
@@ -129,7 +128,8 @@ docker ps -a -f status=exited
 
 # Docker Compose
 #### The file .yml
-<pre><code>version: '3'
+``` yml
+version: '3'
 services:
     container1:
         image: atareao/chiquito:composer
@@ -142,16 +142,17 @@ services:
         volumes:
             - ./data:/var/lib/mysql
         environment:
-            MYSQL_ROOT_PASSWORD: password ```
-</code></pre>
+            MYSQL_ROOT_PASSWORD: password 
+            
+```
 **volume** : volume_name:/path/in/container
 
 ### Basic command
-*docker-compose up*: levanta los contenedores.  
-*docker-composer up -d*: hace lo mismo que la instrucción pero en modo desvinculado, detached mode.  
-*docker-compose ps*: te permite ver los contenedores que están en funcionamiento.  
-*docker compose stop*: es la herramienta encargada de detener los diferentes contenedores.   
-*docker-composer down*: detiene los contenedores.  
+`docker-compose up`: levanta los contenedores.  
+`docker-composer up -d`: hace lo mismo que la instrucción pero en modo desvinculado, detached mode.  
+`docker-compose ps`: te permite ver los contenedores que están en funcionamiento.  
+`docker compose stop`: es la herramienta encargada de detener los diferentes contenedores.   
+`docker-composer down`: detiene los contenedores.  
 
 ***
 
