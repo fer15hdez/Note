@@ -45,17 +45,27 @@ git reset [<mode>] [<commit>]
     Does not touch the index file or the working tree at all (but resets the head to <commit>, just like all modes do). This leaves all your changed files "Changes to be committed", as git status would put it.  
   [--hard]
     Resets the index and working tree. Any changes to tracked files in the working tree since <commit> are discarded.
+ ### Commit History
+`git log `
 
+### Regresar a un Commit (RollBack)
+`git checkout hash_commit`
 
+### Regresar a un commit específico (descartando cambios posteriores)
+`git reset --hard <commit-hash>`
 
 ## Branch
+
 ### Create a branch
 git branch <name_of_branch>
 ### Jump to other branch
 git switch <name_of_branch>
+### Cambia la rama a un commit especifico
+`git reset <id_commit>`  
+`git reset --hard <id_commit>`  "La rama apunta a id_commit y olvida los commit que estan por delante"  
 
 ### Para borrar la branch local
-git branch -d localBranchName **-d eliminará la branch únicamente si esta ha sido empujada y fusionada con la branch remota."**    
+`git branch -d localBranchName` **-d eliminará la branch únicamente si esta ha sido empujada y fusionada con la branch remota."**    
           "-D si deseas forzar la eliminación de una branch, incluso si aún esta no ha sido empujada o fusionada aún."  
 
 ### Para borrar la branch remota
