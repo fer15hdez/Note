@@ -68,12 +68,19 @@ git switch <name_of_branch>
 `git branch -d localBranchName` **-d eliminará la branch únicamente si esta ha sido empujada y fusionada con la branch remota."**    
           "-D si deseas forzar la eliminación de una branch, incluso si aún esta no ha sido empujada o fusionada aún."  
 
+### Sobreescribe la rama remota con la versión local.
+`git push --force`  
+
 ### Para borrar la branch remota
 git push origin --delete remoteBranchName "Just need to put remoteBranchName, not a like 'origen/remoteBranchName'. Don't make completion of name of branch"  
 
 git branch -d [ name_branch] "with the -d option is to delete the branch"  
 git checkout [name_branch] "Switched to branch [name_branch]" "Updates files in the working tree to match the version in the index or the specified tree"  
 git branch "Show the branches and with * said which is selected"  
+
+## Archivos
+### Dejar de serguir archivos
+git rm --cached archivo.txt
 
 ## Proxy en Git
 git config --global http.proxy http://proxyuser:proxypwd@proxy.server.com:8080 " this works for both http and https repos."  
