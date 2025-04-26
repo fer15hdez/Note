@@ -125,6 +125,7 @@ recomienda hacer Contructor Injection.
    
 ====================================
 # REST
+## CONTROLLER
 
 **@RestController**: Le dice a spring que debe tomar esta clase como un contralador.  
 **@ResponseStatus(HttpStatus.ACCEPTED)**: Si se ejecuta sin excepciones devuelve el http method 'ACCEPTED'.  
@@ -415,6 +416,34 @@ Permite mayor flexibilidad. "
 
 - Para validar, en este caso al usuario, se creo un metodo en el repositorio con la nomenclatura  <boolean existsByUsername(String username);>
 - Se aplica la notacion creada **@ExistsByUsername** al campo de la entidad donde se necesita validar.  
+
+- En caso de no usar la notacion @Valid para comprobar los datos que se van a insertar y teniendo las restricciones en la entidad
+  se lanza la excepcion ConstraintViolationException con los mensajes de error. Esta excepcion se puede capturar en un handler de 
+  excepciones globales. Las anotaciones global handler son: @ControllerAdvice y @RestControllerAdvice
+<code> 
+    @ExceptionHandler(ConstraintViolationException.class)  
+        public ResponseEntity<?> handlerConstraintViolationException(  
+                ConstraintViolationException ex, WebRequest request){
+
+            Map<String, String> errors = new HashMap<>();
+
+            ex.getConstraintViolations().forEach(violation -> {
+                String fieldName = violation.getPropertyPath().toString();
+                String message = violation.getMessage();
+                errors.put(fieldName, message);
+            });
+
+
+            // Personaliza el mensaje general si lo deseas
+            Map<String, Object> response = new HashMap<>();
+            response.put("message", "Error de validación en los datos enviados.");
+            response.put("errors", errors);
+            response.put("timestamp", java.time.LocalDateTime.now());
+            response.put("details", "Verifique los campos con errores.");
+
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        } 
+</code> 
 
 ### Authentication -JWT (Json Web Token)
 - El String de los roles en la BD deben ser de la forma **"ROLE_nombreRol"**.  
