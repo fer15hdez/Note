@@ -419,7 +419,10 @@ Permite mayor flexibilidad. "
 
 - En caso de no usar la notacion @Valid para comprobar los datos que se van a insertar y teniendo las restricciones en la entidad
   se lanza la excepcion ConstraintViolationException con los mensajes de error. Esta excepcion se puede capturar en un handler de 
-  excepciones globales. Las anotaciones global handler son: @ControllerAdvice y @RestControllerAdvice
+  excepciones globales. 
+
+### Handler Exception
+  Las anotaciones para manejar global handler son: **@ControllerAdvice y @RestControllerAdvice**  
 <code> 
     @ExceptionHandler(ConstraintViolationException.class)  
         public ResponseEntity<?> handlerConstraintViolationException(  
@@ -444,6 +447,16 @@ Permite mayor flexibilidad. "
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         } 
 </code> 
+
+- La excepcion **EntityNotFoundException** cuando se lanza y existe un global handler para capturarla debe tener las anotaciones
+  **@ResponseBody** en el metodo donde se captura o tener el **@RestControllerAdvice** a inicio de la clase.  
+  Ej:
+    @ExceptionHandler(EntityNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseBody
+    public Map<String, String> handleEntityNotFoundException(EntityNotFoundException ex) {
+        
+    }
 
 ### Authentication -JWT (Json Web Token)
 - El String de los roles en la BD deben ser de la forma **"ROLE_nombreRol"**.  
