@@ -60,7 +60,7 @@ Si intentas llamar a dos contenedores por el mismo nombre, como te puedes imagin
 *--network [nameOfNetwork]*: define a que red va a pertenecer
 
 ### Start, stop and pause
-```docker start IDcontainer```:  run a container created before.  
+```docker start IDcontainer```:  run a previously created container.  
 ```docker stop IDcontainer```:  
 ```docker restart 1e0e92b8255e```:  
 ```docker pause 1e0e92b8255e```:  
