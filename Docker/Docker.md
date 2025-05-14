@@ -38,7 +38,7 @@ To start the project is used the command "docker-compose" in the v2 is "docker c
 
 # Manage Container
 ```docker container --help```  
-```docker run atareao/hola```: start a container.  
+```docker run atareao/hola```: create and start a container.  
 ```docker ps```: show all the container.  
 ```docker container ls```: show all the container.  
 ```docker ps -a```: show all the container, even stoped.  
@@ -60,7 +60,7 @@ Si intentas llamar a dos contenedores por el mismo nombre, como te puedes imagin
 *--network [nameOfNetwork]*: define a que red va a pertenecer
 
 ### Start, stop and pause
-```docker start IDcontainer```:  
+```docker start IDcontainer```:  run a previously created container.  
 ```docker stop IDcontainer```:  
 ```docker restart 1e0e92b8255e```:  
 ```docker pause 1e0e92b8255e```:  
