@@ -145,6 +145,28 @@ http://localhost:8080/sistema/api/v1/clientes/param?user-name=fernan&last-name=v
 ### URI
 - URI: Identifica al recurso
 
+## PAGINATION
+- Paquetes a importar
+` import org.springframework.data.domain.Page;`
+` import org.springframework.data.domain.Pageable;`
+
+- En el controller
+  @GetMapping("/db/prouducts/pageable")
+    public ResponseEntity<Page<Product>> listProductPaginados(
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "5") int size  ){
+
+        PageRequest pageRequest = PageRequest.of(page, size); // PageRequest implementa la interfaz Pageable
+        Page<Product> productosPaginados = productServiceBoualiali.listProductPaginados(pageRequest);
+        return ResponseEntity.ok(productosPaginados);
+
+    }
+- En el service
+public Page<Product> listProductPaginados(Pageable pageable){
+
+        return this.productRepository.findAll(pageable);
+    }    
+
 ====================================
 # DATA BASE
 

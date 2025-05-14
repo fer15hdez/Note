@@ -3,6 +3,7 @@ package cursoSpringBoot.error;
 import cursoSpringBoot.error.pojo.ErrorDetails;
 import cursoSpringBoot.exceptions.DeleteEntityNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -34,6 +35,31 @@ public class GlobalExceptionHandler {
     public ResponseEntity<?> handleUserNotFoundException(DeleteEntityNotFoundException ex, WebRequest request) {
         ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
+    }
+
+    // ConstraintViolationException captura las excepciones lanzadas por las
+    // restricciones (ej. @Size(min = 5, max = 20)) en la entidad, si no son manejadas antes de la insercion
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<Object> handlerConstraintViolationException(
+            ConstraintViolationException ex, WebRequest request){
+
+        Map<String, String> errors = new HashMap<>();
+
+        ex.getConstraintViolations().forEach(violation -> {
+            String fieldName = violation.getPropertyPath().toString();
+            String message = violation.getMessage();
+            errors.put(fieldName, message);
+        });
+
+
+        // Personaliza el mensaje general si lo deseas
+        Map<String, Object> response = new HashMap<>();
+        response.put("message", "Error de validación en los datos enviados.");
+        response.put("errors", errors);
+        response.put("timestamp", java.time.LocalDateTime.now());
+        response.put("details", "Verifique los campos con errores.");
+
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 }
 

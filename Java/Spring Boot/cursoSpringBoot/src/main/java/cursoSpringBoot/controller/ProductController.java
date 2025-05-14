@@ -9,6 +9,8 @@ import cursoSpringBoot.service.ProductServiceImpl;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -39,6 +41,18 @@ public class ProductController {
     public ProductController(ProductServiceBoualiali productServiceBoualiali, ProductValidator validator) {
         this.productServiceBoualiali = productServiceBoualiali;
         this.validator = validator;
+    }
+
+//    Paginacion
+    @GetMapping("/db/prouducts/pageable")
+    public ResponseEntity<Page<Product>> listProductPaginados(
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "5") int size  ){
+
+        PageRequest pageRequest = PageRequest.of(page, size); // PageRequest implementa la interfaz Pageable
+        Page<Product> productosPaginados = productServiceBoualiali.listProductPaginados(pageRequest);
+        return ResponseEntity.ok(productosPaginados);
+
     }
 
 
@@ -149,7 +163,6 @@ public class ProductController {
                     var fieldName = ((FieldError)error).getField();
                     var errorMessage = error.getDefaultMessage();
                     errors.put(fieldName, errorMessage);
-
                 });
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }

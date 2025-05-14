@@ -105,3 +105,6 @@ el segundo solo permite un ArrayList de tipo Animal.
 
 - A local **variable lives** only within the method that declared the variable.  
 - An **instance variable lives** as long as the object does. If the object is still alive, so are its instance variables.
+
+### METODOS
+- Referencia a método 

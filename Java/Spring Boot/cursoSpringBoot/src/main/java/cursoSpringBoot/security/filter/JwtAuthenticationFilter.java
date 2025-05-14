@@ -81,7 +81,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .subject(username)
                 .claims(claims)
                 .expiration(expirationDate)
-                .issuedAt(new Date())
+                .issuedAt(new Date()) // Dice cuando se creó el token
                 .signWith(SECRET_KEY)
                 .compact();
 

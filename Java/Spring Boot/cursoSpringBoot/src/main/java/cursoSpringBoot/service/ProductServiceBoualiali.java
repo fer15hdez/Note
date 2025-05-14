@@ -5,6 +5,8 @@ import cursoSpringBoot.domain.Specification.ProductSpecification;
 import cursoSpringBoot.exceptions.DeleteEntityNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -91,6 +93,7 @@ public class ProductServiceBoualiali {
                 // Recibe una lambda function como parametro.
                 // Se llama a la excepcion personalizada (DeleteEntityNotFoundException) que
                 // recibe un el texto de respuesta.
+                // Puede ser una brecha de serguridad exponer la info al user final
                 () -> new DeleteEntityNotFoundException("Not found entity with id: " + id)
         );
 
@@ -116,5 +119,11 @@ public class ProductServiceBoualiali {
                 ;
 
         return productRepository.findAll(specification); // El metodo findAll() recibe como parametro un Specification type o null
+    }
+
+//    PAGINACION
+    public Page<Product> listProductPaginados(Pageable pageable){
+
+        return this.productRepository.findAll(pageable);
     }
 }
