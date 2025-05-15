@@ -15,6 +15,27 @@ try {
    print (e);
 };
 
+*Insertar un documento con un documento embebido: -- detalles*
+db.productos.insertOne({
+  "nombre": "Smartphone Samsung Galaxy S23",
+  "precio": 999.00,
+  "categoria": "Electrónica",
+  "stock": 10,
+  "detalles": {
+    "pantalla": "6.1 pulgadas AMOLED",
+    "procesador": "Snapdragon 8 Gen 2",
+    "memoriaRAM": "8GB"
+  }
+})
+
+*Insertar un documento con un array de valores: -- temas*
+db.productos.insertOne({
+  "nombre": "Curso de Desarrollo Web",
+  "precio": 49.99,
+  "categoria": "Educación",
+  "temas": ["HTML", "CSS", "JavaScript", "Node.js"]
+})
+
 ***db.collection.insertMany() ***
 *Example*  
 try {
