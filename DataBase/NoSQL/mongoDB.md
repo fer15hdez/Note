@@ -67,7 +67,7 @@ db.collection.replaceOne(
    }
 )
 
-# Delete
+### Delete
 **Syntasi**
 ***Deletes the first document that matches the filter. Use a field that is part of a unique index such as _id for precise deletions.***
 db.collection.deleteOne(
