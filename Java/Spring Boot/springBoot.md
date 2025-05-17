@@ -221,7 +221,7 @@ Column(
 - Una solucion para evitar la **deserializacion ciclica** en el ManyToMany es crear un metodo toString() en la entidad
   no controladora de la relacion sin mostrar la lista de la otra entidad.
 - Otra solucion para evitar la **deserializacion ciclica** en el ManyToMany
-    `@JsonIgnoreProperties({"users, "handler", "hibernateLazyInitializer"})`
+    `@JsonIgnoreProperties({"users", "handler", "hibernateLazyInitializer"})`
     `private List<Role> roles;`
     Le decimos que cuando convierta la entidad en json que ignore el campo "users" en la entidad Role.  
     Estos "handler", "hibernateLazyInitializer" los puede generar spring como parte del proceso de descerializacion y podrian dar error,
