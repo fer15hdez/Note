@@ -105,6 +105,9 @@ db.productos.find({ "etiquetas": { $all: ["grande", "brillante"] } })
 </code>
 Esto devolverá los documentos "Producto A" y "Producto C", ya que ambos tienen las etiquetas "grande" y "brillante".
 
+*Contar documentos*
+`db.miColeccion.countDocuments({})` : contar todos los documentos en una colección
+`db.miColeccion.countDocuments({ estado: "activo" })` : contar documentos que cumplen con un criterio específico
 
 
 ***db.collection.findOne()***
