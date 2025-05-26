@@ -225,6 +225,7 @@ Esto devolverá los documentos "Producto A" y "Producto C", ya que ambos tienen 
           input: "$staffDetails",
           as: "staffMember",
           in: {
+            // Define la forma del nuevo objeto para cada elemento del array.  
             // Define los campos que quieres incluir de cada staffMember
             firstName: "$$staffMember.name",
             lastName: "$$staffMember.lastName",  
