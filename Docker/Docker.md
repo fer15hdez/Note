@@ -124,6 +124,14 @@ Si intentas llamar a dos contenedores por el mismo nombre, como te puedes imagin
 *ENTRYPOINT ["bash", "./migrate.sh"]* (This command launches a Bash shell and executes the script in the "migrate.sh" file line by line.)  
 
 ***
+
+# VOLUME 
+`docker volume create mi_volumen`: Crear un volumen  
+`docker volume ls`: Listar volumen  
+`docker volume inspect mi_volumen` : Inspeccionar un volumen  
+`docker volume rm mi_volumen`: Eliminar un volumen  
+`docker volume prune`: Eliminar todos los volúmenes no usados  
+
 ***
 
 # Docker Compose
