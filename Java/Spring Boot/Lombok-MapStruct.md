@@ -61,7 +61,7 @@
 ```
 
 ## Class abstracta o Interface
-Se crea una clase abstracta o una interface 
+Se crea una clase abstracta o una interface. Yo la cree en la carpeta service
 
 ```java
 import com.booking.domain.Room;
