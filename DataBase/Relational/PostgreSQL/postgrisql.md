@@ -21,7 +21,7 @@
 *\q* (Para salir de psql )  
 *\du* (List all user)
     
-**Note: Is necesary the semicolon at the en of each sentence**  
+**Note: Is necesary the semicolon at the end of each sentence**  
 **Note: In postgres a role and a user are the same**   
 
 ### DataBAse
