@@ -151,6 +151,7 @@ http://localhost:8080/sistema/api/v1/clientes/param?user-name=fernan&last-name=v
 ` import org.springframework.data.domain.Pageable;`
 
 - En el controller
+```java
   @GetMapping("/db/prouducts/pageable")
     public ResponseEntity<Page<Product>> listProductPaginados(
             @RequestParam(defaultValue = "1") int page,
@@ -161,11 +162,14 @@ http://localhost:8080/sistema/api/v1/clientes/param?user-name=fernan&last-name=v
         return ResponseEntity.ok(productosPaginados);
 
     }
+```    
 - En el service
+```java
 public Page<Product> listProductPaginados(Pageable pageable){
 
         return this.productRepository.findAll(pageable);
     }    
+```  
 
 ====================================
 # DATA BASE

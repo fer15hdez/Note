@@ -120,7 +120,7 @@ public abstract class RoomMapperStruct {
                     () -> new EntityNotFoundException("Entity not found")
             );
 
-            // Llamamos al "updateEntityFromDto" para actualizar la entidad en la base de datos con solo
+            // Llamamos al "updateEntityFromDto" de "RoomMapperStruct" para actualizar la entidad en la base de datos con solo
             // los campos que tienen valor. Los campos que tienen valor null(los que envia el cliente)  
             // se le asignan los valores que estan en la bd, asi no se sobre escriben los valores que no se 
             // quieren modificar con el valor null de los campos vacios (los que envia el cliente). 
