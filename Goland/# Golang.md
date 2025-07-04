@@ -27,12 +27,14 @@
 ## Function
 - Sintaxis
     ```go
+    
     func FunctionName(param1 type, param2 type, param3 type) type {
         // code to be executed
         return output
     }
     ```
     ```go
+
     package main
     import ("fmt")
 
@@ -98,3 +100,14 @@
     ```   
 - Eliminar elementos de un map
   `delete(map_name, key)`      
+
+- Iterar sobre el maps
+```go
+    func main() {
+        a := map[string]int{"one": 1, "two": 2, "three": 3, "four": 4}
+
+        for k, v := range a {
+            fmt.Printf("%v : %v, ", k, v)
+        }
+    }
+```
