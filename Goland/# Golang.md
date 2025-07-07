@@ -1,5 +1,9 @@
 # Golang 
 
+## Comandos
+ ` go list -f '{{.Target}}' `
+
+
 ## Crear un modulo
 `go mod init nombre_modulo`
 - Esto crea un archivo "go.mod"  
@@ -23,6 +27,13 @@
     `fmt.Printf("i has value: %v and type: %T\n", i, i)`
 - Println(): Muestra el texto e imprime un salto de linea.  
 - Print(): Muestra el texto tal y como se escribe.       
+
+## Punteros
+- Un puntero contiene la dirección de memoria de un valor. 
+  `var p int = 10` : p es una variable que tiene como valor en memoria 10.   
+  `var p *int` : p es un puntero a un valor int.  
+  `p = &i`: p es un puntero a i. (p tiene la dir de memoria al valor de i).  
+  `*p = 21`: el * desrefencia a p y modifica el valor que esta en memoria.  
 
 ## Function
 - Sintaxis
@@ -48,7 +59,14 @@
     ```
 
 ## Collections
+
+### Arrays
+- Los arrays no se pueden redimensionar  
+  `var a [10]int`: declara una variable a como un array de diez enteros.  
+
+
 ### Slice
+- Un slice se forma especificando dos índices, un límite inferior y superior, separados por dos puntos.  
 - Syntax  
   `slice_name := []datatype{values}`  
   `myslice := []int{}` Un slice vacio.  
@@ -61,6 +79,7 @@
 - Funcion Make()  
     - If the capacity parameter is not defined, it will be equal to length.  
       `slice_name := make([]type, length, capacity)`   
+      
 ### Struct
 - Sintaxis
     ```go
