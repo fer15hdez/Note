@@ -57,6 +57,11 @@
     return
     }
     ```
+#### Defer
+    - Una instrucción defer, aplaza la ejecución de una función hasta el retorno de la funcion circundante (que la contiene).  
+    La funcion defer se ejecuta cuando la funcion donde esta termina.  
+    - Los argumentos de la llamada diferida se evalúan inmediatamente, pero la llamada a la función no se ejecuta hasta que la función que la rodea retorna.  
+    - Si existen mas de una funcion defer estas se almacenan en una pila FIFO y esta se ejecuta cuando termina la funcion donde estan.  
 
 ## Collections
 
@@ -67,19 +72,33 @@
 
 ### Slice
 - Un slice se forma especificando dos índices, un límite inferior y superior, separados por dos puntos.  
+- Un slice no almacena ningún dato, solo describe una sección de un array subyacente (array real (o físico)).  
+  Es una especie de puntero.  
+- Cambiar los elementos de un slice modifica los correspondientes elementos de su array subyacente.  
+- Otros slices que comparten el mismo array subyacente verán esos cambios.  
+- Un slice no se puede modificar mas alla de la capacidad del array subyacente (array real (o físico)).  
+- El valor cero de un slice es nil.  
+- Un slice nulo tiene una longitud y capacidad de 0 y no tiene array subyacente.  
+- Los slices pueden contener cualquier tipo, incluyendo otros slices.  
+    `s := make([][]int, dy)`: un slice de slice de enteros.  
+
 - Syntax  
   `slice_name := []datatype{values}`  
   `myslice := []int{}` Un slice vacio.  
   `myslice := []int{1,2,3}`
 
 - Capacidad y len()
-  - len() function - returns the length of the slice (the number of elements in the slice)
-  - cap() function - returns the capacity of the slice (the number of elements the slice can grow or shrink to)
+  - len() function - returns the length (longitud) of the slice (the number of elements in the slice)
+  - cap() function - La capacidad de un slice es el número de elementos en el array subyacente (array real (o físico)), contando desde el primer elemento en el slice.  
 
 - Funcion Make()  
     - If the capacity parameter is not defined, it will be equal to length.  
-      `slice_name := make([]type, length, capacity)`   
-      
+      `slice_name := make([]type, length, capacity)` 
+
+- Agregar elementos al slice  
+    `s = append(nombre_slice_a_modificar, elem, elem2, ...)` 
+    - Los elementos a agregar deben ser del mismo tipo que 
+
 ### Struct
 - Sintaxis
     ```go
@@ -104,6 +123,8 @@
     fmt.Print(person1.name)
     ```      
 ### Maps
+- El valor cero de un map es nil. Un map nulo no tiene claves, ni se pueden agregar claves.  
+- La funcion make retorna un map del tipo dado, inicilizado y listo para usar.  
 - Sintaxis
     ```go
     var a = map[KeyType]ValueType{key1:value1, key2:value2,...}
@@ -128,5 +149,20 @@
         for k, v := range a {
             fmt.Printf("%v : %v, ", k, v)
         }
+    }
+```
+
+- Comprobar que una clave este presente
+  `elem, ok = m[key]`: Si key está en m, entonces ok es true.  
+
+## Método
+- Un método es esencialmente una función, pero con una diferencia crucial: tiene un argumento receptor especial.  
+- Un método es una funcion asociada a cualquier tipo definido por el usuario (estructuras, tipos básicos con alias, etc.).   
+- Si el tipo receptor es un puntero (*TipoReceptor), el método puede modificar el valor original del receptor.   
+
+- Sintaxys
+```go
+    func (nombre_receptor TipoReceptor) NombreMetodo(parametros) (retornos) {
+        // Cuerpo del método
     }
 ```
