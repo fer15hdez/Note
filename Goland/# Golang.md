@@ -33,7 +33,7 @@
   `var p int = 10` : p es una variable que tiene como valor en memoria 10.   
   `var p *int` : p es un puntero a un valor int.  
   `p = &i`: p es un puntero a i. (p tiene la dir de memoria al valor de i).  
-  `*p = 21`: el * desrefencia a p y modifica el valor que esta en memoria.  
+  `*p = 21`: el * desreferencia a p y modifica el valor que esta en memoria.  
 
 ## Function
 - Sintaxis
@@ -159,6 +159,7 @@
 - Un método es esencialmente una función, pero con una diferencia crucial: tiene un argumento receptor especial.  
 - Un método es una funcion asociada a cualquier tipo definido por el usuario (estructuras, tipos básicos con alias, etc.).   
 - Si el tipo receptor es un puntero (*TipoReceptor), el método puede modificar el valor original del receptor.   
+- Solo puedes declarar un método con un receptor cuyo tipo este definido en el mismo paquete como el método.  
 
 - Sintaxys
 ```go
