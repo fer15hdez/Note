@@ -85,7 +85,7 @@
 - Syntax  
   `slice_name := []datatype{values}`  
   `myslice := []int{}` Un slice vacio.  
-  `myslice := []int{1,2,3}`
+  `myslice := []int{1,2,3}`  
 
 - Capacidad y len()
   - len() function - returns the length (longitud) of the slice (the number of elements in the slice)
@@ -97,7 +97,7 @@
 
 - Agregar elementos al slice  
     `s = append(nombre_slice_a_modificar, elem, elem2, ...)` 
-    - Los elementos a agregar deben ser del mismo tipo que 
+    - Los elementos a agregar deben ser del mismo tipo que los contenidos por el slice.  
 
 ### Struct
 - Sintaxis
@@ -159,7 +159,7 @@
 - Un método es esencialmente una función, pero con una diferencia crucial: tiene un argumento receptor especial.  
 - Un método es una funcion asociada a cualquier tipo definido por el usuario (estructuras, tipos básicos con alias, etc.).   
 - Si el tipo receptor es un puntero (*TipoReceptor), el método puede modificar el valor original del receptor.   
-- Solo puedes declarar un método con un receptor cuyo tipo este definido en el mismo paquete como el método.  
+- Solo puedes declarar un método con un receptor cuyo tipo este definido en el mismo paquete como el método (debe estar en el mismo archivo).  
 
 - Sintaxys
 ```go
