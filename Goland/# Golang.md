@@ -167,3 +167,15 @@
         // Cuerpo del método
     }
 ```
+
+## Interfaces
+- Sintaxy
+```go
+    type NombreDeLaInterfaz interface {
+        // Firma del método 1: nombre(parametros) (retornos)
+        Metodo1(int) string
+        // Firma del método 2:
+        Metodo2() error
+        // ... más firmas de métodos
+    }
+```
