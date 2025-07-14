@@ -197,3 +197,5 @@
 ```
 - Un tipo implementa una interfaz implementando sus métodos. No hay una declaración explícita de intenciones, ni la palabra clave "implements".  
    - Solo se imprementa los mentodos de la interfaz, no existe una palabra clave para identificarlo, con eso es suficiente para implementar la interfaz.  
+- Para usar el polimorfismo si se declara de tipo puntero la implementacion de una interfaz **(func (v *Vertex) Abs() float64)** 
+  esta no se puede usar en un TYPE declarado de tipo valor.  
