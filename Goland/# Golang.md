@@ -179,3 +179,21 @@
         // ... más firmas de métodos
     }
 ```
+```go
+    type Vertex struct {
+    X, Y float64
+    }
+
+    func (v *Vertex) Abs() float64 { // Receptor por PUNTERO
+    return valor
+    }
+
+    func (v Vertex) Metodo_Valor() float64 { // Receptor por VALOR
+    return valor
+    }
+
+    // Cuando defines un método con un receptor por puntero (func (v *Vertex) Abs() float64), 
+    // ese método solo puede ser llamado directamente en un puntero a Vertex.
+```
+- Un tipo implementa una interfaz implementando sus métodos. No hay una declaración explícita de intenciones, ni la palabra clave "implements".  
+   - Solo se imprementa los mentodos de la interfaz, no existe una palabra clave para identificarlo, con eso es suficiente para implementar la interfaz.  
