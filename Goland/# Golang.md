@@ -180,6 +180,10 @@
     }
 ```
 ```go
+    type Abser interface {
+       Abs() float64
+    }
+    type MyFloat float64
     type Vertex struct {
     X, Y float64
     }
@@ -192,10 +196,25 @@
     return valor
     }
 
+    func (f MyFloat) Abs() float64 {
+        return valor
+    }
+
     // Cuando defines un método con un receptor por puntero (func (v *Vertex) Abs() float64), 
     // ese método solo puede ser llamado directamente en un puntero a Vertex.
+
+    var a Abser
+    f := MyFloat(10)
+    v := Vertex{1, 2}
+    a = f // Se usa por valor
+    a = v // Da error, porque trata de asignar a la interfaz Abser (que es "a") Vertex que implementa la interfaz por puntero.   
 ```
 - Un tipo implementa una interfaz implementando sus métodos. No hay una declaración explícita de intenciones, ni la palabra clave "implements".  
    - Solo se imprementa los mentodos de la interfaz, no existe una palabra clave para identificarlo, con eso es suficiente para implementar la interfaz.  
 - Para usar el polimorfismo si se declara de tipo puntero la implementacion de una interfaz **(func (v *Vertex) Abs() float64)** 
-  esta no se puede usar en un TYPE declarado de tipo valor.  
+  esta no se puede usar en un TYPE declarado de tipo valor.   
+  (Las interfaces cuando se implementan usando un receptor por VALOR se pueden usar usando TYPE por VALOR y por PUNTERO. Si la interface se implementa por PUNTERO
+  solo se puede usar por el TYPE por puntero)(Esto suscede cuando tratamos de usar el polimorfismo usando la implementacion de una interfaz).    
+
+### Valores de interfaz nulo
+-   
