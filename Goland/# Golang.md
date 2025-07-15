@@ -216,5 +216,52 @@
   (Las interfaces cuando se implementan usando un receptor por VALOR se pueden usar usando TYPE por VALOR y por PUNTERO. Si la interface se implementa por PUNTERO
   solo se puede usar por el TYPE por puntero)(Esto suscede cuando tratamos de usar el polimorfismo usando la implementacion de una interfaz).    
 
+### Valores de interfaz
+- Una variable de interfaz en Go se representa internamente como una dupla (par de valores).  
+  ```go
+        var i interface{} // Declaramos una variable de interfaz vacía
+
+	// En este punto, 'i' es un valor de interfaz nulo.
+	// Su tipo concreto es <nil> y su valor concreto es <nil>.
+	fmt.Printf("Valor de i: %v, Tipo de i: %T\n", i, i) // Salida: Valor de i: <nil>, Tipo de i: <nil>
+
+    a := i 
+    // "a" es de tipo "i" (la interfaz) y valor <nil>  
+
+  ```
+
 ### Valores de interfaz nulo
--   
+```go
+    package main
+
+    import "fmt"
+
+    // Definimos una interfaz simple
+    type Saludar interface {
+        Hola() string
+    }
+
+    // Definimos un tipo que implementa la interfaz
+    type Persona struct {
+        Nombre string
+    }
+
+    func (p Persona) Hola() string {
+        return "Hola, mi nombre es " + p.Nombre
+    }
+
+    func main() {
+        var s Saludar // Declaramos una variable de interfaz de tipo 'Saludar'
+
+        // En este punto, 's' es nula (tipo=<nil>, valor=<nil>)
+        fmt.Printf("Valor de s: %v, Tipo de s: %T\n", s, s) // Salida: Valor de s: <nil>, Tipo de s: <nil>
+
+        if s == nil {
+            fmt.Println("La interfaz 's' es nula. No tiene tipo ni valor.")
+        }
+
+        // ¡PELIGRO! Intentamos llamar a un método en una interfaz nula.
+        // Esto causará un panic en tiempo de ejecución.
+        fmt.Println(s.Hola()) // Esto va a fallar: panic: runtime error: invalid memory address or nil pointer dereference
+    }
+```
