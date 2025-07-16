@@ -265,3 +265,8 @@
         fmt.Println(s.Hola()) // Esto va a fallar: panic: runtime error: invalid memory address or nil pointer dereference
     }
 ```
+
+### La interfaz vacía
+- El tipo de interfaz que específica cero métodos es conocida como una _interfaz_vacia: `interface{}`
+- Un tipo implementa una interfaz si cumple con todos los métodos de esa interfaz. Si una interfaz no requiere ningún método, entonces todos los tipos (números enteros, cadenas de texto, structs, slices, mapas, etc.) automáticamente cumplen ese "contrato" vacío.  
+- Debido a que puede contener cualquier tipo de valor, interface{} es la forma de Go de manejar valores de tipo desconocido o arbitrario. Es el equivalente más cercano al concepto de "Object" en Java o "Any" en TypeScript/Python, aunque con la seguridad de tipos de Go.  
