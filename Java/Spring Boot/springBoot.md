@@ -135,8 +135,10 @@ acceder al EndPoint.
 - Los getter and setter son necesarios para la serialitation y el proceso inverso. Permiten el acceso a los campos privados de las clases.  
 
 **@PathVariable**: Permite pasar un valor por la url. El valor de la url debe ser igual que el nombre del parametro.  
+- url: "/hola/{name}"
 @GetMapping({"/hello/{name}", "/hola/{name}"})
 public String greeting(@PathVariable String name){}  
+
 **@RequestParam("user-name")**:  Permite especificar el valor que se pasa por parametro en la url. 
 http://localhost:8080/sistema/api/v1/clientes/param?user-name=fernan&last-name=vel
 
