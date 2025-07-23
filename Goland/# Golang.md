@@ -57,11 +57,11 @@
     return
     }
     ```
-#### Defer
+### Defer
     - Una instrucción defer, aplaza la ejecución de una función hasta el retorno de la funcion circundante (que la contiene).  
     La funcion defer se ejecuta cuando la funcion donde esta termina.  
     - Los argumentos de la llamada diferida se evalúan inmediatamente, pero la llamada a la función no se ejecuta hasta que la función que la rodea retorna.  
-    - Si existen mas de una funcion defer estas se almacenan en una pila FIFO y esta se ejecuta cuando termina la funcion donde estan.  
+    - Si existen mas de una funcion defer estas se almacenan en una pila LIFO y esta se ejecuta cuando termina la funcion donde estan.  
 
 ## Collections
 
@@ -270,3 +270,82 @@
 - El tipo de interfaz que específica cero métodos es conocida como una _interfaz_vacia: `interface{}`
 - Un tipo implementa una interfaz si cumple con todos los métodos de esa interfaz. Si una interfaz no requiere ningún método, entonces todos los tipos (números enteros, cadenas de texto, structs, slices, mapas, etc.) automáticamente cumplen ese "contrato" vacío.  
 - Debido a que puede contener cualquier tipo de valor, interface{} es la forma de Go de manejar valores de tipo desconocido o arbitrario. Es el equivalente más cercano al concepto de "Object" en Java o "Any" en TypeScript/Python, aunque con la seguridad de tipos de Go.  
+
+## Trabajo con archivos
+```go
+
+    import(
+        "os"
+        "path/filepath"
+    )
+
+    // Path actual
+    os.Getwd()
+
+    // Listar archivos y dir de un path
+    // Retorna una slice de fs.DirEntry y un error.
+    // Cuando se recorre el slice se puede preguntar si es un dir o file(entry.IsDir())
+    os.ReadDir(dirname string)
+
+    // Obtener el ultimo elemento de la ruta 
+    // Si termina el 
+    filepath.Base()
+    
+    // Obtener la Extensión de un archivo
+    // En archivos ".bashrc" devuelve una cadena vacia
+    // En archivos "readme" (sin una extencion con punto) devuelve una cadena vacia
+    // "archivo.tar.gz" devuelve ".gz"
+    filepath.Ext(path string)
+```
+
+- Crear un directorio: `os.Mkdir("nombre_dir", 0755)`
+- Crear directorios anidados: `os.MkdirAll("dir1/dir2/dir3", 0755)`
+- Eliminar directorio (vacío): `os.Remove("nombre_dir")`
+- Eliminar directorio (y su contenido recursivamente): `os.RemoveAll("nombre_dir")`
+
+```go 
+    // informacion de un archivo
+    fileInfo, err := os.Stat("mi_archivo.txt") // Asume que 'mi_archivo.txt' existe
+
+    fmt.Println("Nombre del archivo:", fileInfo.Name())
+	fmt.Println("Tamaño (bytes):", fileInfo.Size())
+	fmt.Println("Es directorio:", fileInfo.IsDir())
+	fmt.Println("Permisos:", fileInfo.Mode())
+	fmt.Println("Última modificación:", fileInfo.ModTime())
+```
+- Eliminar Archivos: `os.Remove`
+- Renombrar y Mover Archivos: `err = os.Rename("viejo_nombre.txt", "nuevo_nombre.txt")`
+- Mover: `err = os.Rename("nuevo_nombre.txt", "temp_dir/archivo_movido.txt")`. El dir temp_dir debe existir.  
+- Leer de un Archivo
+    - Leer un archivo completo: `content, err := os.ReadFile("datos.txt")`
+    - Leer por bloques: 
+        ```go
+            buffer := make([]byte, 10) // Buffer para leer 10 bytes a la vez
+            for {
+                n, err := file.Read(buffer) // Lee hasta 10 bytes en el buffer
+                if err != nil {
+                    if err.Error() == "EOF" { // EOF (End Of File) significa que llegamos al final
+                        break
+                    }
+                    fmt.Println("Error al leer:", err)
+                    return
+                }
+                fmt.Printf("Leídos %d bytes: %s\n", n, string(buffer[:n])) // buffer[:n] para imprimir solo los bytes leídos
+            }
+        ```
+- Escribir en un Archivo: 
+    ```go
+        file, err := os.Create("datos.txt")
+        // Escribir un string
+	    bytesWritten, err := file.WriteString("¡Hola, Go!\n")
+        // Escribir bytes
+        data := []byte("Más datos en bytes.\n")
+        bytesWritten, err = file.Write(data)
+
+    ```     
+- Crear un Archivo: 
+    ```go
+        // os.Create crea un archivo o lo trunca si ya existe.
+        // Retorna un puntero a os.File y un error.
+        file, err := os.Create("mi_archivo.txt")
+    ```       
