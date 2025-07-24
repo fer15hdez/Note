@@ -28,6 +28,15 @@
 - Println(): Muestra el texto e imprime un salto de linea.  
 - Print(): Muestra el texto tal y como se escribe.       
 
+## Logger
+```go
+    import (
+	"log"
+    )
+
+    log.Fatalf("Error al obtener el directorio actual: %v", err)
+```
+
 ## Punteros
 - Un puntero contiene la dirección de memoria de un valor. 
   `var p int = 10` : p es una variable que tiene como valor en memoria 10.   
