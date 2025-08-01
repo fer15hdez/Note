@@ -21,6 +21,18 @@
 
 - Para sincronizar las dependencias de los modulos  
     `go mod tidy`
+## Crear workSpace
+ `go work init ./hello ./greetings` -> Crear un archivo "go.work" donde se adiciona los valores:
+   ```go
+   go 1.24.4
+
+    use (
+        ./hello
+        ./greetings
+    )
+   ``` 
+   - Esto le dice a cualquier llamada que use ?¿?¿?¿?¿?
+
 
 ## Escribir en la consola
 - Printf(): Muesta el texto formateado.  
@@ -46,7 +58,7 @@
      - false para tipo booleano, y
      - "" (la cadena vacía) para cadenas de texto.
 
-     
+
 ## Punteros
 - Un puntero contiene la dirección de memoria de un valor. 
   `var p int = 10` : p es una variable que tiene como valor en memoria 10.   
