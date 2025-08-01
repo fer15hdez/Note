@@ -36,7 +36,17 @@
 
     log.Fatalf("Error al obtener el directorio actual: %v", err)
 ```
+## Variables
+ `var i int` -> Declara una variable de tipo entero.  
+ `var c, python, java bool` -> Declara varias variables del mismo tipo.  
+ `k := 3` -> Forma corta de declaracion. Identifica el tipo del valor asignado.  
 
+ - Sin inicializar
+     - 0 para tipos numéricos,
+     - false para tipo booleano, y
+     - "" (la cadena vacía) para cadenas de texto.
+
+     
 ## Punteros
 - Un puntero contiene la dirección de memoria de un valor. 
   `var p int = 10` : p es una variable que tiene como valor en memoria 10.   
@@ -358,3 +368,23 @@
         // Retorna un puntero a os.File y un error.
         file, err := os.Create("mi_archivo.txt")
     ```       
+
+## Trabajo en consola
+```go
+    import (
+	"bufio"
+	"fmt"
+	"os"
+	"strconv" // Para convertir strings a otros tipos
+	"strings" // Para limpiar espacios y saltos de línea
+)
+
+    // Crear un nuevo lector para la entrada estándar (teclado)
+	reader := bufio.NewReader(os.Stdin)
+
+    nombre, err := reader.ReadString('\n') // Leer hasta el salto de línea
+
+    // Eliminar el salto de línea al final del string, que ReadString incluye
+	nombre = strings.TrimSpace(nombre) // TrimSpace elimina espacios y saltos de línea (incluyendo \r\n de Windows)
+
+```
