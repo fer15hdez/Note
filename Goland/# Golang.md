@@ -58,6 +58,12 @@
      - false para tipo booleano, y
      - "" (la cadena vacía) para cadenas de texto.
 
+## Tipos
+ - Convertir int a String:
+    `import "strconv"`
+    `texto + strconv.Itoa(numero)`  
+ - Convertir int a float64: `float64(numero_int)`    
+
 
 ## Punteros
 - Un puntero contiene la dirección de memoria de un valor. 
