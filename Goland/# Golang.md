@@ -2,6 +2,7 @@
 
 ## Comandos
  ` go list -f '{{.Target}}' `
+  `go clean -modcache`: Limpia la cache de los modulos   
 
 
 ## Crear un modulo
