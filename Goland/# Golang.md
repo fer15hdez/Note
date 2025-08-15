@@ -309,6 +309,14 @@
 - Un tipo implementa una interfaz si cumple con todos los métodos de esa interfaz. Si una interfaz no requiere ningún método, entonces todos los tipos (números enteros, cadenas de texto, structs, slices, mapas, etc.) automáticamente cumplen ese "contrato" vacío.  
 - Debido a que puede contener cualquier tipo de valor, interface{} es la forma de Go de manejar valores de tipo desconocido o arbitrario. Es el equivalente más cercano al concepto de "Object" en Java o "Any" en TypeScript/Python, aunque con la seguridad de tipos de Go.  
 
+## GoRoutine
+ - Las goroutine son funciones que se ejecutan de forma independiente y concurrente
+
+## Canales
+ - Son cómo las goroutines se comunican entre sí de forma segura.
+
+
+
 ## Trabajo con archivos
 ```go
 
