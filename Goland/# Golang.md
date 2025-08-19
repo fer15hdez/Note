@@ -65,6 +65,34 @@
     `texto + strconv.Itoa(numero)`  
  - Convertir int a float64: `float64(numero_int)`    
 
+## Control de Flujo
+
+ ### IF y ELSE
+    ```go
+    // v tiene alcance hasta el else
+    // el puede tener una expresion a evaluar antes del ";"
+        if v := math.Pow(x, n); v < lim {
+            return v
+        } else {
+            fmt.Printf("%g >= %g\n", v, lim)
+        }
+    ```
+ ### Switch
+   ```go
+   // Se evalua de arriba hacia abajo, si da un verdadero termina
+   // Puede sin la condicion inicial (os := runtime.GOOS; os) y seria true. Es util para sustituir una larga 
+   // lista de if else
+    switch os := runtime.GOOS; os {
+        case "darwin":
+            fmt.Println("OS X.")
+        case "linux":
+            fmt.Println("Linux.")
+        default:
+            // freebsd, openbsd,
+            // plan9, windows...
+            fmt.Printf("%s.\n", os)
+        }
+   ```
 
 ## Punteros
 - Un puntero contiene la dirección de memoria de un valor. 
@@ -97,7 +125,7 @@
     ```
 ### Defer
     - Una instrucción defer, aplaza la ejecución de una función hasta el retorno de la funcion circundante (que la contiene).  
-    La funcion defer se ejecuta cuando la funcion donde esta termina.  
+        La funcion defer se ejecuta cuando la funcion donde esta termina.  
     - Los argumentos de la llamada diferida se evalúan inmediatamente, pero la llamada a la función no se ejecuta hasta que la función que la rodea retorna.  
     - Si existen mas de una funcion defer estas se almacenan en una pila LIFO y esta se ejecuta cuando termina la funcion donde estan.  
 
@@ -313,7 +341,9 @@
  - Las goroutine son funciones que se ejecutan de forma independiente y concurrente
 
 ## Canales
- - Son cómo las goroutines se comunican entre sí de forma segura.
+ - Es cómo las goroutines se comunican entre sí de forma segura.
+ - WaitGroups se usan cuando solo necesitas esperar a que un grupo de goroutines termine. 
+    Es un contador que garantiza que el programa principal no se cierre prematuramente.
 
 
 
