@@ -37,6 +37,9 @@ func main() {
 	// tambien se puede usar el valor enviado por el chanel
 	// nom_var := <-channel
 
+	// Asi se le asigna un valor al canal
+	// channel := <- valor
+
 	fmt.Println("El programa principal terminó.")
 
 	// -------------- Ahora usando WaitGroup --------------
@@ -52,7 +55,7 @@ func main() {
 
 
 // --------------------------------
-
+// Pool de worker (Patron)
 
 import (
     "fmt"
@@ -64,7 +67,9 @@ func worker(id int, jobs <-chan int, wg *sync.WaitGroup) {
     // defer se asegura que wg.Done() se llame al terminar la goroutine
     defer wg.Done()
 
-    // Este bucle se ejecutará hasta que el canal de trabajos se cierre
+    // Este bucle se ejecutará hasta que el canal de trabajos se cierre.
+	// Mientras no haya un close() en el main() el bucle se ejecutara hasta el infinito.
+	// El for toma el primer valor del job, no se accede mediante indice.
     for job := range jobs {
         fmt.Printf("Trabajador %d comenzó a procesar el trabajo %d\n", id, job)
         time.Sleep(time.Millisecond * 500) // Simula un trabajo que toma tiempo
@@ -86,8 +91,9 @@ func main() {
     }
 
     // 4. Envía 10 trabajos al canal de trabajos
+	// Cuando se agregan valores a un canal con buffer funciona como una lista para agregar
     for i := 1; i <= 10; i++ {
-        jobs <- i
+        jobs <- i // Se le asigna el valor al canal
     }
     
     // 5. Cierra el canal. Esto le dice a los trabajadores que ya no hay más trabajos.

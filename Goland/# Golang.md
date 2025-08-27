@@ -59,11 +59,24 @@
      - false para tipo booleano, y
      - "" (la cadena vacía) para cadenas de texto.
 
-## Tipos
+### Tipos
+ - bool, string, 
+ - int(enteros especificos: int8  int16  int32  int64),  
+     uint uint8 uint16 uint32 uint64 uintptr // Son los positivos de los int  
+     byte // alias para uint8  
+     rune // alias para int32
+          // representa un punto de código Unicode
+ - float32, float64
+ - complex64 complex128         
+
  - Convertir int a String:
     `import "strconv"`
     `texto + strconv.Itoa(numero)`  
- - Convertir int a float64: `float64(numero_int)`    
+ - Convertir int a float64: `float64(numero_int)`  
+
+### Constantes
+ - Las constantes se declaran como variables, pero con la palabra clave `const`  
+ - Las constantes no se pueden declarar usando la sintaxis `:=`  
 
 ## Control de Flujo
 
@@ -77,6 +90,29 @@
             fmt.Printf("%g >= %g\n", v, lim)
         }
     ```
+ ### For
+    ```go
+    for indice, valor := range coleccion {
+		fmt.Printf("Accion")
+	}
+    for i := 0; i < 10; i++ {
+		sum += i
+	}
+    // for continuo
+    for ; sum < 1000; {
+		sum += sum
+	}
+    // for como while
+    for sum < 1000 {
+		sum += sum
+	}
+    // for infinito
+    for {
+	}
+
+
+    ```    
+
  ### Switch
    ```go
    // Se evalua de arriba hacia abajo, si da un verdadero termina
@@ -124,10 +160,39 @@
     }
     ```
 ### Defer
-    - Una instrucción defer, aplaza la ejecución de una función hasta el retorno de la funcion circundante (que la contiene).  
+   - Una instrucción defer, aplaza la ejecución de una función hasta el retorno de la funcion circundante (que la contiene).  
         La funcion defer se ejecuta cuando la funcion donde esta termina.  
-    - Los argumentos de la llamada diferida se evalúan inmediatamente, pero la llamada a la función no se ejecuta hasta que la función que la rodea retorna.  
-    - Si existen mas de una funcion defer estas se almacenan en una pila LIFO y esta se ejecuta cuando termina la funcion donde estan.  
+   - Los argumentos de la llamada diferida se evalúan inmediatamente, pero la llamada a la función no se ejecuta hasta que la función que la rodea retorna.  
+   - Si existen mas de una funcion defer estas se almacenan en una pila LIFO y esta se ejecuta cuando termina la funcion donde estan.  
+### Funcion clausuras o closures
+   - Una función también puede construir y devolver otra función.
+    
+    ```go
+    package main
+
+    import "fmt"
+
+    // crearIncrementador es una función que retorna OTRA función.
+    // La función retornada "recuerda" el valor de 'cantidad' (closure).
+    func crearIncrementador(cantidad int) func(int) int {
+        // Esta es la función anónima que será retornada
+        return func(x int) int {
+            return x + cantidad
+        }
+    }
+
+    func main() {
+        // Creamos un incrementador que suma 5
+        incrementarPorCinco := crearIncrementador(5)
+
+        // Creamos un incrementador que suma 10
+        incrementarPorDiez := crearIncrementador(10)
+
+        fmt.Println("5 + 3 =", incrementarPorCinco(3))   // Salida: 5 + 3 = 8
+        fmt.Println("10 + 7 =", incrementarPorDiez(7)) // Salida: 10 + 7 = 17
+    }
+      
+    ```
 
 ## Collections
 
@@ -344,6 +409,13 @@
  - Es cómo las goroutines se comunican entre sí de forma segura.
  - WaitGroups se usan cuando solo necesitas esperar a que un grupo de goroutines termine. 
     Es un contador que garantiza que el programa principal no se cierre prematuramente.
+- Cuando creas un canal con make(chan int), este es un canal bidireccional por defecto, lo que significa que puedes enviar y recibir valores de él. 
+    + Es en la firma (argumentos) de la función donde le dices a Go si debe ser de solo escritura (chan<-) o de solo lectura (<-chan).
+- Canal de solo lectura: `<- chan int`. 
+    + Se define en el parametro de la funcion(ej. `func calculateSum(numbers []int, result <- chan int, wg *sync.WaitGroup) {}`)  
+- Canal de solo escritura: `chan <- int`  
+    + Se define en el parametro de la funcion(ej. `func calculateSum(numbers []int, result chan<- int, wg *sync.WaitGroup) {}`)
+- Si desde un goroutine (funcion) se envian varios datos por un canal se debe esperar en el otro goroutine con el que se comunica (ej. main()) todos los datos que se enviaron.     
 
 
 
