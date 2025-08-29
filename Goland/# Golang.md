@@ -354,7 +354,40 @@
 - Para usar el polimorfismo si se declara de tipo puntero la implementacion de una interfaz **(func (v *Vertex) Abs() float64)** 
   esta no se puede usar en un TYPE declarado de tipo valor.   
   (Las interfaces cuando se implementan usando un receptor por VALOR se pueden usar usando TYPE por VALOR y por PUNTERO. Si la interface se implementa por PUNTERO solo se puede usar por el TYPE por puntero)(Esto suscede cuando tratamos de usar el polimorfismo usando la implementacion de una interfaz).   
-- Si al menos UNO DE LOS METODOS de un struct usa un receptor por puntero, para que ese struct implemente la interfaz, siempre debe pasar un puntero de ese struct. Es decir, cuando se vaya a pasar ese `struct` como parametro donde se pase la `interfaz` (como parametro) que implementa se debe pasar un puntero del `struct`.    
+- Si al menos UNO DE LOS METODOS de un struct usa un receptor por puntero, para que ese struct implemente la interfaz, siempre debe pasar un puntero de ese struct. Es decir, cuando se vaya a pasar ese `struct` como parametro de un metodo donde se pase la `interfaz` (como parametro) que implementa se debe pasar un puntero del `struct`. 
+  ```go
+    func main(){
+        var c Coche
+        // Al struct Coche implementar un metodo con un receptor como puntero es necesario pasar un 
+        // puntero de Coche a la funcion "moverObjeto()"
+        moverObjeto(&c)
+    }
+    type Movible interface {
+        marchaAlFrente(m uint)
+        marchaAtras(m int)
+        velocidadActual() int
+    }
+    
+    type Coche struct {
+        marcha      int
+        speedActual int
+    }
+    // Implementacion de receptor con puntero
+    func (c *Coche) marchaAlFrente(m uint) {
+        // Codigo
+    }
+    // Implementacion de receptor por valor
+    func (c Coche) marchaAtras(m int){
+        // Codigo
+    }
+    // Implementacion de receptor por valor
+    func (c Coche) velocidadActual() int{
+        // Codigo
+    }
+
+    // Interfaz pasada por parametro
+    func moverObjeto(m Movible){}
+  ```  
 
 ### Valores de interfaz
 - Una variable de interfaz en Go se representa internamente como una dupla (par de valores).  
