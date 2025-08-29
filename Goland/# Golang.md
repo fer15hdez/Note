@@ -123,6 +123,10 @@
             fmt.Println("OS X.")
         case "linux":
             fmt.Println("Linux.")
+        case valor >= 5 && valor <= 10: // Se pueden hacer comparaciones en el mismo case
+            fmt.Println("Mi texto.")
+        case "Linux", "Mac OS", "Otro OS": // Si hay varios valores con la misma logica se pueden agrupar en el case
+            fmt.Println("Unix.")    
         default:
             // freebsd, openbsd,
             // plan9, windows...
@@ -231,6 +235,11 @@
     - Los elementos a agregar deben ser del mismo tipo que los contenidos por el slice.  
 
 ### Struct
+- Los campos de struct se pueden acceder a través de un puntero a un struct.  
+    `p := &v`
+	`p.X = valor`
+    `fmt.Println(p.X)`
+
 - Sintaxis
     ```go
     type struct_name struct {
@@ -284,7 +293,7 @@
 ```
 
 - Comprobar que una clave este presente
-  `elem, ok = m[key]`: Si key está en m, entonces ok es true.  
+  `elem, ok = m[key]`: Si key está en m, entonces ok es true y `elem` toma el valor. Si no esta `elem` es cero y `ok` es false.  
 
 ## Método
 - Un método es esencialmente una función, pero con una diferencia crucial: tiene un argumento receptor especial.  
@@ -344,8 +353,8 @@
    - Solo se imprementa los mentodos de la interfaz, no existe una palabra clave para identificarlo, con eso es suficiente para implementar la interfaz.  
 - Para usar el polimorfismo si se declara de tipo puntero la implementacion de una interfaz **(func (v *Vertex) Abs() float64)** 
   esta no se puede usar en un TYPE declarado de tipo valor.   
-  (Las interfaces cuando se implementan usando un receptor por VALOR se pueden usar usando TYPE por VALOR y por PUNTERO. Si la interface se implementa por PUNTERO
-  solo se puede usar por el TYPE por puntero)(Esto suscede cuando tratamos de usar el polimorfismo usando la implementacion de una interfaz).    
+  (Las interfaces cuando se implementan usando un receptor por VALOR se pueden usar usando TYPE por VALOR y por PUNTERO. Si la interface se implementa por PUNTERO solo se puede usar por el TYPE por puntero)(Esto suscede cuando tratamos de usar el polimorfismo usando la implementacion de una interfaz).   
+- Si al menos UNO DE LOS METODOS de un struct usa un receptor por puntero, para que ese struct implemente la interfaz, siempre debe pasar un puntero de ese struct. Es decir, cuando se vaya a pasar ese `struct` como parametro donde se pase la `interfaz` (como parametro) que implementa se debe pasar un puntero del `struct`.    
 
 ### Valores de interfaz
 - Una variable de interfaz en Go se representa internamente como una dupla (par de valores).  
@@ -517,3 +526,19 @@
 	nombre = strings.TrimSpace(nombre) // TrimSpace elimina espacios y saltos de línea (incluyendo \r\n de Windows)
 
 ```
+## Errores
+ - Verificación de errores: Usar el patrón `if err != nil`.  
+ 
+ ```go
+    func openFile(path string) error { // devolver el error para el use la funcion tenga como manejarlo
+        archivo, err := os.Open(path) //capturar el error
+
+        if err != nil { // patron para manejar el error
+            log.Printf("\nError al abrir archivo en funcion openFile: %v", err.Error()) // Escribir el error especificando funcion y el error real
+        } else {
+            fmt.Printf("Archivo: %v", archivo)
+        }
+
+        return err // Retornar el error
+  }
+ ```
