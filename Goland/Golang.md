@@ -25,7 +25,8 @@
     `go mod tidy`
 
 ## Paquetes 
- - Un paquete es una colección de archivos .go dentro de un directorio    
+ - Un paquete es una colección de archivos .go dentro de un directorio   
+ - Deben tener el mismo nombre en `package nombre_package` 
 
 
 ## Crear workSpace
@@ -595,3 +596,8 @@
         return err // Retornar el error
   }
  ```
+
+ ## Test
+  - El archivo donde se implementa el test debe terminar en `_test.go`.  
+  - Los archivos deben pertenecer a al mismo paquete.  
+  - El comando `go test` ejecuta todos los archivos terminados en `_test.go`
