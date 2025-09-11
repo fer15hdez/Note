@@ -72,29 +72,29 @@ git switch <name_of_branch>
 `git push --force`  
 
 ### Para borrar la branch remota
-git push origin --delete remoteBranchName "Just need to put remoteBranchName, not a like 'origen/remoteBranchName'. Don't make completion of name of branch"  
+`git push origin --delete remoteBranchName` "Just need to put remoteBranchName, not a like 'origen/remoteBranchName'. Don't make completion of name of branch"  
 
-git branch -d [ name_branch] "with the -d option is to delete the branch"  
-git checkout [name_branch] "Switched to branch [name_branch]" "Updates files in the working tree to match the version in the index or the specified tree"  
-git branch "Show the branches and with * said which is selected"  
+`git branch -d [ name_branch]` "with the -d option is to delete the branch"  
+`git checkout [name_branch]` "Switched to branch [name_branch]" "Updates files in the working tree to match the version in the index or the specified tree"  
+`git branch` "Show the branches and with * said which is selected"  
 
 ## Archivos
 ### Dejar de serguir archivos
-git rm --cached archivo.txt
+`git rm --cached archivo.txt`
 
 ## Proxy en Git
-git config --global http.proxy http://proxyuser:proxypwd@proxy.server.com:8080 " this works for both http and https repos."  
+`git config --global http.proxy http://proxyuser:proxypwd@proxy.server.com:8080` " this works for both http and https repos."  
     "change proxyuser to your proxy user"  
     "change proxypwd to your proxy password"  
     "change proxy.server.com to the URL of your proxy server"  
     "change 8080 to the proxy port configured on your proxy server"  
 ### Reset proxy, work without proxy 
-git config --global --unset http.proxy  
+`git config --global --unset http.proxy`  
 #### to check the currently set proxy:
-git config --global --get http.proxy  
+`git config --global --get http.proxy`  
 
 ## REMOTE
-git remote: Muestra los nombres de cada uno de los remotos que tienes especificados.  
-git remote -v: Muestra las url de los remotos configurados.  
+`git remote`: Muestra los nombres de cada uno de los remotos que tienes especificados.  
+`git remote -v`: Muestra las url de los remotos configurados.  
 
 
