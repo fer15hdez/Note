@@ -87,7 +87,7 @@
 
 ## Control de Flujo
 
- ### IF y ELSE
+### IF y ELSE
     ```go
     // v tiene alcance hasta el else
     // el puede tener una expresion a evaluar antes del ";"
@@ -97,7 +97,7 @@
             fmt.Printf("%g >= %g\n", v, lim)
         }
     ```
- ### For
+### For
     ```go
     for indice, valor := range coleccion {
 		fmt.Printf("Accion")
@@ -120,7 +120,7 @@
 
     ```    
 
- ### Switch
+### Switch
    ```go
    // Se evalua de arriba hacia abajo, si da un verdadero termina
    // Puede sin la condicion inicial (os := runtime.GOOS; os) y seria true. Es util para sustituir una larga 
