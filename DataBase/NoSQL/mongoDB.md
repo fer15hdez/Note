@@ -1,7 +1,9 @@
-# Install
+# Install and CRUD (Create, Read, Update, Delete)
+
+## Install
 https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/  
 
-# DRUD Version mongoDB 7  
+## DRUD Version mongoDB 7  
 https://www.mongodb.com/docs/manual/crud/  
 
 ### Insert
@@ -17,7 +19,7 @@ try {
 };
 ```
 
-*Insertar un documento con un documento embebido: -- detalles*
+#### Insertar un documento con un documento embebido: -- detalles
 ``` javascript 
 db.productos.insertOne({
   "nombre": "Smartphone Samsung Galaxy S23",
@@ -32,7 +34,7 @@ db.productos.insertOne({
 })
 ```
 
-*Insertar un documento con un array de valores: -- temas*
+#### Insertar un documento con un array de valores: -- temas
 ``` javascript 
 db.productos.insertOne({
   "nombre": "Curso de Desarrollo Web",
@@ -42,7 +44,7 @@ db.productos.insertOne({
 })
 ```
 
-***db.collection.insertMany() ***
+#### db.collection.insertMany()
 *Example*  
 ``` javascript 
 try {
@@ -63,31 +65,31 @@ try {
   Returns documents in the bios collection where _id equals 5:   
     ``db.bios.find( { _id: 5 } )``
 
-*Operadores de Comparación*   
-    `$eq`: "igual a",  
-    `$ne`: "no igual a",   
-    `$gt`: "mayor que",   
-    `$gte`: "mayor o igual que",   
-    `$lt`: "menor que",    
-    `$lte`: "menor o igual que",   
-    `$in`: "coincide con cualquiera de los valores especificados en un array",   
-    `$nin`: "no coincide con ninguno de los valores especificados en un array"  
+### Operadores de Comparación
+  `$eq`: "igual a",  
+  `$ne`: "no igual a",   
+  `$gt`: "mayor que",   
+  `$gte`: "mayor o igual que",   
+  `$lt`: "menor que",    
+  `$lte`: "menor o igual que",   
+  `$in`: "coincide con cualquiera de los valores especificados en un array",   
+  `$nin`: "no coincide con ninguno de los valores especificados en un array"  
 
-*Operadores Lógicos*     
+### Operadores Lógicos     
    `$and`: (y),   
    `$or`: (o),   
    `$not`: (no),   
    `$nor`: (ni)  
 
-*Operadores de Elemento*  
+### Operadores de Elemento  
 `$exists`: (verifica si un campo existe),   
 `$type`: (verifica el tipo de un campo).  
 
-*Operadores de Evaluación*  
+### Operadores de Evaluación
 `$regex`: (permite búsquedas basadas en expresiones regulares),   
 `$where`: (permite usar expresiones JavaScript para la consulta).  
 
-*Operadores de Array*  
+### Operadores de Array  
 `$all`: (coincide con documentos que contienen todos los elementos especificados en un array),   
 `$elemMatch`: (coincide con documentos que contienen un elemento dentro de un array que coincide con todos los criterios especificados),   
 `$size`: (coincide con documentos cuyo array tiene un tamaño específico).    
@@ -96,10 +98,13 @@ try {
 `db.productos.find({ "categoria": "Electrónica", "stock": { $gt: 10 } })`   
 `db.productos.find({ $or: [ { "precio": { $lt: 30 } }, { "categoria": "Libros" } ] })`   
 `db.productos.find({}, { "nombre": 1, "precio": 1, "_id": 0 })`: Utilizar proyecciones para incluir solo ciertos campos (nombre y precio)  
+
 `db.productos.find({ "nombre": { $regex: "portátil", $options: "i" } })`: todos los productos cuyo nombre contenga la palabra "portátil" (sin importar si está en mayúsculas o minúsculas: $options: "i").    
+
 `db.productos.find({ "nombre": { $regex: "^M" } })`: todos los productos cuyo nombre comience con la letra "M".  
 *Esto devolverá todos los productos cuya categoría sea "Electrónica" o "Libros"*    
 `db.productos.find({ "categoria": { $in: ["Electrónica", "Libros"] } })`: Utilizar operadores de array ($in para buscar productos en ciertas categorías)   
+
 `db.collection.find().sort({ <campo1>: <orden>, <campo2>: <orden>, ... })`: Ordenar resultados.  `1`: ascedente, `-1`: descendente.  
 `db.productos.find().sort({ precio: -1 }).limit(10)`: Limitar resultados en 10.  
 
@@ -111,10 +116,9 @@ db.productos.insertMany([
 ]);
 db.productos.find({ "etiquetas": { $all: ["grande", "brillante"] } })
 ```
+- Esto devolverá los documentos "Producto A" y "Producto C", ya que ambos tienen las etiquetas "grande" y "brillante".
 
-Esto devolverá los documentos "Producto A" y "Producto C", ya que ambos tienen las etiquetas "grande" y "brillante".
-
-*Contar documentos*
+#### Contar documentos
 `db.miColeccion.countDocuments({})` : contar todos los documentos en una colección
 `db.miColeccion.countDocuments({ estado: "activo" })` : contar documentos que cumplen con un criterio específico
 
@@ -125,24 +129,24 @@ Esto devolverá los documentos "Producto A" y "Producto C", ya que ambos tienen 
 
 
 #### db.collection.aggregate()
- *Se usa para el framework de agregación, que permite procesar y transformar documentos a través de una serie de etapas (como $lookup, $match, $project, $group, etc.).*  
+ *Se usa para el framework de agregación, que permite procesar y transformar documentos a través de una serie de etapas (como `$lookup, $match, $project, $group,` etc.).*  
  - Permite realizar transformaciones complejas, cálculos y análisis en colecciones de documentos.  
  - Te permite remodelar, filtrar, agrupar, unir y analizar datos de maneras que serían difíciles o imposibles con las operaciones de consulta básicas.  
  - La agregación en MongoDB se basa en el concepto de una "pipeline" (tubería o cadena de etapas). Imagina que tus documentos fluyen a través de una serie de etapas, y en cada etapa, se realiza una operación específica sobre los documentos. La salida de una etapa se convierte en la entrada de la siguiente.  
  
- *Sintaxis básica*
- ``` javascript
- db.collection.aggregate([
-  { <etapa1> },
-  { <etapa2> },
-  { <etapa3> },
-  // ... más etapas
-]);
-```
-*Etapas comunes*
-- $match (Filtrar documentos)  
-- $project (Remodelar documentos)
-- $group (Agrupar y agregar datos):  Agrupa los documentos de entrada por una expresión de identificador especificada y aplica expresiones acumuladoras a cada grupo.  
+ *Sintaxis básica*  
+  ```javascript
+      db.collection.aggregate([
+          { <etapa1> },
+          { <etapa2> },
+          { <etapa3> },
+          // ... más etapas
+        ]);
+  ```
+*Etapas comunes*  
+- `$match` (Filtrar documentos)  
+- `$project` (Remodelar documentos)  
+- `$group` (Agrupar y agregar datos):  Agrupa los documentos de entrada por una expresión de identificador especificada y aplica expresiones acumuladoras a cada grupo.  
   Es similar a GROUP BY en SQL.  
   + Operadores acumuladores comunes: $sum, $avg, $min, $max, $count, $push, $addToSet.  
     ``` javascript
@@ -188,7 +192,7 @@ Esto devolverá los documentos "Producto A" y "Producto C", ya que ambos tienen 
 `{ $unset: ["password", "tempField"] }`
 
 
- **SIMULACION DE JOIN:**
+### SIMULACION DE JOIN
 
 ``` javascript 
 // La colleccion "contents" tiene un campo "staff" de tipo array donde almacena los id de la colleccion "users".  
@@ -256,10 +260,10 @@ Esto devolverá los documentos "Producto A" y "Producto C", ya que ambos tienen 
 
 ****
 
-
 ### Update
 db.collection.updateOne(filter, update, options)   
 **Syntax**
+``` javascript
 db.collection.updateOne(
    <filter>,
    <update>,
@@ -270,14 +274,18 @@ db.collection.updateOne(
      arrayFilters: [ <filterdocument1>, ... ],
      hint:  <document|string>        // Available starting in MongoDB 4.2.1
    }
-)  
-*Example*  
+)
+```  
+
+**Example**  
+``` javascript
 db.students.updateOne(
    { _id: 1 },
    { $set: { key: "value", } },
 )
+``` 
 
-db.collection.updateMany()  
+`db.collection.updateMany()`  
 **ReplaceOne() replaces the first matching document in the collection that matches the filter, using the replacement document.**
 ``` javascript 
 db.collection.replaceOne()    
@@ -295,7 +303,7 @@ db.collection.replaceOne(
 
 ### Delete
 
-**Syntasi**
+**Sintaxis**
 ***Deletes the first document that matches the filter. Use a field that is part of a unique index such as _id for precise deletions.***
 ``` javascript 
 db.collection.deleteOne(
