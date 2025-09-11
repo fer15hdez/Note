@@ -135,12 +135,15 @@ acceder al EndPoint.
 - Los getter and setter son necesarios para la serialitation y el proceso inverso. Permiten el acceso a los campos privados de las clases.  
 
 **@PathVariable**: Permite pasar un valor por la url. El valor de la url debe ser igual que el nombre del parametro.  
-- url: "/hola/{name}"
-@GetMapping({"/hello/{name}", "/hola/{name}"})
-public String greeting(@PathVariable String name){}  
+- url: "/hola/fernando"
+```java
+  @GetMapping({"/hello/{name}", "/hola/{name}"})
+  public String greeting(@PathVariable String name){}  
+```
+  
 
 **@RequestParam("user-name")**:  Permite especificar el valor que se pasa por parametro en la url. 
-http://localhost:8080/sistema/api/v1/clientes/param?user-name=fernan&last-name=vel
+  http://localhost:8080/sistema/api/v1/clientes/param?user-name=fernan&last-name=vel
 
 - Toda la logica se debe hacer en las clases servicios y los controllers solo para ser la puerta de entrada de las resquest.  
 
@@ -206,47 +209,43 @@ Column(
   compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 )
-**@Data**: Incluye las anotaciones @Getter @Setter @RequiredArgsConstructor @ToString @EqualsAndHashCode.  
-**@Setter**
-**@Getter**
-**@NoArgsConstructor**: Crea el constructor sin parametros.  
-**@AllArgsConstructor**: Crea el constructor con todos los parametros.  
-**@Builder**  Permite crear y diseannar objetos utilizando el patron de disenno Builder.  
-- En las entidades es necesario crear un constructor vacio.  
+ - `@Data`: Incluye las anotaciones `@Getter @Setter @RequiredArgsConstructor @ToString @EqualsAndHashCode`.  
+ - `@Setter`
+ - `@Getter`
+ - `@NoArgsConstructor`: Crea el constructor sin parametros.  
+ - `@AllArgsConstructor`: Crea el constructor con todos los parametros.  
+ - `@Builder`:  Permite crear y diseannar objetos utilizando el patron de disenno Builder.  
+ - En las entidades es necesario crear un constructor vacio.  
 
-**@ManyToMany**: Se define cual de las dos entidades va ser la duenna de la relacion y en esa entidad se ponen las anotaciones principales. 
+### Relationships
+ - `@ManyToMany`: Se define cual de las dos entidades va ser la duenna de la relacion y en esa entidad se ponen las anotaciones principales. 
   - Se crea un atributo de tipo lista en cada una de las entidades que apunta hacia la otra entidad, esto permite que sea bidireccional.
   - Estas configuraciones van en la tabla duenno:
-      @JoinTable(
+    ```java
+    @JoinTable(
                 name = "order_product",
                 joinColumns = { @JoinColumn(name = "order_id")},/* Define la columna dentro de la tabla de union de la
                                                                     tabla duenna */
                 inverseJoinColumns = { @JoinColumn(name = "product_id")} /* Define la columna de la otra tabla en la relacion
                                                                             en la tabla de union.*/
         )
-- Una solucion para evitar la **deserializacion ciclica** en el ManyToMany es crear un metodo toString() en la entidad
-  no controladora de la relacion sin mostrar la lista de la otra entidad.
-- Otra solucion para evitar la **deserializacion ciclica** en el ManyToMany
-    `@JsonIgnoreProperties({"users", "handler", "hibernateLazyInitializer"})`
-    `private List<Role> roles;`
-    Le decimos que cuando convierta la entidad en json que ignore el campo "users" en la entidad Role.  
-    Estos "handler", "hibernateLazyInitializer" los puede generar spring como parte del proceso de descerializacion y podrian dar error,
-    por eso quizas sea una opcion incluirlos en las propiedades para ignorar.  
+    ```
 
-
-
-**@ManyToOne**: En esta relacion siempre debe estar la notacion @JoinColumn para definir el campo
+- `@ManyToOne`: En esta relacion siempre debe estar la notacion `@JoinColumn` para definir el campo
                 que identifica la relacion.
-                @JoinColumn(name = "category_id") Esta es la columna que se crea en la tabla
+                `@JoinColumn(name = "category_id")` Esta es la columna que se crea en la tabla
                 para hacer refencia al campo "category".
   - Para que la relacion sea bidireccional debe tener:
-      @OneToMany(mappedBy = "category", Indica que la relación es bidireccional
-                                      y que el mapeo de la relación se encuentra en el campo "category" de
-                                      la entidad Product.
-            cascade = CascadeType.ALL, "Especifica que las operaciones de persistencia,
-                                        actualización y eliminación realizadas en la entidad Autor
-                                        se propagarán a las entidades relacionadas Libro"
-      )
+    ```java
+      @OneToMany(mappedBy = "category", // Indica que la relación es bidireccional
+                                        // y que el mapeo de la relación se encuentra en el campo "category" de
+                                        // la entidad Product.
+              cascade = CascadeType.ALL, // Especifica que las operaciones de persistencia,
+                                         // actualización y eliminación realizadas en la entidad Autor
+                                         // se propagarán a las entidades relacionadas Libro
+        )
+    ```
+      
   - De la parte del MUCHOS debe tener una lista de la otra entidad. 
   - En la entidad de UNO debe tener un atributo que sea del tipo de la otra entidad
   - Cuando se usan el patron DTO y los metodos "toNameEntity(entityDTO)", en la clase mappeer, para convertir el DTO en la entidad se debe crear en el DTO el campo Integer que representa la relacion (no del tipo de la entidad de la relacion) y en el metodo "toNameEntity(entityDTO)" se crea un objeto de la entidad que participa en la relacion utilizando el id que proporciona el DTO que se pasa por parametro y se utiliza para pasarlo al campo de la relacion (.setRelationNameEntity(entityRelation)).  
@@ -256,31 +255,51 @@ Column(
         this.id = id;
     })
     
-**@OneToOne**: @JoinColumn(name = "bar_code_id") // Esta columna se crea en la tabla para hacer referencia al campo 'barCode'.  
+ - `@OneToOne`: @JoinColumn(name = "bar_code_id") // Esta columna se crea en la tabla para hacer referencia al campo 'barCode'.  
     - Para que la relacion sea bidireccionaal debe tener un campo en ambas tablas que identifique a la otra tabla.  
-    @JoinColumn(name = "product_id") // Esta columna se crea en la tabla para hacer referencia al campo 'product'.  
+    `@JoinColumn(name = "product_id")` // Esta columna se crea en la tabla para hacer referencia al campo 'product'.  
+
+####  Deserializacion Ciclica     
+- Una solucion para evitar la **deserializacion ciclica** en el ManyToMany es crear un metodo toString() en la entidad
+  no controladora de la relacion sin mostrar la lista de la otra entidad.
+- Otra solucion para evitar la **deserializacion ciclica** en el ManyToMany
+    `@JsonIgnoreProperties({"users", "handler", "hibernateLazyInitializer"})`
+    `private List<Role> roles;`
+    - Le decimos que cuando convierta la entidad en json que ignore el campo "users" en la entidad Role.  
+    - Estos "handler", "hibernateLazyInitializer" los puede generar spring como parte del proceso de descerializacion y podrian dar error,
+    por eso quizas sea una opcion incluirlos en las propiedades para ignorar.  
+- `@JsonBackReference` esta va donde se define el `@JoinTable` de la relacion       
+  ```java
+    @ManyToMany(mappedBy = "areas")
+    @JsonManagedReference // Esta va donde se define el "mappedBy"
+    // @JsonIgnoreProperties({"coaches", "handler", "hibernateLazyInitializer"})
+    private List<Coach> coaches;
+  ```
 
 
 ### HERENCIA
 
 **Clase Padre**
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@SuperBuilder // Esta propiedad esta en modo experimental
-@MappedSuperclass // Identifica la clase como una superclase. Esta clase solo va a estar en el codigo,
+`@Data`
+`@NoArgsConstructor`
+`@AllArgsConstructor`
+`@SuperBuilder` // Esta propiedad esta en modo experimental
+`@MappedSuperclass` // Identifica la clase como una superclase. Esta clase solo va a estar en el codigo,
                   // no se crea una tabla. Tampoco se puede insertar esta clase en la DB, ni se pueden hacer consultas.  
 
 En la **clase hijas** solo se extiende de la clase padre y ponen las siguientes anotaciones:
-  @EqualsAndHashCode(callSuper = true)
-  @Data
-  @NoArgsConstructor
-  @AllArgsConstructor
-  @SuperBuilder // Esta propiedad esta en modo experimental
-  @Entity                   
+```java
+    @EqualsAndHashCode(callSuper = true)
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @SuperBuilder // Esta propiedad esta en modo experimental
+    @Entity 
+```
+                   
 
 #### Estrategia de Herencia
-**@Inheritance(strategy = InheritanceType.SINGLE_TABLE)**:  SINGLE_TABLE strategy crea una sola tabla con los atributos de
+  `@Inheritance(strategy = InheritanceType.SINGLE_TABLE)`:  SINGLE_TABLE strategy crea una sola tabla con los atributos de
     las clases hijas y los de la clase padre. 
     - El nombre de la tabla es el de la clase padre.
     - La notacion se declara en la clase padre.  
