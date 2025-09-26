@@ -210,6 +210,7 @@
 ### Arrays
 - Los arrays no se pueden redimensionar  
   `var a [10]int`: declara una variable a como un array de diez enteros.  
+  `primos := [6]int{2, 3, 5, 7, 11, 13}`
 
 
 ### Slice
@@ -574,6 +575,7 @@
   -  %s: Se usa específicamente para cadenas (string).
   -  %d: Se usa para números enteros (int).
   -  %f: Se usa para números flotantes (float).
+  -  %b: Muestra el binario de un decimal.
   -  %#v: Es muy útil para la depuración, porque muestra la representación del (struct, variable, etc) exactamente como si lo hubieras escrito en tu código.
   - %.2f: Esto le dice a Go que muestre un número flotante con exactamente dos decimales. La nomenclatura es: un . (punto) seguido de un número, que se coloca entre el % y el verbo de formato.
 
@@ -596,6 +598,18 @@
         return err // Retornar el error
   }
  ```
+ ### Errores personalizados
+  - Un error personalizado en Go es simplemente una `struct` que implementa la `interfaz error`, la cual solo requiere un método llamado    `Error().`
+    ```go
+        type ErrorDeArchivo struct {
+                    NombreArchivo string
+                    Err           error
+        }
+
+        func (e *ErrorDeArchivo) Error() string {
+            return fmt.Sprintf("error al procesar el archivo %s: %v", e.NombreArchivo, e.Err)
+        }
+    ```
 
  ## Test
   - El archivo donde se implementa el test debe terminar en `_test.go`.  
