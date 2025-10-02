@@ -68,10 +68,10 @@
 
 ### Tipos
  - bool, string, 
- - int(enteros especificos: int8  int16  int32  int64),  
+ - int(enteros especificos: int8,  int16,  int32,  int64),  
      uint uint8 uint16 uint32 uint64 uintptr // Son los positivos de los int  
-     byte // alias para uint8  
-     rune // alias para int32
+     `byte` // alias para uint8  (2^8 - 1 = 256 - 1 = 255)  
+     `rune` // alias para int32  ( (2^{32}-1) -> 0 a 4 294 967 295)
           // representa un punto de código Unicode
  - float32, float64
  - complex64 complex128         
@@ -79,7 +79,16 @@
  - Convertir int a String:
     `import "strconv"`
     `texto + strconv.Itoa(numero)`  
- - Convertir int a float64: `float64(numero_int)`  
+ - Convertir `int` a `float64`: `float64(numero_int)`  
+ - Convertir `slice de byte` a `string`: `string(el_slice)`
+ - Convertir `slice de string` a `string`: `strings.Join(el_slice, separador)`: ej. `strings.Join(el_slice, "-")`
+ - Para convertir array en string se debe convertir a slice   
+   ```go
+   // 'a' es un slice. Toma del lugar 0 al 2
+      a := nombre_array[0:2]       
+      b := nombre_array[inicio_tramo:fin_tramo]       
+      c := nombre_array[:]  // Convierte el array completo en un slice.      
+   ```
 
 ### Constantes
  - Las constantes se declaran como variables, pero con la palabra clave `const`  
@@ -88,7 +97,7 @@
 ## Control de Flujo
 
 ### IF y ELSE
-    ```go
+   ```go
     // v tiene alcance hasta el else
     // el puede tener una expresion a evaluar antes del ";"
         if v := math.Pow(x, n); v < lim {
@@ -96,12 +105,14 @@
         } else {
             fmt.Printf("%g >= %g\n", v, lim)
         }
-    ```
+   ```
 ### For
-    ```go
+   ```go
+    // el range es para recorrer colecciones
     for indice, valor := range coleccion {
 		fmt.Printf("Accion")
 	}
+    for i := range 5{ fmt.Printf(i) }
     for i := 0; i < 10; i++ {
 		sum += i
 	}
@@ -118,7 +129,7 @@
 	}
 
 
-    ```    
+   ```    
 
 ### Switch
    ```go
@@ -548,7 +559,7 @@
         file, err := os.Create("mi_archivo.txt")
     ```       
 
-## Trabajo en consola
+## Trabajo en consola (CLI)
 ```go
     import (
 	"bufio"
@@ -568,7 +579,7 @@
 
 ```
 
-## Formatear cadenas en Consola
+### Formatear cadenas en Consola
 
   -  %v: Imprime el valor de la variable en el formato predeterminado.
   -  %T: Imprime el tipo de la variable. Es muy útil para la depuración.
@@ -615,3 +626,26 @@
   - El archivo donde se implementa el test debe terminar en `_test.go`.  
   - Los archivos deben pertenecer a al mismo paquete.  
   - El comando `go test` ejecuta todos los archivos terminados en `_test.go`
+
+## Random
+  - Existen funciones para generar random en float, int.  
+    ```go
+        import (
+        "fmt"
+        "math/rand"
+        "time"
+    )
+
+    func main() {
+        // go superior 1.20
+        // Generar una semilla basada en el tiempo (para la nueva fuente)
+        fuente := rand.NewSource(time.Now().UnixNano())
+        
+        // Crear un nuevo generador con esa fuente
+        generador := rand.New(fuente)
+
+        // Usa el nuevo generador para todas las llamadas
+        numero := generador.Intn(100)
+        fmt.Printf("Número generado con fuente nueva: %d\n", numero)
+    }
+    ```
