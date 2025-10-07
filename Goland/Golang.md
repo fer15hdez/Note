@@ -626,6 +626,10 @@
   - El archivo donde se implementa el test debe terminar en `_test.go`.  
   - Los archivos deben pertenecer a al mismo paquete.  
   - El comando `go test` ejecuta todos los archivos terminados en `_test.go`
+  ```go
+    // La estructura del nombre es TestNombreFuncion con el parametro (t *testing.T)
+     func TestNombreFuncion(t *testing.T) {}
+  ```
 
 ## Random
   - Existen funciones para generar random en float, int.  
