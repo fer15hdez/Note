@@ -52,6 +52,7 @@
 
   ```go
     func TestSuma(t *testing.T) {
+        // La tabla de datos
     tests := []struct {
         name   string
         a      int
@@ -65,7 +66,7 @@
 
     for _, tt := range tests {
         t.Run(tt.name, func(t *testing.T) { // tt.name se usa para el t.Run
-            resultado := Suma(tt.a, tt.b)
+            resultado := Suma(tt.a, tt.b) // se ejecuta la funcion suma que es la se esta probando.
             if resultado != tt.esperado {
                 t.Errorf("Suma(%d, %d) dio %d, se esperaba %d", tt.a, tt.b, resultado, tt.esperado)
             }
