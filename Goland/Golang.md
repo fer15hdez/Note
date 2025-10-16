@@ -72,7 +72,7 @@
      uint uint8 uint16 uint32 uint64 uintptr // Son los positivos de los int  
      `byte` // alias para uint8  (2^8 - 1 = 256 - 1 = 255)  
      `rune` // alias para int32  ( (2^{32}-1) -> 0 a 4 294 967 295)
-          // representa un punto de código Unicode
+            // representa un punto de código Unicode
  - float32, float64
  - complex64 complex128         
 
@@ -80,8 +80,8 @@
     `import "strconv"`
     `texto + strconv.Itoa(numero)`  
  - Convertir `int` a `float64`: `float64(numero_int)`  
- - Convertir `slice de byte` a `string`: `string(el_slice)`
- - Convertir `slice de string` a `string`: `strings.Join(el_slice, separador)`: ej. `strings.Join(el_slice, "-")`
+ - Convertir `slice de byte` a `string`: `string(el_slice)`: Interpreta el valor del byte como valor ASCII y representa el char.  
+ - Convertir `slice de string` a `string`: `strings.Join(el_slice, separador)`: ej. `strings.Join(el_slice, "-")`: `strings` es un paquete, se tiene que importar.  
  - Para convertir array en string se debe convertir a slice   
    ```go
    // 'a' es un slice. Toma del lugar 0 al 2
@@ -370,7 +370,7 @@
 ```
 - Un tipo implementa una interfaz implementando sus métodos. No hay una declaración explícita de intenciones, ni la palabra clave "implements".  
    - Solo se imprementa los mentodos de la interfaz, no existe una palabra clave para identificarlo, con eso es suficiente para implementar la interfaz.  
-- Para usar el polimorfismo si se declara de tipo puntero la implementacion de una interfaz **(func (v *Vertex) Abs() float64)** 
+- Para usar el polimorfismo si se declara de tipo puntero la implementacion de una interfaz `(func (v *Vertex) Abs() float64)` 
   esta no se puede usar en un TYPE declarado de tipo valor.   
   (Las interfaces cuando se implementan usando un receptor por VALOR se pueden usar usando TYPE por VALOR y por PUNTERO. Si la interface se implementa por PUNTERO solo se puede usar por el TYPE por puntero)(Esto suscede cuando tratamos de usar el polimorfismo usando la implementacion de una interfaz).   
 - Si al menos UNO DE LOS METODOS de un struct usa un receptor por puntero, para que ese struct implemente la interfaz, siempre debe pasar un puntero de ese struct. Es decir, cuando se vaya a pasar ese `struct` como parametro de un metodo donde se pase la `interfaz` (como parametro) que implementa se debe pasar un puntero del `struct`. 
@@ -406,7 +406,7 @@
 
     // Interfaz pasada por parametro
     func moverObjeto(m Movible){}
-  ```  
+  ```    
 
 ### Valores de interfaz
 - Una variable de interfaz en Go se representa internamente como una dupla (par de valores).  
@@ -462,6 +462,53 @@
 - El tipo de interfaz que específica cero métodos es conocida como una _interfaz_vacia: `interface{}`
 - Un tipo implementa una interfaz si cumple con todos los métodos de esa interfaz. Si una interfaz no requiere ningún método, entonces todos los tipos (números enteros, cadenas de texto, structs, slices, mapas, etc.) automáticamente cumplen ese "contrato" vacío.  
 - Debido a que puede contener cualquier tipo de valor, interface{} es la forma de Go de manejar valores de tipo desconocido o arbitrario. Es el equivalente más cercano al concepto de "Object" en Java o "Any" en TypeScript/Python, aunque con la seguridad de tipos de Go.  
+
+### Aserción de Tipo (type assertion) - (Es como un casting)
+  - Si a una variable de tipo interfaz se le asigna el valor de un objeto que implementa esa interfaz, desde esa varible se llaman a los metodos implementados por el objeto concreto.  
+  - Desde la variable de tipo interfaz no se pueden llamar a los metodos que implementa el objeto concreto que no estan en la interfaz.  
+  - Para llamar a los metodos que estan en implementacion concreta y no estan en la interfaz es necesario hacer una `Aserción de Tipo (type assertion)`.  
+    ```go
+    func main() {
+        // f es Figura, pero internamente contiene un Rectangulo
+        var f Figura = Rectangulo{Ancho: 10, Altura: 5}
+
+        // Aserción de Tipo (Casting): Intentamos extraer el Rectangulo
+        // rectConcreto es el valor, ok es un booleano que indica si la aserción fue exitosa
+        // i.(T): 
+          //i es la variable de tipo interfaz.
+          // T es el tipo concreto (struct, int, string, etc.) al que esperas que se convierta el valor contenido en i.
+          // Los paréntesis () contienen el tipo de destino.
+          // t, ok := i.(T)
+        rectConcreto, ok := f.(Rectangulo) 
+
+        if ok {
+            // Ahora que sabemos que es un Rectangulo, podemos acceder a sus campos
+            fmt.Printf("El Ancho del struct es: %.1f\n", rectConcreto.Ancho) 
+        } else {
+            fmt.Println("La variable f no contenía un tipo Rectangulo.")
+        }
+    }
+    ```
+  ####  Type Switch (La Alternativa más Elegante)
+  ```go
+    func ProcesarFormaConSwitch(f Forma) {
+        // La declaración en el tipo switch tiene la misma sintaxis que el tipo aserción i.(T), pero el tipo específico T es remplazado por la palabra clave type.
+        switch valor := f.(type) {
+        case Cuadrado:
+            // Aquí 'valor' ES un Cuadrado, y puedes acceder a sus campos
+            fmt.Printf("Es un Cuadrado con Lado: %.2f\n", valor.Lado)
+        case Circulo:
+            // Aquí 'valor' ES un Círculo
+            fmt.Printf("Es un Círculo con Radio: %.2f\n", valor.Radio)
+        case nil:
+            // El valor de la interfaz es nil
+            fmt.Println("La interfaz está vacía (nil)")
+        default:
+            // Cualquier otro tipo que implemente la interfaz
+            fmt.Printf("Es un tipo desconocido: %T\n", valor)
+        }
+    }
+  ```
 
 ## GoRoutine
  - Las goroutine son funciones que se ejecutan de forma independiente y concurrente
