@@ -212,9 +212,24 @@
 
         fmt.Println("5 + 3 =", incrementarPorCinco(3))   // Salida: 5 + 3 = 8
         fmt.Println("10 + 7 =", incrementarPorDiez(7)) // Salida: 10 + 7 = 17
-    }
-      
+    }      
     ```
+### Funciones Variádicas
+   - Aceptan un número variable de argumentos del mismo tipo.  
+   - `Solo el Último Parámetro`: Solo el último parámetro de una función puede ser variádico.  
+   - `Un Solo Tipo Variádico`: Una función solo puede tener un parámetro variádico.  
+   - `Tipo Slice`: Dentro de la función, el parámetro variádico se maneja siempre como un slice.
+   ```go
+        func sumaTodos(numeros ...int) int {
+        // El parámetro 'numeros' se comporta internamente como un slice de int ([]int).
+        total := 0
+        for _, num := range numeros {
+            total += num
+        }
+        return total
+    }   
+   ```
+   - Si se le pasa un slice hay que desempaquetarlo `sumaTodos(valores...)`. Si no se desempaqueta da error de tipos.  
 
 ## Collections
 
