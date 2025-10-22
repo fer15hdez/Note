@@ -126,10 +126,11 @@
 	}
     // for infinito
     for {
-	}
-
+	}   
 
    ```    
+   - La sentencia `break` se utiliza para terminar la ejecución del bucle más interno que la contiene.
+   - La sentencia `continue` se utiliza para saltar el resto del código del cuerpo del bucle en la iteración actual y pasar inmediatamente a la siguiente iteración.
 
 ### Switch
    ```go
@@ -246,19 +247,21 @@
 - Cambiar los elementos de un slice modifica los correspondientes elementos de su array subyacente.  
 - Otros slices que comparten el mismo array subyacente verán esos cambios.  
 - Un slice no se puede modificar mas alla de la capacidad del array subyacente (array real (o físico)).  
-- El valor cero de un slice es nil.  
+- El valor cero(valor por defecto de acuerdo al tipo de datos), cuando no se inicializa un slice, es `cero` para numeros, `0.0` float, `""` cadena vacia para string, `false` para bool, `nil` para punteros.  
 - Un slice nulo tiene una longitud y capacidad de 0 y no tiene array subyacente.  
 - Los slices pueden contener cualquier tipo, incluyendo otros slices.  
     `s := make([][]int, dy)`: un slice de slice de enteros.  
 
 - Syntax  
   `slice_name := []datatype{values}`  
+  `var myslice []int` Un slice vacio.  
   `myslice := []int{}` Un slice vacio.  
   `myslice := []int{1,2,3}`  
 
+- Si se crea un slice vacio la forma de agregarle valor es con `append()`.  
 - Capacidad y len()
-  - len() function - returns the length (longitud) of the slice (the number of elements in the slice)
-  - cap() function - La capacidad de un slice es el número de elementos en el array subyacente (array real (o físico)), contando desde el primer elemento en el slice.  
+  - len() function - returns the length (longitud) of the slice (the number of elements in the slice). Es el numero de elementos al que puedes acceder dentro del slice, si intentas a acceder a un index superior al `len()` va a dar fuera de rango.   
+  - cap() function - La capacidad de un slice es el número de elementos en el array subyacente (array real (o físico)), contando desde el primer elemento en el slice. La capacidad te dice cuántos elementos puedes agregar al slice usando la función `append()` antes de que Go tenga que reasignar memoria.  
 
 - Funcion Make()  
     - If the capacity parameter is not defined, it will be equal to length.  
@@ -267,6 +270,51 @@
 - Agregar elementos al slice  
     `s = append(nombre_slice_a_modificar, elem, elem2, ...)` 
     - Los elementos a agregar deben ser del mismo tipo que los contenidos por el slice.  
+
+- Funcion Copy()
+    - Sintaxis: `copy(destino []T, oringen []T) int`
+    - Es la manera más eficiente y segura de mover datos de un slice a otro, ya que maneja internamente la lógica de la copia y evita errores comunes al trabajar con índices.
+    - Diferencias entre una asignacion y copy(): 
+       - La asignacion Copia la cabecera del slice. Ambas variables apuntan al mismo array subyacente. Mientras que el copy() No afecta el array subyacente de dst. Simplemente sobreescribe los valores dentro de él.
+
+### Maps
+- El valor cero de un map es nil. Un map nulo no tiene claves, ni se pueden agregar claves. Si le faltan las `{}` al final de la declaracion el valor que toma es nil. Las `{}` aunque no tenga valor dentro inicializa el map.       
+- La funcion make retorna un map del tipo dado, inicilizado y listo para usar.  
+- Sintaxis
+    ```go
+    var a = map[KeyType]ValueType{key1:value1, key2:value2,...}
+    b := map[KeyType]ValueType{key1:value1, key2:value2,...}
+
+    // Un map sin inicializar. No se le puede agregar valor.  
+    var d map[KeyType]ValueType
+
+    // Un map vacio
+    var c = map[KeyType]ValueType{}
+
+    // ej
+    var a = map[string]string{"brand": "Ford", "model": "Mustang", "year": "1964"}
+    b := map[string]int{"Oslo": 1, "Bergen": 2, "Trondheim": 3, "Stavanger": 4}
+
+    // Con make() function
+    var a = make(map[KeyType]ValueType)
+    b := make(map[KeyType]ValueType)
+    ```   
+- Eliminar elementos de un map
+  `delete(map_name, key)`      
+
+- Iterar sobre el maps
+```go
+    func main() {
+        a := map[string]int{"one": 1, "two": 2, "three": 3, "four": 4}
+
+        for k, v := range a {
+            fmt.Printf("%v : %v, ", k, v)
+        }
+    }
+```
+
+- Comprobar que una clave este presente
+  `elem, ok = m[key]`: Si key está en m, entonces ok es true y `elem` toma el valor. Si no esta `elem` es cero y `ok` es false.  
 
 ### Struct
 - Los campos de struct se pueden acceder a través de un puntero a un struct.  
@@ -296,38 +344,6 @@
     // Acceder a los valores de los campos 
     fmt.Print(person1.name)
     ```      
-### Maps
-- El valor cero de un map es nil. Un map nulo no tiene claves, ni se pueden agregar claves.  
-- La funcion make retorna un map del tipo dado, inicilizado y listo para usar.  
-- Sintaxis
-    ```go
-    var a = map[KeyType]ValueType{key1:value1, key2:value2,...}
-    b := map[KeyType]ValueType{key1:value1, key2:value2,...}
-
-    // ej
-    var a = map[string]string{"brand": "Ford", "model": "Mustang", "year": "1964"}
-    b := map[string]int{"Oslo": 1, "Bergen": 2, "Trondheim": 3, "Stavanger": 4}
-
-    // Con make() function
-    var a = make(map[KeyType]ValueType)
-    b := make(map[KeyType]ValueType)
-    ```   
-- Eliminar elementos de un map
-  `delete(map_name, key)`      
-
-- Iterar sobre el maps
-```go
-    func main() {
-        a := map[string]int{"one": 1, "two": 2, "three": 3, "four": 4}
-
-        for k, v := range a {
-            fmt.Printf("%v : %v, ", k, v)
-        }
-    }
-```
-
-- Comprobar que una clave este presente
-  `elem, ok = m[key]`: Si key está en m, entonces ok es true y `elem` toma el valor. Si no esta `elem` es cero y `ok` es false.  
 
 ## Método
 - Un método es esencialmente una función, pero con una diferencia crucial: tiene un argumento receptor especial.  
