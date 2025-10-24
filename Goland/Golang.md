@@ -570,7 +570,7 @@
     os.Getwd()
 
     // Listar archivos y dir de un path
-    // Retorna una slice de fs.DirEntry y un error.
+    // Retorna un slice de fs.DirEntry y un error.
     // Cuando se recorre el slice se puede preguntar si es un dir o file(entry.IsDir())
     os.ReadDir(dirname string)
 
@@ -628,6 +628,11 @@
         // Escribir bytes
         data := []byte("Más datos en bytes.\n")
         bytesWritten, err = file.Write(data)
+
+        // Escribe al final del archivo
+        file, err := os.OpenFile("dataJson.json", os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0644)
+        file.Write(toWrite)
+	    file.WriteString("\nMas string")
 
     ```     
 - Crear un Archivo: 
