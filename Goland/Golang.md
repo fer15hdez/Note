@@ -288,7 +288,7 @@
     // Un map sin inicializar. No se le puede agregar valor.  
     var d map[KeyType]ValueType
 
-    // Un map vacio
+    // Un map vacio. Se le puede agregar valor.
     var c = map[KeyType]ValueType{}
 
     // ej
@@ -375,15 +375,15 @@
     }
     type MyFloat float64
     type Vertex struct {
-    X, Y float64
+        X, Y float64
     }
 
     func (v *Vertex) Abs() float64 { // Receptor por PUNTERO
-    return valor
+        return valor
     }
 
     func (v Vertex) Metodo_Valor() float64 { // Receptor por VALOR
-    return valor
+        return valor
     }
 
     func (f MyFloat) Abs() float64 {
@@ -641,7 +641,59 @@
         // Retorna un puntero a os.File y un error.
         file, err := os.Create("mi_archivo.txt")
     ```       
+### Trabajo con archivos JSON
+   ```go
+      import (
+        "encoding/json"
+        "fmt"
+        "os"
+        "time"
+        )  
+      func main(){
+        //----- Escribir en un archivo json -----   
+        // Se crea la estructura que se va a escribir en el json.        
+        actualChange := ExchangeData{
+            BaseCoin:    "USD",
+            Date:        time.Now().Format("2006-06-02"),
+            Conversions: coins,
+	    } 
+        // MarshalIndent convierte la data a json con las opciones de indent. Devuelve un slice de byte.
+        jsonData, err := json.MarshalIndent(actualChange, "", " ")
+        if err != nil {
+            fmt.Printf("Error convirtiendo a json: %s", err)
+            return err
+        }
 
+        // Se crea el archivo. os.WriteFile devuelve un dato de tipo error.   
+        errWriteFile := os.WriteFile(nameFile, jsonData, 0644)
+        if errWriteFile != nil {
+            return errWriteFile
+        }       
+        
+      } 
+      // Se debe crear una estructura que identifique los campos que se van a escribir en el json.
+      type CoinChange struct {
+            Coin string  `json:"moneda"` // Debe tener esta estructura que define como van a quedar los campos
+            Rate float64 `json:"rate"`   // El campo 'Coin' va a tener como nombre en el json 'moneda'
+        } 
+      //----- Leer de un archivo JSON -------
+      func readJsonCoin(nameFile string) (CoinChange, error) {
+            // El tipo de datos donde se almacena el contenido json del archivo.  
+            // Los campos deben coincidir con los que estan en el json sino no se asignan a la estructura.  
+            var data CoinChange  
+            file, err := os.ReadFile(nameFile)
+            if err != nil {
+                return data, err
+            }
+
+            // Unmarshal lee del file los datos y los asigna al struct data. Pasarle un puntero es ideal para que modifique al original.  
+            err = json.Unmarshal(file, &data)
+
+            fmt.Printf("El struct dentro del readJsonCoin: \n%+v\n", data)
+
+            return data, err
+        }
+   ```
 ## Trabajo en consola (CLI)
 ```go
     import (
@@ -670,6 +722,7 @@
   -  %d: Se usa para números enteros (int).
   -  %f: Se usa para números flotantes (float).
   -  %b: Muestra el binario de un decimal.
+  -  %+v: Imprime los valores incluyendo los nombres de los campos de la struct.  
   -  %#v: Es muy útil para la depuración, porque muestra la representación del (struct, variable, etc) exactamente como si lo hubieras escrito en tu código.
   - %.2f: Esto le dice a Go que muestre un número flotante con exactamente dos decimales. La nomenclatura es: un . (punto) seguido de un número, que se coloca entre el % y el verbo de formato.
 
