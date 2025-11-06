@@ -26,7 +26,7 @@
 
 ## Paquetes 
  - Un paquete es una colección de archivos .go dentro de un directorio   
- - Deben tener el mismo nombre en `package nombre_package` 
+ - Deben tener el mismo nombre en `package nombre_package`  
 
 
 ## Crear workSpace
