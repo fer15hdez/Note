@@ -159,6 +159,10 @@
   `var p *int` : p es un puntero a un valor int.  
   `p = &i`: p es un puntero a i. (p tiene la dir de memoria al valor de i).  
   `*p = 21`: el * desreferencia a p y modifica el valor que esta en memoria.  
+- El operador & (operador de dirección) solo se puede aplicar a una variable o a una expresión que devuelva un valor variable(ej. una funcion que devuelve un valor). No se puede aplicar al resultado de una llamada a función que no devuelve un valor (ej. llamar a una funcion que no devuelve nada. `&variable.funcion() - no devuelve nada`).
+- En Go, la regla es que el operador de dirección (&) solo se puede aplicar a una expresión direccionable (`addressable expression`).  
+- La expresión que sigue al operador & debe representar algo que tiene una ubicación de memoria estable y fija que el programa puede referenciar.  
+- Solo puedes usar & para obtener la dirección de un elemento que ya existe y persiste en la memoria (una variable o una parte de una variable), nunca para el resultado temporal de una operación (ej. El resultado de una funcion).  
 
 ## Function
 - Sintaxis
