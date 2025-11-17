@@ -499,7 +499,7 @@
 - Debido a que puede contener cualquier tipo de valor, interface{} es la forma de Go de manejar valores de tipo desconocido o arbitrario. Es el equivalente más cercano al concepto de "Object" en Java o "Any" en TypeScript/Python, aunque con la seguridad de tipos de Go.  
 
 ### Aserción de Tipo (type assertion) - (Es como un casting)
-  - Si a una variable de tipo interfaz se le asigna el valor de un objeto que implementa esa interfaz, desde esa varible se llaman a los metodos implementados por el objeto concreto.  
+  - Si a una variable de tipo interfaz se le asigna el valor de un objeto que implementa esa interfaz, desde esa varible se llaman a los metodos implementados por el objeto concreto que tiene la interfaz.  
   - Desde la variable de tipo interfaz no se pueden llamar a los metodos que implementa el objeto concreto que no estan en la interfaz.  
   - Para llamar a los metodos que estan en implementacion concreta y no estan en la interfaz es necesario hacer una `Aserción de Tipo (type assertion)`.  
     ```go
@@ -510,7 +510,7 @@
         // Aserción de Tipo (Casting): Intentamos extraer el Rectangulo
         // rectConcreto es el valor, ok es un booleano que indica si la aserción fue exitosa
         // i.(T): 
-          //i es la variable de tipo interfaz.
+          // i es la variable de tipo interfaz.
           // T es el tipo concreto (struct, int, string, etc.) al que esperas que se convierta el valor contenido en i.
           // Los paréntesis () contienen el tipo de destino.
           // t, ok := i.(T)
