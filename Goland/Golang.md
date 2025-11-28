@@ -28,6 +28,29 @@
  - Un paquete es una colección de archivos .go dentro de un directorio   
  - Deben tener el mismo nombre en `package nombre_package`  
 
+ ### Paquetes estandar de go
+   #### strings
+   - Manipula las cadenas de texto.  
+   - `strings.TrimSpace`: Elimina los espacios en blanco al inicio y al final de la cadena.
+   - `.HasPrefix(cadena, prefijo)`: Dice si la cadena empieza con el prefijo.  
+   - `.TrimPrefix(cadena, prefix)`: Elimina el prefijo del inicio de la cadena (si existe). 
+   - `.Fields(cadena)`: Divide la cadena en las palabras que estan separadas por espacio y devuelve un slice de string.  
+   - `.ToLower(cadena)`: Convierte la cadena en minuscula.  
+   ### bufio
+   - Permite leer archivo por tramos, leer de la consola la entrada del usuario, 
+   ### strconv
+   - Util para convertir tipos string a int.  
+   ### time
+   - `time.Now()`: Se utiliza para obtener la hora y fecha actuales del sistema.   
+   - `time.Since(t)`: Calcula la diferencia entre la hora actual y t.  
+   - `t.Format("2006-01-02")`: "2006-01-02" representa el formato YYYY-MM-DD.  
+   - `t.Format("03:04 PM")` : "03:04 PM" representa el formato hh:mm AM/PM.  
+   - `t.Add(d)`, `t.Sub(t2)`, `t.Before(t2)`, `t.After(t2)`, `t.Equal(t2)`
+   ```go
+    // Crea un momento específico en la zona horaria UTC
+    cumpleanos := time.Date(1990, time.May, 15, 0, 0, 0, 0, time.UTC)
+   ```
+
 
 ## Crear workSpace
  `go work init ./hello ./greetings` -> Crear un archivo "go.work" donde se adiciona los valores:
