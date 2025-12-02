@@ -630,6 +630,7 @@
 - Eliminar Archivos: `os.Remove`
 - Renombrar y Mover Archivos: `err = os.Rename("viejo_nombre.txt", "nuevo_nombre.txt")`
 - Mover: `err = os.Rename("nuevo_nombre.txt", "temp_dir/archivo_movido.txt")`. El dir temp_dir debe existir.  
+- Unir path: `filepath.Join(path, entry.Name())`.  
 - Leer de un Archivo
     - Leer un archivo completo: `content, err := os.ReadFile("datos.txt")`
     - Leer por bloques: 

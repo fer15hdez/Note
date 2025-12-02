@@ -7,8 +7,15 @@
 - El Service toma la lista de direcciones IP de todos los Pods que lo respaldan y presenta una única IP virtual (ClusterIP) y un nombre DNS estable a otros Pods o servicios dentro del clúster.  
 ## Tipos de service
 - `ClusterIP`: 
+   - Uso Principal:	Comunicación interna entre aplicaciones dentro del mismo clúster de K8s.  
+   - Funcionamiento: Proporciona una IP virtual dentro del clúster (la ClusterIP).  
+   - Accesibilidad:	Solo se puede acceder a este Service desde dentro del clúster.  
+   - Ejemplo: Un frontend necesita comunicarse con un backend o una base de datos.  
 - `NodePort`: Abre un puerto estático en todos los nodos (Workers). El tráfico se dirige al puerto del nodo: `IP_del_Nodo`:`Puerto_del_Nodo`. Cada nodo redirige internamente al Service.  
 - `LoadBalancer`: Provisiona un balanceador de carga externo. El Service solicita una IP pública y estable al proveedor de la nube (AWS, GCP, Azure), que distribuye el tráfico entre los nodos.  
+
+## Pods
+- IPs Volátiles: La dirección IP de un Pod es efímera. Cuando un Pod muere y es reemplazado por uno nuevo, incluso si tienen el mismo nombre y etiquetas, el nuevo Pod tendrá una IP diferente.  
 
 ### Comandos
 - `kubectl get nodes -o wide`: Encontrar la IP del nodo.  
