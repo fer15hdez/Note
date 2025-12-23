@@ -1,7 +1,30 @@
 # Kubernetes
 
+- En YAML, si repites una clave al mismo nivel, la segunda suele sobrescribir a la primera.  
+  ```yml
+   spec:
+      ingressClassName: nginx
+   spec: # <--- ¡Aquí está el error! Debe haber un solo 'spec'
+      rules:
+  ```
+
 ## Comandos
- -  kubectl apply -f <nombre_del_archivo.yaml> : aplicar manifiesto(archivo).   
+ -  kubectl apply -f <nombre_del_archivo.yaml> : aplicar manifiesto(archivo).  
+
+## Deployments
+- Los nombres de los objetos (como el name en metadata) deben seguir las reglas de DNS. No se permiten guiones bajos (_). Debes usar guiones medios (-).  
+- Las más comunes son: 
+   - app: Nombre de la aplicación.  
+   - version: Para distinguir entre v1, v2, etc.  
+   - env: Entorno (dev, staging, prod).  
+   - tier: Capa (frontend, backend, db).  
+
+   managed-by: Quién lo creó (helm, terraform).
+- Etiquetas (Labels): Son pares clave-valor (metadatos) que se adjuntan a cualquier objeto de K8s (Pods, Nodos, etc.). Las etiquetas se usan para organizar y seleccionar grupos de objetos. Por ejemplo: app: frontend o env: dev.  
+- Selectores (Selectors): Es una expresión que se usa para encontrar un subconjunto de objetos que coinciden con una etiqueta específica. Por ejemplo, un servicio (Service) usa un selector para saber a qué Pods debe dirigir el tráfico.  
+- El contenido de spec.selector.matchLabels debe ser un subconjunto exacto de lo que pongas en spec.template.metadata.labels. Si no coinciden letra por letra, el Deployment no podrá "adueñarse" de los Pods que él mismo crea.  
+
+
 ## Service
 - El Service es un objeto fundamental que actúa como un enlace permanente y un balanceador de carga para un grupo de Pods.  
 - El Service toma la lista de direcciones IP de todos los Pods que lo respaldan y presenta una única IP virtual (ClusterIP) y un nombre DNS estable a otros Pods o servicios dentro del clúster.  
@@ -23,6 +46,15 @@
 - Componentes importantes:
   - Ingress Resource (El Recurso): Es un archivo YAML donde defines las reglas de enrutamiento (ej: "si el tráfico viene a myapp.com/api, envíalo al Service A").  
   - Ingress Controller (El Controlador): Es el software que realmente ejecuta esas reglas. A diferencia de otros controladores en K8s, este no viene instalado por defecto. Debes elegir e instalar uno (como Nginx, Traefik, HAProxy o Kong).  
+- Funcionalidades clave:     
+   - Enrutamiento Basado en el Host (Host-based Routing). Puedes dirigir el tráfico según el nombre de dominio.    
+     - ventas.empresa.com -> Service de Ventas.   
+     - rrhh.empresa.com -> Service de Recursos Humanos.   
+   - Enrutamiento Basado en la Ruta (Path-based Routing). Puedes dirigir el tráfico según la subcarpeta o ruta de la URL.  
+     - empresa.com/pago -> Service de Pagos.  
+     - empresa.com/carrito -> Service de Carrito.  
+   - Terminación TLS/SSL
+     - El Ingress puede gestionar tus certificados de seguridad. En lugar de configurar el certificado SSL en cada Pod o Service, lo configuras una sola vez en el Ingress. El tráfico llega cifrado al Ingress y luego viaja de forma "plana" (HTTP) dentro del clúster hacia los servicios.  
 
 ## Pods
 - IPs Volátiles: La dirección IP de un Pod es efímera. Cuando un Pod muere y es reemplazado por uno nuevo, incluso si tienen el mismo nombre y etiquetas, el nuevo Pod tendrá una IP diferente.  
@@ -33,6 +65,7 @@
 - `kubectl get service <nombre-del-servicio> -o yaml`: Obtener los puertos si el servicio es de tipo NodePort.  
 - `kubectl describe pod <nombre-del-pod>`:  Ver detalles de la IP.  
 - `kubectl logs <nombre-del-pod>`: Ver los logs del contenedor y verificar si hay información sobre los puerto.  
+- `kubectl logs -n ingress-nginx -l app.kubernetes.io/name=ingress-nginx --tail 10`: is used to retrieve the last 10 lines of logs from the NGINX Ingress Controller pods.  
 - `kubectl delete pod <pod-name>`: Eliminar un pod.  
 - `kubectl delete pods -l <etiqueta>=<valor>`: Eliminar los pods que tienen la <etiqueta>=<valor>.  
 - `kubectl delete pods -n <espacio-de-nombres>`: Eliminar los pods por namespace.  
@@ -50,6 +83,7 @@
 
 ### Interactuar dentro de un Pods
 - `kubectl exec -it <nombre-del-pod> -- /bin/sh`
+- `kubectl exec -it <nombre-del-pod> -- bash`
 
 ## Jobs
 ### Comandos
@@ -70,3 +104,11 @@
 - `kubectl get cronjobs -n <nombre-del-namespace>`: Listar CronJobs en un namespace específico.  
 - `kubectl describe cronjob <nombre-del-cronjob>`: Ver detalles de un CronJob.  
 - `kubectl get jobs --selector=job-name=<nombre-del-cronjob>`: Ver los Jobs creados por un CronJob. 
+
+## ConfigMap
+### Comandos
+- `kubectl get configmap <nombre_configMap>`: Muestra el configMap especificado por nombre.  
+
+## Secret
+### Comandos
+- `kubectl get secret <nombre_secret>`: Muestra el secret especificado por nombre.  

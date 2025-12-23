@@ -18,3 +18,6 @@
 
 ## Listar imagenes dentro del cluster
 - `crictl images` o `docker images`
+
+## Listar contenedores dentro del cluster
+- `crictl ps`

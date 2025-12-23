@@ -25,11 +25,14 @@ git push -u origin main
  git remote -v **Show all the remote repository that are cloned.**   
  git fetch [remote-name] **El comando irá al proyecto remoto y se traerá todos los datos que aun no tienes de dicho remoto, todo lo diferente despues de clonarlo. Pero no intenta integrar esos cambios en tus ramas locales.**    
 
-git push [nombre-remoto] [nombre-rama] **To send the local repository to a server.**    
-git push origin master **That put all local repository even with the commit.**    
+`git push [nombre-remoto] [nombre-rama]` **To send the local repository to a server.**    
+`git push origin master` **That put all local repository even with the commit.**    
+`git config --global user.name`: Muestra el nombre del usuario en la configuracion global.  
+`git config user.name`: Muestra el nombre de usuario configurado solo para ese proyecto (debe estar en la carpeta del proyecto).  
 git config --global credential.helper 'store --file ~/.my-credentials' **Store the credencial in a file. Default is ~/.my-credentials**    
   https://user:pass@example.com **Format in file credentials**  
  git config --global credential.helper 'cache --timeout [seconds]' "Config a credential cache. During all seconds config"  
+`git config --list`: Para ver una lista completa de todas tus configuraciones (incluyendo nombre de usuario y correo electrónico).  
 
 ### Overwrite the local project for the remote project  
 git fetch --all # "Dowload all file from remote but not merge"  
