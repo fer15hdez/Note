@@ -105,10 +105,19 @@
 - `kubectl describe cronjob <nombre-del-cronjob>`: Ver detalles de un CronJob.  
 - `kubectl get jobs --selector=job-name=<nombre-del-cronjob>`: Ver los Jobs creados por un CronJob. 
 
-## ConfigMap
+## ConfigMap y Secret
+- Se puede hacer dos configuraciones: Mediante variables de entorno o montando un volumen.  
+- En el deployment es donde se referencia la configuracion del configMap.  
+- Los ConfigMaps y Secrets son objetos de un Namespace. Un Pod en el namespace A no puede consumir un Secret del namespace B de forma directa.  
+- Referencia antes que ejecución: El Pod debe referenciar el nombre exacto del objeto. Si el Pod intenta arrancar y el ConfigMap/Secret referenciado no existe, el Pod quedará en estado CreateContainerConfigError.  
+- Inmutabilidad: Puedes marcar un ConfigMap/Secret como immutable: true. Esto impide cambios accidentales y mejora el rendimiento del clúster (el kubelet deja de vigilar cambios).  
+- Actualización de Variables de Entorno: Si usas variables de entorno y cambias el ConfigMap, el Pod NO verá el cambio hasta que se reinicie. Si usas volúmenes, el cambio es eventual.  
+
 ### Comandos
 - `kubectl get configmap <nombre_configMap>`: Muestra el configMap especificado por nombre.  
 
 ## Secret
+- En el deployment es donde se referencia la configuracion del configMap.  
+
 ### Comandos
 - `kubectl get secret <nombre_secret>`: Muestra el secret especificado por nombre.  
