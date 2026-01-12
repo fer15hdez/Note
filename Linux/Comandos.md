@@ -20,12 +20,28 @@ Para configurar variables para todo el sistema, es recomendable añadirlas a /et
 
 ## Permission
 The owner of a file can change the permissions for user ( u ), group ( g ), or others ( o ) by adding ( + ) or subtracting ( - ) the read, write, and execute permissions.
-read ( r ), write(w), execute(x)<br>
--R (recursive option) <br>
-<code>sudo chmod o=+rwx /var/www/html/</code> <br>
-**List permissions**<br>
-<code>ls -l /path/dir/</code> 
+read ( r ), write(w), execute(x)  
+-R (recursive option)  
+`sudo chmod o=+rwx /var/www/html/`
+## List permissions   
+`ls -l /path/dir/`
 The order is d(if is a dir) u(rwx)g(rwx)o(rwx)
+
+- `Lectura (r) 4`:	Permite ver el contenido del archivo o listar un directorio.
+- `Escritura (w) 2`:	Permite modificar el archivo o crear/borrar archivos en un directorio.
+- `Ejecución (x) 1`:	Permite ejecutar un archivo como programa o entrar en un directorio.
+
+    - 7 (4+2+1) = rwx (Acceso total)
+    - 6 (4+2+0) = rw- (Lectura y escritura)
+    - 5 (4+0+1) = r-x (Lectura y ejecución)
+    - 4 (4+0+0) = r-- (Solo lectura)
+
+### Esta cadena de 10 caracteres se divide así:
+ Ej. cadena de permisos `-rwxr-xr--`  
+ - El primer carácter: Indica el tipo ( - para archivo, d para directorio).
+ - Los siguientes tres (rwx): Permisos del Propietario.
+ - Los tres centrales (r-x): Permisos del Grupo.
+ - Los tres finales (r--): Permisos de Otros.
 
 ***
 
