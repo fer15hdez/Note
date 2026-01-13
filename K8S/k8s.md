@@ -40,7 +40,8 @@
 ## Service
 - El Service es un objeto fundamental que actúa como un enlace permanente y un balanceador de carga para un grupo de Pods.  
 - El Service toma la lista de direcciones IP de todos los Pods que lo respaldan y presenta una única IP virtual (ClusterIP) y un nombre DNS estable a otros Pods o servicios dentro del clúster.  
-## Tipos de service
+
+### Tipos de service
 - `ClusterIP`: 
    - Uso Principal:	Comunicación interna entre aplicaciones dentro del mismo clúster de K8s.  
    - Funcionamiento: Proporciona una IP virtual dentro del clúster (la ClusterIP).  
