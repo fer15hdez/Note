@@ -5,7 +5,7 @@
    spec:
       ingressClassName: nginx
    spec: # <--- ¡Aquí está el error! Debe haber un solo 'spec'
-      rules:
+      rules:        
   ```
 
 ## Comandos
@@ -24,6 +24,18 @@
 - Selectores (Selectors): Es una expresión que se usa para encontrar un subconjunto de objetos que coinciden con una etiqueta específica. Por ejemplo, un servicio (Service) usa un selector para saber a qué Pods debe dirigir el tráfico.  
 - El contenido de spec.selector.matchLabels debe ser un subconjunto exacto de lo que pongas en spec.template.metadata.labels. Si no coinciden letra por letra, el Deployment no podrá "adueñarse" de los Pods que él mismo crea.  
 
+## StatefulSet
+- Es un Workload API object (un objeto de carga de trabajo), hermano del Deployment. Mientras que el Deployment es para aplicaciones "sin estado" (como un frontend que puedes borrar y recrear sin problemas), el `StatefulSet` es para aplicaciones "con estado" (como Postgres) que necesitan que su disco siempre sea el mismo aunque el Pod se mueva de nodo.   
+- Es el estándar para bases de datos. Garantiza que cada Pod tenga su propio nombre y su propio disco persistente de forma ordenada.  
+- Garantiza que el almacenamiento y la identidad de la red sean estables.  
+- Para que un StatefulSet funcione correctamente, Kubernetes recomienda crear primero un Service de tipo "Headless" (sin IP propia) para dar identidad a los Pods.  
+
+## PV (Persistent Volume)
+- Es el recurso físico (un pedazo de disco en el nodo, un disco en la nube, etc.).  
+
+## PVC (Persistent Volume Claim)
+- Es un tipo de manifiesto.  
+- Es la "Solicitud de Alquiler". El desarrollador dice: "Necesito 1GB de espacio con lectura/escritura". Kubernetes busca un PV que encaje y los "une" (Bound).  
 
 ## Service
 - El Service es un objeto fundamental que actúa como un enlace permanente y un balanceador de carga para un grupo de Pods.  
@@ -40,6 +52,14 @@
    - Accesibilidad: Se puede acceder al Service desde fuera del clúster a través de: http://<IP_del_Nodo>:<NodePort>.  
    - 
 - `LoadBalancer`: Provisiona un balanceador de carga externo. El Service solicita una IP pública y estable al proveedor de la nube (AWS, GCP, Azure), que distribuye el tráfico entre los nodos.  
+
+### Endpoints
+- Este es el concepto "detrás de cámaras" de un Service.
+- Cuando creas un Service, este busca Pods con las etiquetas (labels) correctas. Pero el Service no manda el tráfico "al aire"; mantiene una lista interna de las direcciones IP de los Pods que están listos. Esa lista se llama Endpoints.
+  - Si el `Readiness Probe` tiene éxito: La IP del Pod aparece en la lista de Endpoints.
+  - Si el `Readiness Probe` falla: La IP del Pod se elimina de la lista de Endpoints automáticamente.
+  #### Comando
+   - `kubectl get endpoints`: te permite ver qué IPs están "activas" para recibir tráfico en un servicio específico.
 
 ## INGRESS
 - Es un objeto de API que actúa como una "puerta de entrada" inteligente al clúster. Mientras que un Service se encarga de conectar tráfico a nivel de red (Capa 4 - TCP/UDP), el Ingress gestiona el acceso externo a los servicios a nivel de aplicación (Capa 7 - HTTP/HTTPS).  
@@ -121,3 +141,15 @@
 
 ### Comandos
 - `kubectl get secret <nombre_secret>`: Muestra el secret especificado por nombre.  
+
+## Probes (Sondas)
+- En Kubernetes, el Kubelet usa Probes (Sondas) para preguntarle al contenedor: "¿Cómo estás?".  
+- LivenessProbe (Sonda de Vida) 🩺  
+  - Pregunta: "¿Sigues vivo o te has quedado bloqueado (deadlock)?"  
+  - Acción si falla: Kubernetes mata el contenedor y crea uno nuevo (reinicio).  
+  - Uso: Para aplicaciones que se quedan "congeladas" pero el proceso sigue figurando como activo.
+
+- ReadinessProbe (Sonda de Disponibilidad) 🚦
+  - Pregunta: "¿Estás listo para recibir clientes (tráfico)?"
+  - Acción si falla: Kubernetes no mata el contenedor, pero le dice al Service: "Oye, no le mandes tráfico a este Pod, todavía está cargando datos o está saturado".
+  - Uso: Para apps que tardan en cargar una base de datos al inicio o que están temporalmente sobrecargadas.  
