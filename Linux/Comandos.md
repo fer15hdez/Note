@@ -141,3 +141,6 @@ domain   = epepc.cupet.cu
 **du -h /home/user/Desktop/ | sort –rn** -> ordenará todos los archivos y carpetas de mayor a menor.  
 **du -h /home/user/Desktop | grep '^\s*[0-9\.]\+G'** -> todos los archivos mayores a 1 GB.M para mega.  
 **du -h /home/user/Desktop/ --exclude="*.txt"** -> Excluir tipos de archivos.       
+
+## Certificados
+- `curl --insecure -vvI <url> 2>&1 | awk 'BEGIN { cert=0 } /^\* SSL connection/ { cert=1 } /^\*/ { if (cert) print }'` : Muestra la info 

@@ -60,7 +60,7 @@
   - Si el `Readiness Probe` tiene éxito: La IP del Pod aparece en la lista de Endpoints.
   - Si el `Readiness Probe` falla: La IP del Pod se elimina de la lista de Endpoints automáticamente.
   #### Comando
-   - `kubectl get endpoints`: te permite ver qué IPs están "activas" para recibir tráfico en un servicio específico.
+   - `kubectl get endpoints {nombre-service}`: te permite ver qué IPs están "activas" para recibir tráfico en un servicio específico.  
 
 ## INGRESS
 - Es un objeto de API que actúa como una "puerta de entrada" inteligente al clúster. Mientras que un Service se encarga de conectar tráfico a nivel de red (Capa 4 - TCP/UDP), el Ingress gestiona el acceso externo a los servicios a nivel de aplicación (Capa 7 - HTTP/HTTPS).  
@@ -90,6 +90,9 @@
 - `kubectl delete pod <pod-name>`: Eliminar un pod.  
 - `kubectl delete pods -l <etiqueta>=<valor>`: Eliminar los pods que tienen la <etiqueta>=<valor>.  
 - `kubectl delete pods -n <espacio-de-nombres>`: Eliminar los pods por namespace.  
+### Interactuar dentro de un Pods
+- `kubectl exec -it <nombre-del-pod> -- /bin/sh`
+- `kubectl exec -it <nombre-del-pod> -- bash`
 
 ## Namespace
 ### Comandos
@@ -102,9 +105,7 @@
 - `kubectl describe deployment/<nombre-del-deployment>`: Muestra los valores del deployment.  
 - `kubectl rollout restart deployment <nombre-del-deployment>`: inicia un reinicio progresivo de los pods, creando nuevos pods y terminando los antiguos de manera controlada, según la estrategia de reinicio de la implementación. 
 
-### Interactuar dentro de un Pods
-- `kubectl exec -it <nombre-del-pod> -- /bin/sh`
-- `kubectl exec -it <nombre-del-pod> -- bash`
+
 
 ## Jobs
 ### Comandos
