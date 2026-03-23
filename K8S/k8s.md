@@ -7,6 +7,7 @@
    spec: # <--- ¡Aquí está el error! Debe haber un solo 'spec'
       rules:        
   ```
+- Identidad de los objetos: `(namespace, name, kind) = ID único`. Un objeto dentro de un namespace y otro objeto de igual nombre en otro namespace son diferentes objetos y no entran en conflicto. 
 
 ## Comandos
  -  kubectl apply -f <nombre_del_archivo.yaml> : aplicar manifiesto(archivo).  
@@ -23,6 +24,16 @@
 - Etiquetas (Labels): Son pares clave-valor (metadatos) que se adjuntan a cualquier objeto de K8s (Pods, Nodos, etc.). Las etiquetas se usan para organizar y seleccionar grupos de objetos. Por ejemplo: app: frontend o env: dev.  
 - Selectores (Selectors): Es una expresión que se usa para encontrar un subconjunto de objetos que coinciden con una etiqueta específica. Por ejemplo, un servicio (Service) usa un selector para saber a qué Pods debe dirigir el tráfico.  
 - El contenido de spec.selector.matchLabels debe ser un subconjunto exacto de lo que pongas en spec.template.metadata.labels. Si no coinciden letra por letra, el Deployment no podrá "adueñarse" de los Pods que él mismo crea.  
+
+### Comados deployments
+- `kubectl get deployments`: Lista los deployments.  
+- `kubectl get deploy`: Lista más concisa.  
+- `kubectl rollout status deployment/<nombre-del-deployment>`: Para ver el estado de un deployment específico.  
+- `kubectl describe deployment/<nombre-del-deployment>`: Muestra los valores del deployment.  
+- `kubectl rollout restart deployment <nombre-del-deployment>`: inicia un reinicio progresivo de los pods, creando nuevos pods y terminando los antiguos de manera controlada, según la estrategia de reinicio de la implementación. 
+- `kubectl apply -f <nombre_del_archivo.yaml>` : aplicar manifiesto(archivo).  
+- `kubectl get pods -l app=<nombre-label> -n=<nombre-namespace>`: Muestra los pods con `app=<nombre-label>` del namespace `<nombre-namespace>`.  
+- `kubectl get deployments --all-namespaces`: Muestra los deployments que estan asociados a cada namespace.  
 
 ## StatefulSet
 - Es un Workload API object (un objeto de carga de trabajo), hermano del Deployment. Mientras que el Deployment es para aplicaciones "sin estado" (como un frontend que puedes borrar y recrear sin problemas), el `StatefulSet` es para aplicaciones "con estado" (como Postgres) que necesitan que su disco siempre sea el mismo aunque el Pod se mueva de nodo.   
@@ -54,13 +65,16 @@
    - 
 - `LoadBalancer`: Provisiona un balanceador de carga externo. El Service solicita una IP pública y estable al proveedor de la nube (AWS, GCP, Azure), que distribuye el tráfico entre los nodos.  
 
+#### COMANDOS
+`kubectl get SVC --all-namespaces`: Muestra los service y a los namespace asociados.  
+
 ### Endpoints
 - Este es el concepto "detrás de cámaras" de un Service.
 - Cuando creas un Service, este busca Pods con las etiquetas (labels) correctas. Pero el Service no manda el tráfico "al aire"; mantiene una lista interna de las direcciones IP de los Pods que están listos. Esa lista se llama Endpoints.
   - Si el `Readiness Probe` tiene éxito: La IP del Pod aparece en la lista de Endpoints.
   - Si el `Readiness Probe` falla: La IP del Pod se elimina de la lista de Endpoints automáticamente.
   #### Comando
-   - `kubectl get endpoints {nombre-service}`: te permite ver qué IPs están "activas" para recibir tráfico en un servicio específico.  
+   - `kubectl get endpoints {nombre-service} -n {nombre-namespace}`: te permite ver qué IPs están "activas" para recibir tráfico en un servicio específico.  
 
 ## INGRESS
 - Es un objeto de API que actúa como una "puerta de entrada" inteligente al clúster. Mientras que un Service se encarga de conectar tráfico a nivel de red (Capa 4 - TCP/UDP), el Ingress gestiona el acceso externo a los servicios a nivel de aplicación (Capa 7 - HTTP/HTTPS).  
@@ -91,20 +105,30 @@
 - `kubectl delete pods -l <etiqueta>=<valor>`: Eliminar los pods que tienen la <etiqueta>=<valor>.  
 - `kubectl delete pods -n <espacio-de-nombres>`: Eliminar los pods por namespace.  
 ### Interactuar dentro de un Pods
-- `kubectl exec -it <nombre-del-pod> -- /bin/sh`
-- `kubectl exec -it <nombre-del-pod> -- bash`
+- `kubectl exec -it <nombre-del-pod> -- /bin/sh`: En algunas imagenes(alpine, busybox, slim de debian, etc) no tienen instaldo bash, se usa `sh`.
+- `kubectl exec -it <nombre-del-pod> -- bash`: Normalmente viene instaldo en imagenes(ubuntu, debian, redhat, etc).  
 
 ## Namespace
+- Es una división lógica dentro de un clúster que aísla y organiza recursos (Pods, Servicios, Deployments) para múltiples usuarios o proyectos. Permite compartir un clúster físico entre varios equipos o entornos (desarrollo, pruebas, producción) sin interferencias, facilitando la gestión de cuotas y políticas de seguridad
+- Aislamiento Lógico: Los recursos en un namespace no son visibles desde otro por defecto.
+- Nombres Únicos: Permite tener recursos con el mismo nombre en diferentes namespaces.
+- Organización: Ayuda a agrupar componentes de una aplicación.
+- Gestión de Cuotas: Permite limitar el consumo de recursos (CPU, RAM) por equipo o proyecto.
+- Aísla permisos (RBAC).  
+- Namespaces `NO` bloquean comunicación:
+  - ❌ NO bloquean tráfico
+  - ❌ NO son una barrera de seguridad
+  - ❌ NO funcionan como “VLANs”
+- `curl mi-service.nombre-namesapce.svc.cluster.local`: Para comunicarse entre namespaces (forma recomenda).  
+
 ### Comandos
 - `kubectl.exe get namespace`: Lista los namespace.   
-
-### Comados deployments
-- `kubectl get deployments`: Lista los deployments.  
-- `kubectl get deploy`: Lista más concisa.  
-- `kubectl rollout status deployment/<nombre-del-deployment>`: Para ver el estado de un deployment específico.  
-- `kubectl describe deployment/<nombre-del-deployment>`: Muestra los valores del deployment.  
-- `kubectl rollout restart deployment <nombre-del-deployment>`: inicia un reinicio progresivo de los pods, creando nuevos pods y terminando los antiguos de manera controlada, según la estrategia de reinicio de la implementación. 
-
+- `kubectl.exe get namespace --show-labels`: Lista los namespace y las labels.   
+- `kubectl create -f ./my-namespace.yaml`: Crea el namespace.  
+- `kubectl delete namespaces <insert-some-namespace-name>`: Eliminar namespaces.
+- `kubectl api-resources --namespaced=true`: Muestra los recursos que estan asociados a un namespace. 
+- `kubectl api-resources --namespaced=false`: Muestra los recursos que NO estan asociados a un namespace.
+- `kubectl get deployments --all-namespaces`: Muestra los deployments que estan asociados a cada namespace.  
 
 
 ## Jobs
@@ -137,12 +161,14 @@
 
 ### Comandos
 - `kubectl get configmap <nombre_configMap>`: Muestra el configMap especificado por nombre.  
+- `kubectl apply -f  .\config_map.yml -n <frontend>`: Crea un configMap a partir de lo declarado en el archivo .yml. Si no se especifica el namespace se crea en el del contexto actual o el namespace default.  
 
 ## Secret
 - En el deployment es donde se referencia la configuracion del configMap.  
 
 ### Comandos
 - `kubectl get secret <nombre_secret>`: Muestra el secret especificado por nombre.  
+- `kubectl apply -f  .\secret.yml -n <frontend>`: Crea un secret a partir de lo declarado en el archivo .yml. Si no se especifica el namespace se crea en el del contexto actual o el namespace default. 
 
 ## Probes (Sondas)
 - En Kubernetes, el Kubelet usa Probes (Sondas) para preguntarle al contenedor: "¿Cómo estás?".  
@@ -155,3 +181,6 @@
   - Pregunta: "¿Estás listo para recibir clientes (tráfico)?"
   - Acción si falla: Kubernetes no mata el contenedor, pero le dice al Service: "Oye, no le mandes tráfico a este Pod, todavía está cargando datos o está saturado".
   - Uso: Para apps que tardan en cargar una base de datos al inicio o que están temporalmente sobrecargadas.  
+
+## NetworkPolicy (Políticas de red)
+- `podSelector`: Cada NetworkPolicy incluye un podSelector el cual selecciona el grupo de Pods en los cuales aplica la política. La política de ejemplo selecciona Pods con la etiqueta "role=db". Un podSelector vacío selecciona todos los Pods en un Namespace.

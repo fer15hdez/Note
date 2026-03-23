@@ -13,11 +13,15 @@
 ## Listar clusters
 - `kind get clusters`
 
-## Loading an Image Into Your Cluster
-- `kind load docker-image my-custom-image:unique-tag --name nameCluster`
+## Images
+- `kind load docker-image my-custom-image:unique-tag --name nameCluster`: Loading an Image Into Your Cluster.
+- `crictl images`: Lista las imagenes dentro del cluster.  
 
 ## Listar imagenes dentro del cluster
 - `crictl images` o `docker images`
 
 ## Listar contenedores dentro del cluster
 - `crictl ps`
+
+## Pods
+- `crictl pods`: Lista los pods.  
