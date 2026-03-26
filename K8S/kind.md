@@ -10,6 +10,9 @@
 - `kind create cluster --config kind-config.yaml`: con un archivo.  
 - `kind create cluster --name cluster.test --config kind-config.yaml`: crea un cluster con el nombre "cluster.test" con un archivo.  
 
+## Eliminar cluster
+- `kind delete cluster --name cluster.test`: Eliminar cluster
+
 ## Listar clusters
 - `kind get clusters`
 
@@ -25,3 +28,7 @@
 
 ## Pods
 - `crictl pods`: Lista los pods.  
+
+## Plugin Network
+- Instalar el `Tigera (Calico)`:
+  

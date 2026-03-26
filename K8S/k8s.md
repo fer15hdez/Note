@@ -104,6 +104,7 @@
 - `kubectl delete pod <pod-name>`: Eliminar un pod.  
 - `kubectl delete pods -l <etiqueta>=<valor>`: Eliminar los pods que tienen la <etiqueta>=<valor>.  
 - `kubectl delete pods -n <espacio-de-nombres>`: Eliminar los pods por namespace.  
+- `kubectl delete pods --all -n <namespace>`: Eliminar todos los pods por namespace.
 ### Interactuar dentro de un Pods
 - `kubectl exec -it <nombre-del-pod> -- /bin/sh`: En algunas imagenes(alpine, busybox, slim de debian, etc) no tienen instaldo bash, se usa `sh`.
 - `kubectl exec -it <nombre-del-pod> -- bash`: Normalmente viene instaldo en imagenes(ubuntu, debian, redhat, etc).  
@@ -184,3 +185,4 @@
 
 ## NetworkPolicy (Políticas de red)
 - `podSelector`: Cada NetworkPolicy incluye un podSelector el cual selecciona el grupo de Pods en los cuales aplica la política. La política de ejemplo selecciona Pods con la etiqueta "role=db". Un podSelector vacío selecciona todos los Pods en un Namespace.
+- Campos obligatorios: `apiVersion, kind, metadata`
