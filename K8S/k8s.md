@@ -49,8 +49,10 @@
 - Es la "Solicitud de Alquiler". El desarrollador dice: "Necesito 1GB de espacio con lectura/escritura". Kubernetes busca un PV que encaje y los "une" (Bound).  
 
 ## Service
+- Es un objeto de k8s para exponer una aplicacion que corre en uno o mas pods.  
 - El Service es un objeto fundamental que actúa como un enlace permanente y un balanceador de carga para un grupo de Pods.  
 - El Service toma la lista de direcciones IP de todos los Pods que lo respaldan y presenta una única IP virtual (ClusterIP) y un nombre DNS estable a otros Pods o servicios dentro del clúster.  
+- El Service presenta una unica ip y un dns estable y se encarga de redirigir el trafico a los pods que tiene asociados (normalmente se usa un label selector para determinar a cuales pods va el trafico. Existen otros metodos para dirigir el trafico).  
 
 ### Tipos de service
 - `ClusterIP`: 
