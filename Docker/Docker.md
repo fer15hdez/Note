@@ -107,16 +107,17 @@ Si intentas llamar a dos contenedores por el mismo nombre, como te puedes imagin
 ## Dockerfile
 1. `ADD` copia un archivo del host al contenedor.  
 1. `CMD` el agumento que pasas por defecto.  
-1. `ENTRYPOINT` el comando que se ejecuta por defecto al arrancar el contenedor.  
+1. `ENTRYPOINT` el comando que se ejecuta por defecto al arrancar el contenedor. Cualquier argumento que se proporcione al comando `docker run` se añade al ENTRYPOINTcomando.   
 1. `ENV` permite declarar una variable de entorno en el contenedor.  
-1. `EXPOSE` abre un puerto del contenedor. Ex. *EXPOSE 8080*  or *EXPOSE 8080/udp*
+1. `EXPOSE` Indica que el contenedor utiliza los puertos especificados durante su ejecución. Esta instrucción no publica los puertos, es sólo de carácter informativo. Sólo se usará si se inicia el contenedor con la
+opción -P. Ex. *EXPOSE 8080*  or *EXPOSE 8080/udp*
 1. `FROM` indica la imagen base que utilizarás para construir tu imagen personalizada. Esta opción es obligatoria, y además debe ser la primera instrucción del ***Dockerfile***.  
 1. `MAINTAINER` es una valor opcional que te permite indicar quien es el que se encarga de mantener el ***Dockerfile***.  
 1. `ONBUILD` te permite indicar un comando que se ejecutará cuando tu imagen sea utilizada para crear otra imagen.  
 1. `RUN` ejecuta un comando y guarda el resultado como una nueva capa.  
 1. `USER` define el usuario por defecto del contenedor.  
 1. `VOLUME` crea un volumen que es compartido por los diferentes contenedores o con el *host*.  
-1. `WORKDIR` define el directorio de trabajo para el contenedor.  
+1. `WORKDIR` Indica el directorio de trabajo donde se ejecutarán los comandos que se indiquen con las directivas `RUN, CMD, ENTRYPOINT, COPY,ADD`.  
 
 *Syntax* : docker build [OPTIONS] PATH | URL | -   
 *Exmaple* :  `docker build -t tagName:latest .` (The dot is the path. It look for a Dockerfile file. It is posible define different path or link)
