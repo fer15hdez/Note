@@ -14,6 +14,12 @@
 `docker image tag` **server:tagname** `newName/newName:latest` :  change the name of repository.  
 `docker image tag` **idImage** `newName/newName:latest` :   change the name of repository.  
 `docker image rm $(docker images --filter since=b721d1cdaac7 -q) -f`: Delete the image and the intermediate images  
+`docker tag <imagen_actual>:<tag_actual> <nuevo_nombre>:<nuevo_tag>`: Cambiar el nombre y tag (Crea una referencia a la imagen original). Si se desea borrar la anterior imagen se de hacer manualmente (rmi al tag).    
+`docker rmi <image_id>`: elimina la imagen por el id.  
+`docker rmi <repository>:<tag>`: Eliminar por nombre.  
+`docker rmi <id1> <id2>`: Eliminar varias imagenes.  
+`docker rmi -f <image_id>`: Forzar eliminación (se usa si la imagen está en uso por un contenedor parado o referenciado por otra imagen).  
+- Docker puede tener mas de una <imagen_nombre>:<tag> apuntando a una misma imagen (el id es el identificador hacia donde apunta).  
 
 
 ### Descargar una imagen de un repositorio
