@@ -180,6 +180,9 @@ Ex.: `docker network ls`
 `prune`: es el comando con el que borrará todas las redes que no estés utilizando.  
 `rm`: te permite borrar una o mas redes.  
 
+`docker network create mi-red-local`: crea una red.   
+`docker network rm name_red`: Borrar el nombre de la red.  
+
 ### Tipos de controladores de red en Docker
 **driver:** este es el controlador por defecto. Es la mejor solución para conectar contenedores que se encuentran corriendo en el mismo anfitrión.  
 **host:** este tipo de controlador elimina el aislamiento entre el contenedor y el anfitrión.  
