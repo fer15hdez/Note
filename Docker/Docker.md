@@ -145,7 +145,7 @@ opción -P. Ex. *EXPOSE 8080*  or *EXPOSE 8080/udp*
 ## Docker Compose
 ### The file .yml
 ``` yml
-version: '3'
+name: mi-proyecto-personalizado # Nombra el proyecto que agrupa los servicios. Si no se especifica toma el nombre de la carpeta. 
 services:
     container1:
         image: atareao/chiquito:composer
@@ -167,8 +167,9 @@ services:
 `docker-compose up`: levanta los contenedores.  
 `docker-composer up -d`: hace lo mismo que la instrucción pero en modo desvinculado, detached mode.  
 `docker-compose ps`: te permite ver los contenedores que están en funcionamiento.  
-`docker compose stop`: es la herramienta encargada de detener los diferentes contenedores.   
-`docker-composer down`: detiene los contenedores.  
+`docker compose stop`: es la herramienta encargada de detener los diferentes contenedores, no los borra.   
+`docker-composer down`: detiene los contenedores y los borra.  
+`docker compose down -v`: elimina los datos persistentes de los volúmenes anonimos.  
 
 ***
 
