@@ -49,6 +49,7 @@
 ```docker ps```: show all the container.  
 ```docker container ls```: show all the container.  
 ```docker ps -a```: show all the container, even stoped.  
+`docker logs <nombre_o_id>`: Ver todos los logs.  
 *Los contenedores se ejecutan solo mientras se ejecuta su comando predeterminado*
 *(**Mantiene ejecutandose el contenedor**)Para iniciar una sesión pseudo-TTY con el contenedor, podemos usar el indicador **-t** . El contenedor no saldrá hasta que finalice la sesión.*
 
@@ -108,6 +109,9 @@ Si intentas llamar a dos contenedores por el mismo nombre, como te puedes imagin
 ### PostgreSQL
 `docker run -d --name postgres -e POSTGRES_PASSWORD=mysecretpassword -p 5432:5432 postgres`
 
+### Node para ejecutar un contenedor temporal 
+`docker run --rm -v .:/app -w /app node:18-alpine sh -c "npm config set strict-ssl false && npm install redis --package-lock-only"`
+
 ***
 
 ## Dockerfile
@@ -139,6 +143,11 @@ opción -P. Ex. *EXPOSE 8080*  or *EXPOSE 8080/udp*
 `docker volume inspect mi_volumen` : Inspeccionar un volumen  
 `docker volume rm mi_volumen`: Eliminar un volumen  
 `docker volume prune`: Eliminar todos los volúmenes no usados  
+
+- `Volúmenes Nombrados`: Se gestionan por Docker, para persistencia de alto nivel (común para base de datos).  
+- `Bind Mounts (Montajes de enlace)`: Mapean una carpeta específica del ordenador host al contenedor. Se usa una ruta local (./data) en lugar de un nombre. 
+  - El bind mounts lo que hace es reflejar el contenido de la carpeta host en el contenedor, si la carpeta en el contenedor tiene contenido es   
+
 
 ***
 
