@@ -1,0 +1,22 @@
+name: Mi Primer Pipeline
+
+# 1. El Evento: Se ejecuta cada vez que subes código a la rama 'main'
+on:
+  push:
+    branches: [ "main" ]
+
+# 2. Los Trabajos
+jobs:
+  saludo:
+    # Definimos que use una máquina virtual con Ubuntu actualizado
+    runs-on: ubuntu-latest
+
+    # 3. Los Pasos que va a seguir esa máquina
+    steps:
+      # Paso 1: Clonar el código del repositorio dentro de la máquina virtual
+      - name: Descargar el código
+        uses: actions/checkout@v4
+
+      # Paso 2: Ejecutar un comando básico de terminal
+      - name: Decir hola
+        run: echo "¡El pipeline se ejecutó correctamente!"
