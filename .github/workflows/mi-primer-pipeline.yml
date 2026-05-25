@@ -1,22 +1,30 @@
-name: Mi Primer Pipeline
+name: Validar Construcción de Docker
 
-# 1. El Evento: Se ejecuta cada vez que subes código a la rama 'main'
 on:
   push:
     branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
-# 2. Los Trabajos
 jobs:
-  saludo:
-    # Definimos que use una máquina virtual con Ubuntu actualizado
+  build-image:
+    name: Compilar Imagen de Docker
     runs-on: ubuntu-latest
 
-    # 3. Los Pasos que va a seguir esa máquina
     steps:
-      # Paso 1: Clonar el código del repositorio dentro de la máquina virtual
-      - name: Descargar el código
+      # 1. Descargar el código del repositorio
+      - name: Descargar código
         uses: actions/checkout@v4
 
-      # Paso 2: Ejecutar un comando básico de terminal
-      - name: Decir hola
-        run: echo "¡El pipeline se ejecutó correctamente!"
+      # 2. Configurar el entorno de Docker en la máquina virtual de GitHub
+      - name: Configurar Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # 3. Construir la imagen (sin subirla a ningún lado aún, solo para probar)
+      - name: Construir Imagen
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          push: false # Cambia a true cuando configures un registro como Docker Hub
+          tags: mi-sitio-hugo:latest
