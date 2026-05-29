@@ -1,0 +1,30 @@
+name: Validar Construcción de Docker
+
+on: # Los disparadores. Si se cumple alguno de estos eventos se inician los jobs.  
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-image: # Es el id del job.  
+    name: Compilar Imagen de Docker
+    runs-on: ubuntu-latest # Donde va a correr el job.  
+
+    steps:
+      # 1. Descargar el código del repositorio
+      - name: Descargar código
+        uses: actions/checkout@v4 # Las actions son scripts hecho por la comunidad. Estan disponibles para el uso.   
+
+      # 2. Configurar el entorno de Docker en la máquina virtual de GitHub
+      - name: Configurar Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # 3. Construir la imagen (sin subirla a ningún lado aún, solo para probar)
+      - name: Construir Imagen
+        uses: docker/build-push-action@v6
+        with:
+          context: . # Se le dice el contexto donde se quiere tomar el dockerfile para crear la imagen.  
+          file: ./Dockerfile
+          push: false # Cambia a true cuando configures un registro como Docker Hub
+          tags: mi-sitio-hugo:latest
