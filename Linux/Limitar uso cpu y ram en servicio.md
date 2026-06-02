@@ -49,3 +49,26 @@ ExecStart=/bin/bash -c "for i in /sys/devices/system/cpu/cpu*/cpufreq/scaling_ma
 [Install]
 WantedBy=multi-user.target
 "
+
+---
+- Para ubuntu 24.04 - Procesador Intel coree Ultra 5 225H
+[Unit]
+Description=Limitar rendimiento maximo del CPU
+After=multi-user.target
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash -c "echo 75 > /sys/devices/system/cpu/intel_pstate/max_perf_pct"
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
+
+# 1. Recargar systemd para que detecte el servicio o los cambios
+`sudo systemctl daemon-reload`
+
+# 2. Habilitar el servicio para que se ejecute en cada inicio
+`sudo systemctl enable cpufreq-limit.service`
+
+# 3. Iniciar el servicio justo ahora para probarlo
+`sudo systemctl start cpufreq-limit.service`
