@@ -4,7 +4,7 @@
 ## Manage imges
 
 `docker image --help`: show all the command available.  
-`build:` to build a image from a ***dockerfile***  : Ex. docker build -t nameImage:tag /path/dockerfile  
+`build:` to build a image from a ***dockerfile***  : Ex. docker build -t nameImage:tag /path/dockerfile o `docker build -f Dockerfile-dev -t mi-imagen:dev .` apartir de un archivo dockerfile con nombre personalizado.    
 `history`: show the history of a image, how was build.  
 `inspect`: detail and inside of a image. `sudo docker image inspect IMAGE ID`  
 `docker image ls`: show all the download images.  
@@ -131,6 +131,7 @@ opción -P. Ex. *EXPOSE 8080*  or *EXPOSE 8080/udp*
 
 *Syntax* : docker build [OPTIONS] PATH | URL | -   
 *Exmaple* :  `docker build -t tagName:latest .` (The dot is the path. It look for a Dockerfile file. It is posible define different path or link)
+`docker build -f Dockerfile-dev -t mi-imagen:dev .`: Construye una imagen desde un dockerfile con nombre diferente. Es necesario pasar la bandera `-f` para especificar el nombre del Dockerfile.  
 
 ### Executing multiple command
 `ENTRYPOINT ["bash", "./migrate.sh"]` (This command launches a Bash shell and executes the script in the "migrate.sh" file line by line.)  

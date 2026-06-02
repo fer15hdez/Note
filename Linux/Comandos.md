@@ -1,3 +1,15 @@
+---
+title: "Linux"
+subtitle: ""
+date: 2026-06-04T15:58:26+08:00
+lastmod: 2026-06-04T15:58:26+08:00
+draft: false
+
+tags: [S.O, IT]
+categories: [S.O, Comandos]
+---
+
+
 # Install
 *sudo apt-get install [program]*
 *--no-install-recommends*: solo instala los paquetes nombrados.   
