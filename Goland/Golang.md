@@ -7,7 +7,7 @@ draft: false
 
 series: ["Programacion"]
 tags: [Programacion]
-categories: [Lenguaje de Programacion]
+categories: [Lenguaje_de_Programacion]
 weight: 2  # Esto le dice a Hugo que es el capítulo 1
 ---
 
