@@ -1,3 +1,16 @@
+---
+title: "Golang"
+subtitle: ""
+date: 2026-01-29T15:58:26+03:00
+lastmod: 2026-01-29T15:58:26+08:00
+draft: false
+
+series: ["Programacion"]
+tags: [Programacion]
+categories: [Lenguaje de Programacion]
+weight: 2  # Esto le dice a Hugo que es el capítulo 1
+---
+
 # Golang 
 
 ## Comandos
