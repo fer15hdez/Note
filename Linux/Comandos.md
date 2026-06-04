@@ -1,12 +1,14 @@
 ---
 title: "Linux"
 subtitle: ""
-date: 2026-06-04T15:58:26+08:00
+date: 2026-06-04T15:58:26+03:00
 lastmod: 2026-06-04T15:58:26+08:00
 draft: false
 
-tags: [S.O, IT]
-categories: [S.O, Comandos]
+series: ["S.O"]
+tags: [S.O, Linux]
+categories: [S.O]
+weight: 2  # Esto le dice a Hugo que es el capítulo 1
 ---
 
 

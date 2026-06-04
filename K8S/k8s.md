@@ -1,3 +1,17 @@
+---
+title: "Kubernetes"
+subtitle: ""
+date: 2026-06-04T15:58:26+03:00
+lastmod: 2026-06-04T15:58:26+08:00
+draft: false
+
+series: ["Orquestador"]
+tags: [Orquestador]
+categories: [Orquestador]
+weight: 2  # Esto le dice a Hugo que es el capítulo 1
+---
+
+
 # Kubernetes
 
 - En YAML, si repites una clave al mismo nivel, la segunda suele sobrescribir a la primera.  
