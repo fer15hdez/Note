@@ -7,4 +7,8 @@
   - Step (Paso): Las tareas individuales que se ejecutan secuencialmente dentro de un Job. Un paso puede ser un comando directo de terminal (como npm test o go test) o una Action (un script prehecho por la comunidad que puedes reutilizar, como uno para conectarte a Docker Hub o configurar un lenguaje). 
 
 ## Jobs
- - Los jobs corren en paralelos. Si se necesita que alguno sea secuencial a otro se le debe especificar.   
+ - Los jobs corren en paralelos.   
+   - GitHub Actions los ejecutará al mismo tiempo en máquinas virtuales totalmente diferentes y aisladas.  
+   - Al correr en máquinas diferentes, el Job B no tiene acceso a los archivos que descargó o generó el Job A. Si el Job A hizo un actions/checkout, el Job B tendrá que hacer su propio actions/checkout si necesita leer el código.
+   - Si se necesita que alguno sea secuencial a otro se le debe especificar.    
+     - `needs`: 
