@@ -12,3 +12,19 @@
    - Al correr en máquinas diferentes, el Job B no tiene acceso a los archivos que descargó o generó el Job A. Si el Job A hizo un actions/checkout, el Job B tendrá que hacer su propio actions/checkout si necesita leer el código.
    - Si se necesita que alguno sea secuencial a otro se le debe especificar.    
      - `needs`: 
+   - `Job Outputs (Salidas de Trabajo)` permiten transferir datos entre jobs. Permiten definir variables en el Job 1 que GitHub Actions mantendrá en memoria y pondrá a disposición del Job 2.  
+
+
+## Registry
+
+### Docker hub
+  - El login se hace usando la accion `docker/login-action@v3`.  
+  - Se deben crear los secrets de usuario y pass en github para usarlos en el login. `username: ${{ secrets.TOKEN_USERNAME_DOCKERHUB }}`, `password: ${{ secrets.TOKEN_WORKFLOW_DOCKERHUB }}`
+  - Para subir la imagen a docker hub se usa la action `docker/build-push-action@v6`.  
+
+### Docker Hub a GHCR (GitHub Container Registry)
+  - En GHCR GitHub Actions genera automáticamente un token de seguridad temporal y único para cada ejecución del pipeline llamado ${{ secrets.GITHUB_TOKEN }}.  
+  - Las imagenes se guardan en el registry de github.  
+  - Se debe especificar el registry (url): `ghcr.io`.  
+  - Rodo el nombre del repositorio debe estar en minúsculas (GitHub es estricto con esto): `ghcr.io/nombre_de_usuario_en_github/nombre_de_la_imagen:tag`.  
+  -  Cada vez que un workflow arranca, GitHub crea un secreto dinámico en memoria llamado `secrets.GITHUB_TOKEN`. Sin embargo, por seguridad, este token a veces viene en modo "solo lectura". Para que tu pipeline pueda subir una imagen, debes darle explícitamente permisos de escritura en el YAML usando la propiedad `permissions`.
