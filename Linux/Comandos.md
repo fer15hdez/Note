@@ -171,3 +171,7 @@ domain   = epepc.cupet.cu
  - `STDERR`: El valor idendificador es 2. Los valores stdout y stderr se muestran en la consola. Para redireccionar una salida se usa el identificador de cada std_. Ej. `ls -l 1> error.log`, esto redirecciona los errores que de el comando ls hacia el archivo error.log.  Si quisieramos mostrar solo los errores y no ver la salida estandar: `ls -l 1> /dev/null`, esto tira la salida estandar para null que es nada y solo muestra los errores.  
 
  - Elementos a tener en cuenta, el simbolo `>` borra todo el contenido del archivo donde se redirecciona la salida. Para adicionar nuevo contenido al ya existente se usa el simbolo `>>`.  
+
+## Argumentos en script
+   - Las variables numéricas en Bash funcionan así:$0: Nombre del script.$1: Primer parámetro.$2: Segundo parámetro.
+     `./desplegar.sh staging rapido`: $0 será ./desplegar.sh, $1 será staging, $2 será rapido
