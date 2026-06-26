@@ -21,15 +21,21 @@ weight: 2  # Esto le dice a Hugo que es el capítulo 1
 **Package .deb, .rpm, etc**
 *sudo dpkg -i example.deb*
 
-## Variable de entorno para proxy
-**Configurar variables desde la linia de comando solo afecta a la sesion actual**
-<code>export http_proxy=http://username:password@proxyserver.net:port/ </code>  
-<code>printenv</code> -> Muestra todas las variables de entornos de la sesion.     
-<code>printenv VARIBLE</code> -> Muestra el valor de la varible.  
-<code>unset VAR </code> Resetea el valor de la varible a su valor original.  
-<code>set</code> Muestra todas las varibles.  
-<code>export PATH="$PATH:/opt/misprogramas"</code> En el archivo (~/.bashrc) se pone el codigo anterior. Esto solo afecta a la sesion usuario del actual.
-La parte de la ruta '$PATH:' permite adicionar a los valores de $PATH el nuevo valor que se especifica.  
+## Variable de entorno
+ - Configurar variables desde la linea de comando solo afecta a la sesion actual.  
+ - Variables Locales (o de Shell): Solo existen dentro del proceso de la terminal actual donde se crean. Los programas o scripts que se lancen desde esa terminal no las pueden ver.  
+ - Variables de Entorno (o Ambientales): Se heredan. Cualquier script o proceso "hijo" que se lance desde esa terminal podrá leerlas.  
+ - El comando `export` hace que la variable esté disponible para la sesión actual (shell) y para cualquier programa o subproceso que se abra desde esa ventana, pero no la guarda en el disco duro.  
+
+`ENTORNO="produccion" ./mi_script.sh`: Esta variable solo estara disponible en el entorno del script, no esta disponible en el resto de los comando que se ejecuten en esa shell.  
+`ENTORNO="produccion"`: Variable local.  
+`export http_proxy=http://username:password@proxyserver.net:port/`   
+`printenv` -> Muestra toda la lista de variables de entornos globales activas.     
+`printenv VARIBLE` -> Muestra el valor de la varible.  
+`unset VAR` -> Resetea el valor de la varible a su valor original.  
+`set` -> Muestra todas las varibles (variables de entorno y variables locales del shell).  
+`export PATH="$PATH:/opt/misprogramas"` -> En el archivo (~/.bashrc) se pone el codigo anterior. Esto solo afecta a la sesion usuario del actual.
+La parte de la ruta `$PATH`: permite adicionar a los valores de $PATH el nuevo valor que se especifica.  
 Para configurar variables para todo el sistema, es recomendable añadirlas a /etc/profile, /etc/bash.bashrc o /etc/environment
 
 ## Permission
@@ -158,3 +164,10 @@ domain   = epepc.cupet.cu
 
 ## Certificados
 - `curl --insecure -vvI <url> 2>&1 | awk 'BEGIN { cert=0 } /^\* SSL connection/ { cert=1 } /^\*/ { if (cert) print }'` : Muestra la info 
+
+## Salidas (STDIN, STDOUT, STERR)
+ - `STDIN`: El valor idendificador es 0. Es la entrada que recibe la consola, normalmente por teclado. Puede ser un archivo (Ej. `wc -l < archivo.log`, esto cuenta los saltos de lineas que tiene el archivo.log). Con el `<` se pasa como entrada (stdin) a `wc`.  
+ - `STDOUT`: El valor idendificador es 1. Es la salida que da por consola. Con el `>` se usa para decir stdout. `printenv` la salida que muestra en consola es el stdout.  
+ - `STDERR`: El valor idendificador es 2. Los valores stdout y stderr se muestran en la consola. Para redireccionar una salida se usa el identificador de cada std_. Ej. `ls -l 1> error.log`, esto redirecciona los errores que de el comando ls hacia el archivo error.log.  Si quisieramos mostrar solo los errores y no ver la salida estandar: `ls -l 1> /dev/null`, esto tira la salida estandar para null que es nada y solo muestra los errores.  
+
+ - Elementos a tener en cuenta, el simbolo `>` borra todo el contenido del archivo donde se redirecciona la salida. Para adicionar nuevo contenido al ya existente se usa el simbolo `>>`.  
