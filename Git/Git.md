@@ -81,6 +81,19 @@ git switch <name_of_branch>
 `git checkout [name_branch]` "Switched to branch [name_branch]" "Updates files in the working tree to match the version in the index or the specified tree"  
 `git branch` "Show the branches and with * said which is selected"  
 
+### Rebasing (Rebase)
+ - Actualiza la rama de trabajo local con los últimos cambios de otra rama (como main o master), pero colocando nuestras confirmaciones (commits) por encima de los nuevos cambios. Es decir, los nuevos cambios que se realizaron en la rama de la que queremos actualizar lo traemos para la rama donde estamo trabajando y automaticamente nuestors commits se ponen encima.   
+ - `Advertencia de oro:` No se usa rebase en ramas públicas o compartidas con otros desarrolladores (como main principal) porque el rebase reordenar el historial de commits de esa rama y afecta el historial de commits de los otros colaboradores que tengan la rama descargada. Git cuando hace rebase cambia los hash de los commit en el historial y cuando otro colaborador trata de subir o descargar algo de la rama los commit en el remoto no van a coincidir con los commits en local de los otros colaboradores.  
+ 
+ ```bash
+ # Es necesario estar en la rama que se desea actualizar (la rama de desarrollo)
+ git checkout nomber-rama
+ # Obtener los últimos cambios del repositorio remoto
+ git fetch
+ # Se ejecuta el comando rebase indicando la rama con la que se quiere actualizar (por ejemplo, main)
+ git rebase origin/main
+ ```
+
 ## Archivos
 ### Dejar de serguir archivos
 `git rm --cached archivo.txt`
