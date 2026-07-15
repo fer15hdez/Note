@@ -130,9 +130,11 @@ sudo deluser [usuario]: delte a user.
 *groups [usuario]*: show which group the user belongs to.  
 
 ### Add a user to a group
-*sudo usermod -a -G [grupos] [usuario]*
+*sudo usermod -a -G [grupos] [usuario]*: La opcion `-a` (append) permite añadir el grupo a la lista de grupos del usuario. Sino se usa la opcion se saca de los demas grupos y solo se queda con el grupo recien añadido.  
 ### take out a user from a group
-sudo deluser [usuario] [grupo]
+sudo deluser [usuario] [grupo]: Para sistemas Debian/Ubuntu  
+sudo gpasswd -d [nombre_usuario] [nombre_grupo]: CentOS, Red Hat, Debian, Ubuntu   
+
 
 ***
 ## Free swap memory 
@@ -161,6 +163,10 @@ domain   = epepc.cupet.cu
 **du -h /home/user/Desktop/ | sort –rn** -> ordenará todos los archivos y carpetas de mayor a menor.  
 **du -h /home/user/Desktop | grep '^\s*[0-9\.]\+G'** -> todos los archivos mayores a 1 GB.M para mega.  
 **du -h /home/user/Desktop/ --exclude="*.txt"** -> Excluir tipos de archivos.       
+
+## File and Dir
+`tree nombre-dir`: Muestra recursivamente la estructura de direcotrios contenidos en el directorio nombrado.  
+
 
 ## Certificados
 - `curl --insecure -vvI <url> 2>&1 | awk 'BEGIN { cert=0 } /^\* SSL connection/ { cert=1 } /^\*/ { if (cert) print }'` : Muestra la info 
