@@ -26,5 +26,6 @@
   - En GHCR GitHub Actions genera automáticamente un token de seguridad temporal y único para cada ejecución del pipeline llamado ${{ secrets.GITHUB_TOKEN }}.  
   - Las imagenes se guardan en el registry de github.  
   - Se debe especificar el registry (url): `ghcr.io`.  
-  - Rodo el nombre del repositorio debe estar en minúsculas (GitHub es estricto con esto): `ghcr.io/nombre_de_usuario_en_github/nombre_de_la_imagen:tag`.  
-  -  Cada vez que un workflow arranca, GitHub crea un secreto dinámico en memoria llamado `secrets.GITHUB_TOKEN`. Sin embargo, por seguridad, este token a veces viene en modo "solo lectura". Para que tu pipeline pueda subir una imagen, debes darle explícitamente permisos de escritura en el YAML usando la propiedad `permissions`.
+  - Todo el nombre del repositorio debe estar en minúsculas (GitHub es estricto con esto): `ghcr.io/nombre_de_usuario_en_github/nombre_de_la_imagen:tag`.  
+  -  Cada vez que un workflow arranca, GitHub crea un secreto dinámico en memoria llamado `secrets.GITHUB_TOKEN`. Sin embargo, por seguridad, este token a veces viene en modo "solo lectura". Para que tu pipeline pueda subir una imagen, debes darle explícitamente permisos de escritura en el YAML usando la propiedad `permissions`.  
+  - Si se sube una imagen para el registry de github desde un repositorio y se trata de subir otra imagen con el mismo nombre desde otro repositorio no lo permite. Para permitir hay que ir a los Packages y entrar a la imagen y cambiar los permisos de los repositorios que pueden escribir sobre la imagen. (Raiz github/Packages/nombre-imagen/Packages setting/Add Repository).   
