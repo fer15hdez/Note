@@ -13,6 +13,9 @@
    - Si se necesita que alguno sea secuencial a otro se le debe especificar.    
      - `needs`: 
    - `Job Outputs (Salidas de Trabajo)` permiten transferir datos entre jobs. Permiten definir variables en el Job 1 que GitHub Actions mantendrá en memoria y pondrá a disposición del Job 2.  
+ - `$GITHUB_OUTPUT`: es una variable de entorno especial en GitHub Actions que apunta a un archivo temporal.   
+      Se usa para pasar datos y resultados (outputs) desde un paso (step) hacia otros pasos posteriores dentro del mismo trabajo (job) o
+      a otros jobs en un flujo de trabajo (workflow).   
 
 
 ## Registry

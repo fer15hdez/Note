@@ -117,14 +117,30 @@ Si intentas llamar a dos contenedores por el mismo nombre, como te puedes imagin
 ## Dockerfile
 1. `ADD` copia un archivo del host al contenedor.  
 1. `CMD` el agumento que pasas por defecto.  
-1. `ENTRYPOINT` el comando que se ejecuta por defecto al arrancar el contenedor. Cualquier argumento que se proporcione al comando `docker run` se añade al ENTRYPOINTcomando.   
+   - Formato Exec (Recomendado): `CMD ["python3", "app.py"]`:  Ejecuta el proceso de forma directa sin usar un shell intermediario. Usa corchetes y comillas dobles.   
+   - Formato Shell: `CMD python3 app.py`: Escribe el comando de manera directa como en la terminal. Se ejecuta a través de `/bin/sh -c`.  
+   - ``` dockerfile
+      ENTRYPOINT ["python3"]
+      CMD ["app.py"]
+     ``` 
+    - Como argumentos para ENTRYPOINT: Si defines un ENTRYPOINT, CMD sirve para pasarle los valores o parámetros predeterminados que el usuario puede cambiar al iniciar el contenedor.  
+1. `ENTRYPOINT` define el comando principal y fijo que se ejecutará cuando se inicie un contenedor. 
+      - Cualquier argumento que se proporcione al comando `docker run` se añade al ENTRYPOINT comando.   
+      - A diferencia de CMD, los argumentos que se pasan al correr el contenedor se añaden como parámetros a este comando en lugar de reemplazarlo.  
+      - Forma Exec (recomendada): `ENTRYPOINT ["executable", "param1"]` -> Ejecuta el proceso de forma directa sin usar un shell intermediario.    
+      - Forma Shell: `ENTRYPOINT comando param1` -> Escribe el comando de manera directa como en la terminal.  
+      - Fijo y principal: Convierte tu contenedor en un ejecutable que siempre corre el mismo programa base.  
+      - Para sobrescribir el ENTRYPOINT de una imagen de Docker directamente desde la línea de comandos (CLI), debes usar la bandera --entrypoint al momento de ejecutar el contenedor con docker run.  
+         `docker run --entrypoint [nuevo_comando_o_ruta] [nombre_imagen] [argumentos_adicionales]`
+         - Solo acepta el ejecutable: A diferencia de la configuración en un Dockerfile, la bandera --entrypoint en la CLI solo acepta un único comando o ruta binaria. Si necesitas pasarle parámetros iniciales a ese comando, debes escribirlos después del nombre de la imagen.  
+         - Limpia el CMD por defecto: Al sobrescribir el ENTRYPOINT desde la CLI, cualquier instrucción CMD que tuviera la imagen por defecto queda completamente anulada e ignorada.  
 1. `ENV` permite declarar una variable de entorno en el contenedor.  
 1. `EXPOSE` Indica que el contenedor utiliza los puertos especificados durante su ejecución. Esta instrucción no publica los puertos, es sólo de carácter informativo. Sólo se usará si se inicia el contenedor con la
 opción -P. Ex. *EXPOSE 8080*  or *EXPOSE 8080/udp*
 1. `FROM` indica la imagen base que utilizarás para construir tu imagen personalizada. Esta opción es obligatoria, y además debe ser la primera instrucción del ***Dockerfile***.  
 1. `MAINTAINER` es una valor opcional que te permite indicar quien es el que se encarga de mantener el ***Dockerfile***.  
 1. `ONBUILD` te permite indicar un comando que se ejecutará cuando tu imagen sea utilizada para crear otra imagen.  
-1. `RUN` ejecuta un comando y guarda el resultado como una nueva capa.  
+1. `RUN` ejecuta comandos al construir la imagen y guarda el resultado como una nueva capa.  
 1. `USER` define el usuario por defecto del contenedor.  
 1. `VOLUME` crea un volumen que es compartido por los diferentes contenedores o con el *host*.  
 1. `WORKDIR` Indica el directorio de trabajo donde se ejecutarán los comandos que se indiquen con las directivas `RUN, CMD, ENTRYPOINT, COPY,ADD`.  
