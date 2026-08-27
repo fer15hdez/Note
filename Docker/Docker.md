@@ -132,6 +132,7 @@ Si intentas llamar a dos contenedores por el mismo nombre, como te puedes imagin
       - Fijo y principal: Convierte tu contenedor en un ejecutable que siempre corre el mismo programa base.  
       - Para sobrescribir el ENTRYPOINT de una imagen de Docker directamente desde la línea de comandos (CLI), debes usar la bandera --entrypoint al momento de ejecutar el contenedor con docker run.  
          `docker run --entrypoint [nuevo_comando_o_ruta] [nombre_imagen] [argumentos_adicionales]`
+         `docker run --entrypoint ls ubuntu -ltr /bin`: Lista los elementos que contiene el dir /bin. `-ltr /bin` son los argumentos adicionales que se le pasan a ls.  
          - Solo acepta el ejecutable: A diferencia de la configuración en un Dockerfile, la bandera --entrypoint en la CLI solo acepta un único comando o ruta binaria. Si necesitas pasarle parámetros iniciales a ese comando, debes escribirlos después del nombre de la imagen.  
          - Limpia el CMD por defecto: Al sobrescribir el ENTRYPOINT desde la CLI, cualquier instrucción CMD que tuviera la imagen por defecto queda completamente anulada e ignorada.  
 1. `ENV` permite declarar una variable de entorno en el contenedor.  
