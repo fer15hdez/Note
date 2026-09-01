@@ -21,6 +21,29 @@ weight: 2  # Esto le dice a Hugo que es el capítulo 1
 **Package .deb, .rpm, etc**
 *sudo dpkg -i example.deb*
 
+## Listar paquete instalados
+  ### APT
+  - `apt list --installed`
+    - `[installed]` – shows that the software package was installed manually from the repository list
+    - `[installed,automatic]` – indicates that the software package was installed automatically as a dependency for another software package.
+    - `[installed,local]` – shows that the software package is not from the official repository list.  
+  - `apt list`:  list all the installed and available packages.    
+  - `apt list python3 --installed`: list a specific package.
+
+  ### dpkg Package Manager
+  - `dpkg --get-selections | grep -w "install" | head`: `––get-selections` gets a list of package selections and writes the output to stdout.  
+  - `dpkg-query -l | head`: This tool queries the dpkg database. The -l option lists all the packages installed on our system.
+
+  ### snap Package Manager
+  - `snap list`: The snap list command lists all the packages installed using snap.  
+
+  ### dnf Package Manager
+  - dnf is intended to be a replacement for the yum package manager on Red Hat-based systems.
+  - `dnf list installed`: List the installed packages on our system using dnf.  
+
+  ### flatpak
+  - `flatpak list --app`: To view all the installed  flatpak applications on our system.  
+
 ## Variable de entorno
  - Configurar variables desde la linea de comando solo afecta a la sesion actual.  
  - Variables Locales (o de Shell): Solo existen dentro del proceso de la terminal actual donde se crean. Los programas o scripts que se lancen desde esa terminal no las pueden ver.  
@@ -137,7 +160,7 @@ sudo gpasswd -d [nombre_usuario] [nombre_grupo]: CentOS, Red Hat, Debian, Ubuntu
 
 
 ***
-## Free swap memory 
+# Free swap memory 
 *sudo swapoff -a* : turn off and clean swap memory
 *sudo swapon -a* : turn on swap memory
 
