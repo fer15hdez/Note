@@ -97,6 +97,23 @@ Si intentas llamar a dos contenedores por el mismo nombre, como te puedes imagin
 ### Inside to container
 `docker exec -it midocker bash`: permite trabajar desde la terminal en el container.  
 `exit`: salir del container.  
+`docker attach <container_name_or_id>`: docker attach command lets you connect your terminal's standard input, output, and error streams directly to a running container's primary process (PID 1). It allows you to view its live output or interact with it in real-time.  
+  - **To Detach safely (leave running):** Press Ctrl + P followed by Ctrl + Q.  
+  - **To Exit and Kill the container:** Press Ctrl + C (or type exit if the primary process is a shell).  
+    - Note: If the container was not originally started with interactive terminal flags (-it), the Ctrl + P, Ctrl + Q sequence will not work, and Ctrl + C will be your only way out, which will stop the container.  
+
+ #### docker attach vs docker exec
+   These two commands are frequently confused, but they serve entirely different purposes:
+
+   | Feature | docker attach | docker exec |
+   | --- | --- | --- |
+   | **Target** | Connects to the existing main process (PID 1). | Spawns a brand new process inside the container. |
+   | **Typical Use** | Viewing live application logs or interacting with a running REPL/shell script. | Opening a fresh bash/sh terminal session to debug inside the file system. |
+   | **Command Example** | docker attach my-container | docker exec -it my-container /bin/bash |
+   | **Impact of Ctrl+C** | Can kill the container if it terminates the main process. | Only kills the temporary session; the container stays up. |
+#### When NOT to use it
+- **For regular log viewing:** Use docker logs -f instead. It streamed-follows logs without risk of locking up your main application or accidentally stopping it.  
+- **To poke(hurgar) around the container:** Use docker exec to safely get a shell prompt.  
 
 ### Delete container
 `docker rm midocker`: Delete one by one.  
