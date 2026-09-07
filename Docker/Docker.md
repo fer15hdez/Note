@@ -132,7 +132,16 @@ Si intentas llamar a dos contenedores por el mismo nombre, como te puedes imagin
 ***
 
 ## Dockerfile
-1. `ADD` copia un archivo del host al contenedor.  
+1. `ADD` Copia un archivo o directoro del origen al destino y lo añade al filesystem. Files and directories can be copied from the build context, a remote URL, or a Git repository.   
+   - `ADD [OPTIONS] <source> ... <dest>`
+     `ADD [OPTIONS] ["<src>", ... "<dest>"]` 
+   - `ADD file1.txt file2.txt /usr/src/things/`: Se pueden copiar varios archivos de origen para el destino especificado.  
+   - `ADD https://example.com/archive.zip /usr/src/things/`: En el source se puede usar una url. `ADD` descarga el contenido de la url y lo copia en el destino. Si el final de la url no es un archivo debe terminar en / sino crea un archivo con el nombre de la última palabra.    
+     `ADD git@github.com:user/repo.git /usr/src/things/`   
+   - `COPY [--chmod=<perms>] <src> ... <dest>`: Soporta la notación octal(755) y simbólica (+x, g=u).   
+      - `--chmod` la bandera no se puede usar cuando se crea una imagen windows.   
+1. `COPY`:  Copia un archivo o directoro del origen al destino y lo añade al filesystem.    
+    -  
 1. `CMD` el agumento que pasas por defecto.  
    - Formato Exec (Recomendado): `CMD ["python3", "app.py"]`:  Ejecuta el proceso de forma directa sin usar un shell intermediario. Usa corchetes y comillas dobles.   
    - Formato Shell: `CMD python3 app.py`: Escribe el comando de manera directa como en la terminal. Se ejecuta a través de `/bin/sh -c`.  
@@ -148,7 +157,7 @@ Si intentas llamar a dos contenedores por el mismo nombre, como te puedes imagin
       - Forma Shell: `ENTRYPOINT comando param1` -> Escribe el comando de manera directa como en la terminal.  
       - Fijo y principal: Convierte tu contenedor en un ejecutable que siempre corre el mismo programa base.  
       - Para sobrescribir el ENTRYPOINT de una imagen de Docker directamente desde la línea de comandos (CLI), debes usar la bandera --entrypoint al momento de ejecutar el contenedor con docker run.  
-         `docker run --entrypoint [nuevo_comando_o_ruta] [nombre_imagen] [argumentos_adicionales]`
+         `docker run --entrypoint [nuevo_comando_o_ruta] [nombre_imagen] [argumentos_adicionales]`  
          `docker run --entrypoint ls ubuntu -ltr /bin`: Lista los elementos que contiene el dir /bin. `-ltr /bin` son los argumentos adicionales que se le pasan a ls.  
          - Solo acepta el ejecutable: A diferencia de la configuración en un Dockerfile, la bandera --entrypoint en la CLI solo acepta un único comando o ruta binaria. Si necesitas pasarle parámetros iniciales a ese comando, debes escribirlos después del nombre de la imagen.  
          - Limpia el CMD por defecto: Al sobrescribir el ENTRYPOINT desde la CLI, cualquier instrucción CMD que tuviera la imagen por defecto queda completamente anulada e ignorada.  
