@@ -141,7 +141,18 @@ Si intentas llamar a dos contenedores por el mismo nombre, como te puedes imagin
    - `COPY [--chmod=<perms>] <src> ... <dest>`: Soporta la notación octal(755) y simbólica (+x, g=u).   
       - `--chmod` la bandera no se puede usar cuando se crea una imagen windows.   
 1. `COPY`:  Copia un archivo o directoro del origen al destino y lo añade al filesystem.    
-    -  
+    - `COPY [OPTIONS] <src> ... <dest>`
+    - `COPY [OPTIONS] ["<src>", ... "<dest>"]`
+    - You can specify multiple source files or directories with `COPY`. The last argument must always be the destination.  
+    - Si se especifican numerosos archivos o directorios de origen el destino debe ser un directorio y debe terminar en `/`.  
+    - `COPY` acepta la bandera `--from=<name>`, esto permite especificar el origen de una etapa de construcción, un contexto o una imagen.  
+      ```dockerfile 
+         FROM golang AS build
+         WORKDIR /app
+         RUN --mount=type=bind,target=. go build -o /myapp ./cmd
+
+         COPY --from=build /myapp /usr/bin/
+      ```
 1. `CMD` el agumento que pasas por defecto.  
    - Formato Exec (Recomendado): `CMD ["python3", "app.py"]`:  Ejecuta el proceso de forma directa sin usar un shell intermediario. Usa corchetes y comillas dobles.   
    - Formato Shell: `CMD python3 app.py`: Escribe el comando de manera directa como en la terminal. Se ejecuta a través de `/bin/sh -c`.  
