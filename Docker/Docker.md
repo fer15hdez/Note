@@ -134,7 +134,7 @@ Si intentas llamar a dos contenedores por el mismo nombre, como te puedes imagin
 ## Dockerfile
 1. `ADD` Copia un archivo o directoro del origen al destino y lo añade al filesystem. Files and directories can be copied from the build context, a remote URL, or a Git repository.   
    - `ADD [OPTIONS] <source> ... <dest>`
-     `ADD [OPTIONS] ["<src>", ... "<dest>"]` 
+     `ADD [OPTIONS] ["<src>", ... "<dest>"]`  
    - `ADD file1.txt file2.txt /usr/src/things/`: Se pueden copiar varios archivos de origen para el destino especificado.  
    - `ADD https://example.com/archive.zip /usr/src/things/`: En el source se puede usar una url. `ADD` descarga el contenido de la url y lo copia en el destino. Si el final de la url no es un archivo debe terminar en / sino crea un archivo con el nombre de la última palabra.    
      `ADD git@github.com:user/repo.git /usr/src/things/`   
