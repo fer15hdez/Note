@@ -238,6 +238,8 @@ services:
 ***
 
 ## Redes
+- Los contenedores si no estan en la misma red no se pueden comunicar entre ellos.
+- Como buena practica la conexión entre contenedores se debe hacer por nombre-dns (nombre del contenedor). 
 Ex.: `docker network ls`  
 `docker network inspect bridge`  
 `docker network create --driver bridge red1`  
@@ -260,3 +262,13 @@ Ex.: `docker network ls`
 **overlay:** Permite conectar diferentes contenedores en diferentes nodos.  
 **macvila:** permite asingar una dirección MAC a un contenedor.  
 **none:** inhabilita todas las redes.  
+
+### DNS
+- Alcance por red: Un alias solo funciona dentro de la red donde se configura y permite que el mismo contenedor tenga distintos alias en redes diferentes.  
+- Múltiples contenedores: Si varios contenedores comparten el mismo alias, el DNS interno de Docker puede devolver múltiples respuestas sin garantizar a cuál se resolverá.  
+- Reemplazo sin cambios: Facilita cambiar o actualizar un contenedor sin modificar la configuración de los clientes que apuntan al alias.  
+
+1. `--network-alias <name-alias>`: Sirve para asignar uno o más nombres DNS adicionales a un contenedor dentro de una red específica.  
+  `docker run -d --name app-v2 --network mi-red --network-alias api-service mi-imagen`  
+1. En redes existentes (`docker network connect`): Agrega un alias al conectar un contenedor ya en ejecución:  
+  `docker network connect --alias api-service mi-red mi-contenedor`  
